@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="movieCover" />
+    <item type="id" name="movieCard" />
+    <item type="id" name="genre" />
+    <item type="id" name="date" />
+    <item type="id" name="ageRating" />
+    <item type="id" name="movieName" />
+    <item type="id" name="starsGroup" />
+    <item type="id" name="star1" />
+    <item type="id" name="star2" />
+    <item type="id" name="star3" />
+    <item type="id" name="star4" />
+    <item type="id" name="star5" />
+    <item type="id" name="movie_description" />
+    <item type="id" name="actors" />
+    <item type="id" name="actors_cards" />
+    <item type="id" name="actor_card1" />
+    <item type="id" name="actor_name1" />
+    <item type="id" name="actor_card2" />
+    <item type="id" name="actor_name2" />
+    <item type="id" name="actor_card3" />
+    <item type="id" name="actor_name3" />
+
+
+</resources>

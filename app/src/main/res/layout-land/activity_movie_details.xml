@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@id/movieCover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/cover_gnev"
+        android:adjustViewBounds="true"
+
+        android:contentDescription="@string/cover_description" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/movieCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="224dp"
+        android:background="@drawable/movie_card_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@id/genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/tag"
+            android:paddingStart="9dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="9dp"
+            android:paddingBottom="4dp"
+            android:text="@string/genre"
+            android:textColor="@color/black"
+            android:textSize="@dimen/genre_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textSize="@dimen/date_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@id/ageRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="41.4dp"
+            android:layout_marginEnd="20.3dp"
+            android:background="@drawable/age_rating"
+            android:paddingStart="10dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="11dp"
+            android:text="@string/ageRating"
+            android:textColor="@color/black"
+            android:textSize="13.8sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@id/movieName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/movie_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/movie_name_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date" />
+
+        <LinearLayout
+            android:id="@id/starsGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movieName">
+
+            <ImageView
+                android:id="@id/star1"
+                android:layout_width="16dp"
+                android:layout_height="15dp"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite_full"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@id/star2"
+                android:layout_width="16dp"
+                android:layout_height="15dp"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite_full"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@id/star3"
+                android:layout_width="16dp"
+                android:layout_height="15dp"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite_full"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@id/star4"
+                android:layout_width="16dp"
+                android:layout_height="15dp"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite_full"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@id/star5"
+                android:layout_width="16dp"
+                android:layout_height="15dp"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite"
+                app:tint="@color/black" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/movie_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/movie_description"
+            android:textColor="@color/black"
+            android:textSize="@dimen/movie_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/starsGroup" />
+
+        <TextView
+            android:id="@id/actors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/actors"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sub_head_size"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movie_description" />
+
+
+        <ImageView
+            android:id="@id/actor_card1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actors"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/steitem"
+            android:contentDescription="@string/card_of_an_actor"
+            />
+
+        <TextView
+            android:id="@id/actor_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/actor1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/actor_name_size"
+            app:layout_constraintStart_toStartOf="@id/actor_card1"
+            app:layout_constraintTop_toBottomOf="@id/actor_card1"
+            />
+
+        <ImageView
+            android:id="@id/actor_card2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/makkellani"
+            app:layout_constraintStart_toEndOf="@+id/actor_card1"
+            app:layout_constraintTop_toBottomOf="@id/actors"
+            android:contentDescription="@string/card_of_an_actor" />
+
+        <TextView
+            android:id="@id/actor_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/actor2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/actor_name_size"
+            app:layout_constraintStart_toStartOf="@+id/actor_card2"
+            app:layout_constraintTop_toBottomOf="@id/actor_card2" />
+
+        <ImageView
+            android:id="@id/actor_card3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/actor_card2"
+            app:layout_constraintTop_toBottomOf="@id/actors"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/harnett"
+            android:contentDescription="@string/card_of_an_actor"
+            />
+
+        <TextView
+            android:id="@id/actor_name3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/actor1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/actor_name_size"
+            app:layout_constraintStart_toStartOf="@+id/actor_card3"
+            app:layout_constraintTop_toBottomOf="@id/actor_card3"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
