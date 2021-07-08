@@ -16,11 +16,19 @@
     <item type="id" name="actors" />
     <item type="id" name="actors_cards" />
     <item type="id" name="actor_card1" />
+    <item type="id" name="actor_card_image1" />
+    <item type="id" name="actor_card_image2" />
+    <item type="id" name="actor_card_image3" />
     <item type="id" name="actor_name1" />
     <item type="id" name="actor_card2" />
     <item type="id" name="actor_name2" />
     <item type="id" name="actor_card3" />
     <item type="id" name="actor_name3" />
+    <item type="id" name="tab1" />
+    <item type="id" name="tab2" />
+    <item type="id" name="tab_icon1" />
+    <item type="id" name="tab_icon2" />
 
+    <item type="id" name="bottom_tab_bar" />
 
 </resources>

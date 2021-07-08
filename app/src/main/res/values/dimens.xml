@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="card_top_margin">224dp</dimen>
+    <dimen name="card_top_margin_land">112dp</dimen>
     <dimen name="left_margin_value">22dp</dimen>
     <dimen name="age_top_margin">41dp</dimen>
     <dimen name="genre_vertical_margin">4dp</dimen>
@@ -19,4 +20,8 @@
     <dimen name="genre_start_text">10dp</dimen>
     <dimen name="genre_top_text">11dp</dimen>
     <dimen name="genre_end_text">8dp</dimen>
+    <dimen name="actor_card_width">150dp</dimen>
+    <dimen name="actor_card_height">196dp</dimen>
+    <dimen name="bottom_bar_height">48dp</dimen>
+    <dimen name="bottom_bar_height_plus">60dp</dimen>
 </resources>
