@@ -213,6 +213,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/extra_small_top_margin"
                             android:text="@string/actor1"
+                            android:textStyle="bold"
                             android:textColor="@color/black"
                             android:textSize="@dimen/actor_name_size" />
                     </LinearLayout>
@@ -236,6 +237,7 @@
                             android:id="@id/actor_name2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textStyle="bold"
                             android:layout_marginTop="@dimen/extra_small_top_margin"
                             android:text="@string/actor2"
                             android:textColor="@color/black"
@@ -264,6 +266,7 @@
                             android:id="@id/actor_name3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textStyle="bold"
                             android:layout_marginTop="@dimen/extra_small_top_margin"
                             android:text="@string/actor1"
                             android:textColor="@color/black"
