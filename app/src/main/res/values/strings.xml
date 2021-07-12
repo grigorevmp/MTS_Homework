@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Homework</string>
     <string name="cover_description">Image of movie</string>
-    <string name="genre">боевики</string>
+    <string name="thriller">боевики</string>
+    <string name="drama">драмы</string>
+    <string name="comedy">комедии</string>
+    <string name="art_house">артхаус</string>
+    <string name="melodrama">мелодрамы</string>
     <string name="date">22.04.2021</string>
     <string name="ageRating">18+</string>
     <string name="movie_name">Гнев человеческий</string>
@@ -16,4 +20,6 @@
     <string name="card_of_an_actor">Card of an actor</string>
     <string name="go_home">Go home</string>
     <string name="go_to_account">Go to account</string>
+    <string name="popular_now">Популярное сейчас</string>
+    <string name="search_description">Search for movies</string>
 </resources>

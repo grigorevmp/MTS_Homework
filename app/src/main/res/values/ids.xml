@@ -2,9 +2,16 @@
 <resources>
     <item type="id" name="movieCover" />
     <item type="id" name="movieCard" />
-    <item type="id" name="genre" />
+    <item type="id" name="thriller_text" />
+    <item type="id" name="drama_text" />
+    <item type="id" name="melodrama_text" />
+    <item type="id" name="comedy_text" />
+    <item type="id" name="art_house_text" />
+    <item type="id" name="popular_header" />
+    <item type="id" name="search" />
     <item type="id" name="date" />
     <item type="id" name="ageRating" />
+    <item type="id" name="genres" />
     <item type="id" name="movieName" />
     <item type="id" name="starsGroup" />
     <item type="id" name="star1" />
