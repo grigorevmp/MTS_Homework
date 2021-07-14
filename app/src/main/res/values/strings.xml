@@ -22,4 +22,10 @@
     <string name="go_to_account">Go to account</string>
     <string name="popular_now">Популярное сейчас</string>
     <string name="search_description">Search for movies</string>
+    <string name="main_age_restriction_text">%1$d+</string>
+    <string name="main_click_message">Название: %1$s</string>
+    <string name="genre_click_message">Жанр: %1$s</string>
+    <string name="main_empty_message">Тут должен был быть текст</string>
+    <string name="emptyMovieList">Сейчас здесь нет фильмов, но мы уже отправили режиссёра снимать фильм для вас</string>
+    <string name="coming_soon">Скоро в кино</string>
 </resources>

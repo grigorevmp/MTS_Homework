@@ -1,11 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/cardBackground"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
 
+    <ImageView
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/search_top_margin"
+        android:layout_marginEnd="@dimen/movies_screen_margin"
+        android:contentDescription="@string/search_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_search" />
+
+    <TextView
+        android:id="@+id/popular_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/movies_screen_margin"
+        android:layout_marginTop="@dimen/header_top_margin"
+        android:text="@string/popular_now"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_head_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/genreList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/movies_screen_margin"
+        android:layout_marginTop="@dimen/extra_small_top_margin"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/popular_header"
+        app:spanCount="1">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+        <!--DELETE ME
+        <HorizontalScrollView
+            android:id="@id/genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/popular_header">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@id/thriller_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tag"
+                    android:paddingStart="@dimen/genre_horizontal_margin"
+                    android:paddingTop="@dimen/genre_vertical_margin"
+                    android:paddingEnd="@dimen/genre_horizontal_margin"
+                    android:paddingBottom="@dimen/genre_vertical_margin"
+                    android:text="@string/thriller"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/genre_size"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@id/drama_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/genre_margin"
+                    android:background="@drawable/tag"
+                    android:paddingStart="@dimen/genre_horizontal_margin_high"
+                    android:paddingTop="@dimen/genre_vertical_margin"
+                    android:paddingEnd="@dimen/genre_horizontal_margin"
+                    android:paddingBottom="@dimen/genre_vertical_margin"
+                    android:text="@string/drama"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/genre_size"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@id/comedy_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/genre_margin"
+                    android:background="@drawable/tag"
+                    android:paddingStart="@dimen/genre_horizontal_margin"
+                    android:paddingTop="@dimen/genre_vertical_margin"
+                    android:paddingEnd="@dimen/genre_horizontal_margin"
+                    android:paddingBottom="@dimen/genre_vertical_margin"
+                    android:text="@string/comedy"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/genre_size"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@id/art_house_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/genre_margin"
+                    android:background="@drawable/tag"
+                    android:paddingStart="@dimen/genre_horizontal_margin_medium"
+                    android:paddingTop="@dimen/genre_vertical_margin"
+                    android:paddingEnd="@dimen/genre_horizontal_margin"
+                    android:paddingBottom="@dimen/genre_vertical_margin"
+                    android:text="@string/art_house"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/genre_size"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@id/melodrama_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/genre_margin"
+                    android:background="@drawable/tag"
+                    android:paddingStart="@dimen/genre_horizontal_margin"
+                    android:paddingTop="@dimen/genre_vertical_margin"
+                    android:paddingEnd="@dimen/genre_horizontal_margin"
+                    android:paddingBottom="@dimen/genre_vertical_margin"
+                    android:text="@string/melodrama"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/genre_size"
+                    tools:ignore="SmallSp" />
+            </LinearLayout>
+        </HorizontalScrollView-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/moviesList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/movies_screen_margin"
+        android:layout_marginTop="@dimen/movie_list_top_margin"
+        android:layout_marginEnd="@dimen/movies_screen_margin"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_tab_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genreList"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constrainedHeight="true"
+        tools:visibility="gone"
+        app:spanCount="2">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/emptyMoviesList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/movies_screen_margin"
+        android:layout_marginTop="@dimen/movie_list_top_margin"
+        android:layout_marginEnd="@dimen/movies_screen_margin"
+        android:textColor="@color/black"
+        android:text="@string/emptyMovieList"
+        android:textAlignment="center"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genreList" />
+
+    <LinearLayout
+        android:id="@id/bottom_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:id="@id/tab1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@id/tab_icon1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="@string/go_home"
+                android:scaleType="center"
+                android:layout_weight="1"
+                android:src="@drawable/ic_home"
+                tools:ignore="NestedWeights" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_indicator_height"
+                android:layout_weight="1"
+                android:background="@color/underline" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/tab2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@id/tab_icon2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="@string/go_to_account"
+                android:scaleType="center"
+                android:src="@drawable/ic_contact" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
