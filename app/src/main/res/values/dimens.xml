@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_top_margin">224dp</dimen>
+    <dimen name="card_top_margin_land">112dp</dimen>
+    <dimen name="left_margin_value">22dp</dimen>
+    <dimen name="age_top_margin">42dp</dimen>
+    <dimen name="genre_vertical_margin">4dp</dimen>
+    <dimen name="genre_horizontal_margin">10dp</dimen>
+    <dimen name="date_right_margin">14dp</dimen>
+    <dimen name="date_top_margin">34dp</dimen>
+    <dimen name="genre_top_margin">32dp</dimen>
+    <dimen name="small_top_margin">16dp</dimen>
+    <dimen name="rating_top_margin">8dp</dimen>
+    <dimen name="description_top_margin">20dp</dimen>
+    <dimen name="description_right_margin">8dp</dimen>
+    <dimen name="extra_small_top_margin">12dp</dimen>
+    <dimen name="actors_distance">10dp</dimen>
+    <dimen name="star_width">16dp</dimen>
+    <dimen name="star_height">16dp</dimen>
+    <dimen name="genre_start_text">10dp</dimen>
+    <dimen name="genre_top_text">10dp</dimen>
+    <dimen name="genre_end_text">8dp</dimen>
+    <dimen name="actor_card_width">150dp</dimen>
+    <dimen name="actor_card_height">196dp</dimen>
+    <dimen name="bottom_bar_height">48dp</dimen>
+    <dimen name="bottom_bar_height_plus">60dp</dimen>
+    <dimen name="search_top_margin">32dp</dimen>
+    <dimen name="movies_screen_margin">20dp</dimen>
+    <dimen name="header_top_margin">73dp</dimen>
+    <dimen name="genre_margin">6dp</dimen>
+    <dimen name="genre_horizontal_margin_medium">12dp</dimen>
+    <dimen name="genre_horizontal_margin_high">12dp</dimen>
+    <dimen name="age_rating_small_horizontal">4dp</dimen>
+    <dimen name="list_item_width">150dp</dimen>
+    <dimen name="list_item_height">216dp</dimen>
+    <dimen name="age_rating_small_top" >6dp</dimen>
+</resources>
