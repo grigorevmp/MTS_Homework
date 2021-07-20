@@ -48,4 +48,6 @@
     <dimen name="interest_margin_top">60dp</dimen>
     <dimen name="subhead_top_margin">40dp</dimen>
     <dimen name="button_corner">10dp</dimen>
+    <dimen name="elevation">16dp</dimen>
+    <dimen name="settings_arrow_height">8dp</dimen>
 </resources>

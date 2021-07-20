@@ -143,7 +143,6 @@
         android:textColor="@color/black"
         android:backgroundTint="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
-        tools:layout_editor_absoluteX="21dp"
         android:text="@string/e_mail_hint"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -159,7 +158,6 @@
         android:textColor="@color/black"
         android:backgroundTint="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
-        tools:layout_editor_absoluteX="18dp"
         android:text="@string/phone_hint"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -201,7 +199,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="8dp"
+                    android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
                     android:src="@drawable/ic_arrow"/>
@@ -228,7 +226,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="8dp"
+                    android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
                     android:src="@drawable/ic_arrow"/>
@@ -255,7 +253,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="8dp"
+                    android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
                     android:src="@drawable/ic_arrow"/>
@@ -282,7 +280,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="8dp"
+                    android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
                     android:src="@drawable/ic_arrow"/>
@@ -310,7 +308,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="8dp"
+                    android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
                     android:src="@drawable/ic_arrow"/>
@@ -337,7 +335,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="8dp"
+                    android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
                     android:src="@drawable/ic_arrow"/>
@@ -364,7 +362,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="8dp"
+                    android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
                     android:src="@drawable/ic_arrow"/>
