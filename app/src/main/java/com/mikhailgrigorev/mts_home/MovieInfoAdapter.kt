@@ -10,7 +10,7 @@ import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 
 
 interface OnItemClickListener {
-    fun onItemClick(movieTitle: String)
+    fun onItemClick(movie: MovieData)
 }
 
 
@@ -49,7 +49,7 @@ class MovieInfoAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getMovieAt(position)?.let { (holder).bind(it, itemClickListener) }
+        getMovieAt(position)?.let { (holder).bind(it, position, itemClickListener) }
         /*if (position == 0) {
             (holder as ViewHolder2).bind(movies[position], itemClickListener)
         } else {

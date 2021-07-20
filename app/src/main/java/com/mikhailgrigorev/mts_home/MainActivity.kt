@@ -1,21 +1,26 @@
 package com.mikhailgrigorev.mts_home
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.transition.TransitionManager
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DiffUtil
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
 import com.mikhailgrigorev.mts_home.movieData.*
 
+
 private const val MOVIES_INITIAL_POSITION = 0
 
-class MainActivity : AppCompatActivity(), OnItemClickListener, OnGenreItemClickListener {
+class MainActivity : AppCompatActivity() {
 
+    private var someFragment: MoviesFragment? = null
     private lateinit var moviesModel: MoviesModel
     private lateinit var genreModel: GenreModel
     private lateinit var adapter: MovieInfoAdapter
@@ -27,82 +32,82 @@ class MainActivity : AppCompatActivity(), OnItemClickListener, OnGenreItemClickL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.statusBarColor = getColor(R.color.cardBackground)
+
         setContentView(R.layout.activity_main)
 
-        recycler = findViewById(R.id.moviesList)
-        val recyclerEmpty= findViewById<TextView>(R.id.emptyMoviesList)
-        recyclerGenre = findViewById(R.id.genreList)
+        val bottomNavigationBar = findViewById<BottomNavigationView>(R.id.bottom_tab_bar)
+        underlineSelectedItem(-1)
 
-        initDataSource()
+        //supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MoviesFragment()).commit()
 
-        adapter = MovieInfoAdapter(this, moviesModel.getMovies(), this)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MoviesFragment(), "TAG").commit()
+        } else {
+            someFragment =
+                supportFragmentManager.findFragmentByTag("TAG") as? MoviesFragment
+        }
 
-        adapterGenre = GenreAdapter(this, genreModel.getGenre(), this)
 
-        recycler.adapter = adapter
-        recyclerGenre.adapter = adapterGenre
+        bottomNavigationBar.setOnItemSelectedListener {
 
-        recycler.addItemDecoration( RecyclerViewDecoration(24, 0))
-        recyclerGenre.addItemDecoration( RecyclerViewDecoration(0, 6))
 
-        if (adapter.itemCount == 0){
-            recycler.visibility = View.GONE
-            recyclerEmpty.visibility = View.VISIBLE
+            underlineSelectedItem(it.itemId)
+
+            val selectedFragment: Fragment?
+            when (it.itemId) {
+                R.id.homeFragment -> {
+                    selectedFragment = MoviesFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).commit()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.profileFragment -> {
+                    selectedFragment = ProfileFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).commit()
+                    return@setOnItemSelectedListener true
+                }
+                else -> false
+            }
         }
     }
+
+    private fun underlineSelectedItem(itemId: Int) {
+        val constraintLayout: ConstraintLayout = findViewById(R.id.mainLayout)
+        TransitionManager.beginDelayedTransition(constraintLayout)
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(constraintLayout)
+        constraintSet.setHorizontalBias(
+            R.id.underline,
+            getItemPosition(itemId) * 1f
+        )
+        constraintSet.applyTo(constraintLayout)
+    }
+
+    private fun getItemPosition(itemId: Int): Int {
+        return when (itemId) {
+            R.id.homeFragment -> 0
+            R.id.profileFragment -> 1
+            else -> 0
+        }
+    }
+
 
     override fun onPause() {
         super.onPause()
-        state = recycler.layoutManager!!.onSaveInstanceState()
-        state2 = recyclerGenre.layoutManager!!.onSaveInstanceState()
+        //state = recycler.layoutManager!!.onSaveInstanceState()
+        //state2 = recyclerGenre.layoutManager!!.onSaveInstanceState()
     }
 
     override fun onResume() {
-        super.onResume()
-        if (state != null)
-            recycler.layoutManager!!.onRestoreInstanceState(state)
-        if (state2 != null)
-            recyclerGenre.layoutManager!!.onRestoreInstanceState(state2)
+       super.onResume()
+       //if (state != null)
+       //    recycler.layoutManager!!.onRestoreInstanceState(state)
+       //if (state2 != null)
+       //    recyclerGenre.layoutManager!!.onRestoreInstanceState(state2)
 
 
     }
 
-    private fun initDataSource() {
-        moviesModel = MoviesModel(MoviesDataSourceImpl())
-        genreModel = GenreModel(GenreDataSourceImpl())
-    }
-
-
-    private fun getToastMessage(title: String) =
-        getString(R.string.main_click_message, title)
-
-    private fun getGenreToastMessage(title: String) =
-        getString(R.string.genre_click_message, title)
-
-
-    override fun onItemClick(movieTitle: String) {
-        showToast(getToastMessage(movieTitle))
-    }
-
-    private fun showToast(message: String?) {
-        when {
-            message.isNullOrEmpty() -> { showToast(getString(R.string.main_empty_message)) }
-            else -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onGenreItemClick(genre: String) {
-        showToast(getGenreToastMessage(genre))
-    }
-
-
-    fun onMoviesChanged (movies: List<MovieData>){
-        val callback = MovieCallback(adapter.movies, movies)
-        val diff = DiffUtil.calculateDiff(callback)
-        adapter.movies = movies
-        diff.dispatchUpdatesTo(adapter)
-
-    }
 
 
 }

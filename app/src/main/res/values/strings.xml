@@ -14,6 +14,11 @@
 
     <string name="actors">Актёры</string>
 
+    <string name="interests">Интересы</string>
+    <string name="personal_data">Личные данных</string>
+    <string name="settings">Настройки</string>
+    <string name="app">Приложение</string>
+
     <string name="actor3">Джош Харнетт</string>
     <string name="actor2">Холт Маккэллани</string>
     <string name="actor1">Джейсон Стэйтем</string>
@@ -28,4 +33,27 @@
     <string name="main_empty_message">Тут должен был быть текст</string>
     <string name="emptyMovieList">Сейчас здесь нет фильмов, но мы уже отправили режиссёра снимать фильм для вас</string>
     <string name="coming_soon">Скоро в кино</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+
+
+    <string name="account_name">Михаил</string>
+    <string name="account_mail">grigorevmp@gmail.com</string>
+    <string name="name_hint">Имя</string>
+    <string name="e_mail_hint">E-mail</string>
+    <string name="phone_hint">Телефон</string>
+    <string name="password_hint">Пароль</string>
+
+    <string name="notification_sound">Уведомления и звуки</string>
+    <string name="confidential">Конфиденциальность</string>
+    <string name="theme">Тема</string>
+    <string name="lang">Язык</string>
+    <string name="data_memory">Данные и память</string>
+
+    <string name="ask_question">Задать вопрос</string>
+    <string name="bug_report">Сообщить о проблема</string>
+
+    <string name="exit">Выход</string>
+
+
 </resources>

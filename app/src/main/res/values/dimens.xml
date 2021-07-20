@@ -5,6 +5,7 @@
     <dimen name="left_margin_value">22dp</dimen>
     <dimen name="age_top_margin">42dp</dimen>
     <dimen name="genre_vertical_margin">4dp</dimen>
+    <dimen name="mail_vertical_margin">2dp</dimen>
     <dimen name="genre_horizontal_margin">10dp</dimen>
     <dimen name="date_right_margin">14dp</dimen>
     <dimen name="date_top_margin">34dp</dimen>
@@ -23,6 +24,7 @@
     <dimen name="actor_card_width">150dp</dimen>
     <dimen name="actor_card_height">196dp</dimen>
     <dimen name="bottom_bar_height">48dp</dimen>
+    <dimen name="extra_top_margin">48dp</dimen>
     <dimen name="bottom_bar_height_plus">60dp</dimen>
     <dimen name="search_top_margin">32dp</dimen>
     <dimen name="movies_screen_margin">20dp</dimen>
@@ -41,4 +43,9 @@
     <dimen name="card_layout_margin">5dp</dimen>
     <dimen name="tab_indicator_height">2dp</dimen>
     <dimen name="movie_list_top_margin">18dp</dimen>
+    <dimen name="avatar_size">72dp</dimen>
+    <dimen name="profile_top_name_margin">64dp</dimen>
+    <dimen name="interest_margin_top">60dp</dimen>
+    <dimen name="subhead_top_margin">40dp</dimen>
+    <dimen name="button_corner">10dp</dimen>
 </resources>

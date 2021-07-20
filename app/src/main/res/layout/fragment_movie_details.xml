@@ -3,11 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="false"
+    android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@id/movieCover"
+        android:id="@+id/movieCover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +57,7 @@
                 tools:ignore="SmallSp" />
 
             <TextView
-                android:id="@id/date"
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/date_right_margin"
@@ -67,7 +69,7 @@
                 app:layout_constraintTop_toTopOf="@+id/movieCard" />
 
             <TextView
-                android:id="@id/ageRating"
+                android:id="@+id/ageRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/age_top_margin"
@@ -83,7 +85,7 @@
                 app:layout_constraintTop_toTopOf="@+id/movieCard" />
 
             <TextView
-                android:id="@id/movieName"
+                android:id="@+id/movieName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/left_margin_value"
@@ -95,16 +97,16 @@
                 app:layout_constraintTop_toBottomOf="@id/date" />
 
             <LinearLayout
-                android:id="@id/starsGroup"
+                android:id="@+id/starsGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/left_margin_value"
                 android:layout_marginTop="@dimen/rating_top_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movieName">
+                app:layout_constraintTop_toBottomOf="@+id/movieName">
 
                 <ImageView
-                    android:id="@id/star1"
+                    android:id="@+id/star1"
                     android:layout_width="@dimen/star_width"
                     android:layout_height="@dimen/star_height"
                     android:backgroundTint="@color/black"
@@ -113,7 +115,7 @@
                     app:tint="@color/black" />
 
                 <ImageView
-                    android:id="@id/star2"
+                    android:id="@+id/star2"
                     android:layout_width="@dimen/star_width"
                     android:layout_height="@dimen/star_height"
                     android:backgroundTint="@color/black"
@@ -122,7 +124,7 @@
                     app:tint="@color/black" />
 
                 <ImageView
-                    android:id="@id/star3"
+                    android:id="@+id/star3"
                     android:layout_width="@dimen/star_width"
                     android:layout_height="@dimen/star_height"
                     android:backgroundTint="@color/black"
@@ -131,7 +133,7 @@
                     app:tint="@color/black" />
 
                 <ImageView
-                    android:id="@id/star4"
+                    android:id="@+id/star4"
                     android:layout_width="@dimen/star_width"
                     android:layout_height="@dimen/star_height"
                     android:backgroundTint="@color/black"
@@ -140,7 +142,7 @@
                     app:tint="@color/black" />
 
                 <ImageView
-                    android:id="@id/star5"
+                    android:id="@+id/star5"
                     android:layout_width="@dimen/star_width"
                     android:layout_height="@dimen/star_height"
                     android:backgroundTint="@color/black"
@@ -151,7 +153,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@id/movie_description"
+                android:id="@+id/movie_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/left_margin_value"
@@ -165,7 +167,7 @@
                 app:layout_constraintTop_toBottomOf="@id/starsGroup" />
 
             <TextView
-                android:id="@id/actors"
+                android:id="@+id/actors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/left_margin_value"
@@ -174,7 +176,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/sub_head_size"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movie_description" />
+                app:layout_constraintTop_toBottomOf="@+id/movie_description" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -188,27 +190,27 @@
                 tools:ignore="ScrollViewCount">
 
                 <LinearLayout
-                    android:id="@id/actor_card1"
+                    android:id="@+id/actor_cards"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@id/actor_card1"
+                        android:id="@+id/actor_card1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
-                            android:id="@id/actor_card_image1"
+                            android:id="@+id/actor_card_image1"
                             android:layout_width="@dimen/actor_card_width"
                             android:layout_height="@dimen/actor_card_height"
                             android:contentDescription="@string/card_of_an_actor"
                             android:src="@drawable/steitem" />
 
                         <TextView
-                            android:id="@id/actor_name1"
+                            android:id="@+id/actor_name1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/extra_small_top_margin"
@@ -218,7 +220,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@id/actor_card2"
+                        android:id="@+id/actor_card2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/actors_distance"
@@ -226,14 +228,14 @@
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
-                            android:id="@id/actor_card_image2"
+                            android:id="@+id/actor_card_image2"
                             android:layout_width="@dimen/actor_card_width"
                             android:layout_height="@dimen/actor_card_height"
                             android:contentDescription="@string/card_of_an_actor"
                             android:src="@drawable/makkellani" />
 
                         <TextView
-                            android:id="@id/actor_name2"
+                            android:id="@+id/actor_name2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/extra_small_top_margin"
@@ -244,7 +246,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@id/actor_card3"
+                        android:id="@+id/actor_card3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/actors_distance"
@@ -253,7 +255,7 @@
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
-                            android:id="@id/actor_card_image3"
+                            android:id="@+id/actor_card_image3"
                             android:layout_width="@dimen/actor_card_width"
                             android:layout_height="@dimen/actor_card_height"
                             android:scaleType="centerCrop"
@@ -261,7 +263,7 @@
                             android:src="@drawable/harnett2" />
 
                         <TextView
-                            android:id="@id/actor_name3"
+                            android:id="@+id/actor_name3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/extra_small_top_margin"
@@ -277,7 +279,7 @@
     </androidx.core.widget.NestedScrollView>
 
 
-    <LinearLayout
+    <!--LinearLayout
         android:id="@id/bottom_tab_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_bar_height"
@@ -332,7 +334,7 @@
         </LinearLayout>
 
 
-    </LinearLayout>
+    </LinearLayout-->
 
 
     <!--com.google.android.material.bottomnavigation.BottomNavigationView
