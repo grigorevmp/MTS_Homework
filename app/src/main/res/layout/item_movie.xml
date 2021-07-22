@@ -68,8 +68,31 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:layout_gravity="bottom">
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/ratingbar"
+                style="@style/CustomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:numStars="5"
+                android:backgroundTint="@color/black"
+                android:progressTint="@color/black"
+                android:progressBackgroundTint="@color/black"
+                android:stepSize="1"
+                android:rating="5"/>
+
+        </LinearLayout>
+
+        <!--LinearLayout
+            android:id="@+id/list_item_starsGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
             android:layout_gravity="bottom"
             android:gravity="start|bottom">
+
 
             <ImageView
                 android:id="@+id/list_item_star1"
@@ -116,7 +139,7 @@
                 android:src="@drawable/ic_favorite"
                 app:tint="@color/black" />
 
-        </LinearLayout>
+        </LinearLayout-->
 
         <TextView
             android:id="@+id/list_item_ageRating"
@@ -126,6 +149,7 @@
             android:paddingTop="@dimen/age_rating_small_top"
             android:paddingStart="@dimen/age_rating_small_horizontal"
             android:paddingEnd="@dimen/age_rating_small_horizontal"
+            android:layout_gravity="end"
             tools:text="@string/ageRating"
             android:textColor="@color/black"
             android:textSize="@dimen/age_text_size_small" />

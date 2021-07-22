@@ -28,4 +28,6 @@
     <string name="main_empty_message">Тут должен был быть текст</string>
     <string name="emptyMovieList">Сейчас здесь нет фильмов, но мы уже отправили режиссёра снимать фильм для вас</string>
     <string name="coming_soon">Скоро в кино</string>
+    <string name="unwatched">Непросмотренное</string>
+    <string name="recommended">Рекомендуемое</string>
 </resources>

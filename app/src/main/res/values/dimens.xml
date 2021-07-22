@@ -40,5 +40,5 @@
     <dimen name="card_corner_radius">10dp</dimen>
     <dimen name="card_layout_margin">5dp</dimen>
     <dimen name="tab_indicator_height">2dp</dimen>
-    <dimen name="movie_list_top_margin">18dp</dimen>
+    <dimen name="movie_list_top_margin">10dp</dimen>
 </resources>

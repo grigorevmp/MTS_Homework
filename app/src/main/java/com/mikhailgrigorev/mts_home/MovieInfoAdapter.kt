@@ -21,40 +21,32 @@ class MovieInfoAdapter(
 ): RecyclerView.Adapter<ViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_ONE = 1
-        const val VIEW_TYPE_ZERO = 0
+        const val VIEW_CARD_MOVIE = 1
+        const val VIEW_CARD_HEADER_TITLE = 0
     }
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
-    private var moviesModel = MoviesModel(MoviesDataSourceImpl())
-
     override fun getItemViewType(position: Int): Int {
-        var viewType = VIEW_TYPE_ONE
-        if (position == 0) viewType = VIEW_TYPE_ZERO
+        var viewType = VIEW_CARD_MOVIE
+        if (position == 0) viewType = VIEW_CARD_HEADER_TITLE
         return viewType
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        //return ViewHolder(inflater.inflate(R.layout.item_movie, parent, false))
-
-        if (viewType == VIEW_TYPE_ONE) {
+        if (viewType == VIEW_CARD_MOVIE) {
             return ViewHolder(
                 inflater.inflate(R.layout.item_movie, parent, false)
             )
         }
         return ViewHolder(
-            inflater.inflate(R.layout.item_movie_soon, parent, false)
+            inflater.inflate(R.layout.item_header, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getMovieAt(position)?.let { (holder).bind(it, itemClickListener) }
-        /*if (position == 0) {
-            (holder as ViewHolder2).bind(movies[position], itemClickListener)
-        } else {
-            (holder as ViewHolder1).bind(movies[position], itemClickListener)
-        }*/
+        if(position != 0)
+            getMovieAt(position - 1)?.let { (holder).bind(it, itemClickListener) }
 
     }
 
@@ -62,7 +54,6 @@ class MovieInfoAdapter(
 
 
     private fun getMovieAt(position: Int): MovieData? {
-        val movies = moviesModel.getMovies()
         return when {
             movies.isEmpty() -> null
             position >= movies.size -> null

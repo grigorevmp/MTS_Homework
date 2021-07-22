@@ -23,8 +23,6 @@ class GenreAdapter(
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
-    private var genreModel = GenreModel(GenreDataSourceImpl())
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
         return GenreViewHolder(inflater.inflate(R.layout.item_tag, parent, false))
     }
@@ -36,7 +34,6 @@ class GenreAdapter(
     override fun getItemCount() = genres.size
 
     private fun getGenreAt(position: Int): GenreData? {
-        val genres = genreModel.getGenre()
         return when {
             genres.isEmpty() -> null
             position >= genres.size -> null

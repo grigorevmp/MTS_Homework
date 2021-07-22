@@ -1,5 +1,6 @@
 package com.mikhailgrigorev.mts_home
 
+import android.app.LauncherActivity.ListItem
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
@@ -7,10 +8,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
 import com.mikhailgrigorev.mts_home.movieData.*
+
 
 private const val MOVIES_INITIAL_POSITION = 0
 
@@ -33,6 +37,10 @@ class MainActivity : AppCompatActivity(), OnItemClickListener, OnGenreItemClickL
         val recyclerEmpty= findViewById<TextView>(R.id.emptyMoviesList)
         recyclerGenre = findViewById(R.id.genreList)
 
+
+        val gd = GridLayoutManager(this, 2)
+
+
         initDataSource()
 
         adapter = MovieInfoAdapter(this, moviesModel.getMovies(), this)
@@ -42,13 +50,23 @@ class MainActivity : AppCompatActivity(), OnItemClickListener, OnGenreItemClickL
         recycler.adapter = adapter
         recyclerGenre.adapter = adapterGenre
 
-        recycler.addItemDecoration( RecyclerViewDecoration(24, 0))
+        gd.spanSizeLookup = object : SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (adapter.getItemViewType(position) == MovieInfoAdapter.VIEW_CARD_HEADER_TITLE) 2 else 1
+            }
+        }
+
+        recycler.layoutManager = gd
+
+
+        recycler.addItemDecoration( RecyclerViewDecoration(20, 50, 2, true))
         recyclerGenre.addItemDecoration( RecyclerViewDecoration(0, 6))
 
         if (adapter.itemCount == 0){
             recycler.visibility = View.GONE
             recyclerEmpty.visibility = View.VISIBLE
         }
+
     }
 
     override fun onPause() {
