@@ -53,7 +53,6 @@
         android:layout_marginTop="@dimen/movie_list_top_margin"
         android:layout_marginEnd="@dimen/movies_screen_margin"
         android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

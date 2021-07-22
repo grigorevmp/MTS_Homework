@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
@@ -36,6 +37,7 @@ class MoviesFragment: Fragment(){
         //return super.onCreateView(inflater, container, savedInstanceState)
 
         val view = inflater.inflate(R.layout.fragment_movies_list, container, false)
+        val gd = GridLayoutManager(view.context, 2)
 
         recycler = view.findViewById(R.id.moviesList)
         val recyclerEmpty = view.findViewById<TextView>(R.id.emptyMoviesList)
@@ -72,6 +74,17 @@ class MoviesFragment: Fragment(){
         adapterGenre.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 
         recycler.adapter = adapter
+        gd.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (adapter.getItemViewType(position) == MovieInfoAdapter.VIEW_CARD_HEADER_TITLE) 2 else 1
+            }
+        }
+
+        recycler.layoutManager = gd
+
+
+        recycler.addItemDecoration( RecyclerViewDecoration(20, 50, 2, true))
+
         recyclerGenre.adapter = adapterGenre
 
         recycler.addItemDecoration(RecyclerViewDecoration(24, 0))

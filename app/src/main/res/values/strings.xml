@@ -37,6 +37,8 @@
     <string name="profile">Profile</string>
 
 
+    <string name="unwatched">Непросмотренное</string>
+    <string name="recommended">Рекомендуемое</string>
     <string name="account_name">Михаил</string>
     <string name="account_mail">grigorevmp@gmail.com</string>
     <string name="name_hint">Имя</string>

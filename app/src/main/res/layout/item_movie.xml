@@ -68,56 +68,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:layout_gravity="bottom"
-            android:gravity="start|bottom">
+            android:layout_gravity="bottom">
 
-            <ImageView
-                android:id="@+id/list_item_star1"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/ratingbar"
+                style="@style/CustomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:numStars="5"
                 android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite"
-                app:tint="@color/black" />
-
-            <ImageView
-                android:id="@+id/list_item_star2"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
-                android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite"
-                app:tint="@color/black" />
-
-            <ImageView
-                android:id="@+id/list_item_star3"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
-                android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite"
-                app:tint="@color/black" />
-
-            <ImageView
-                android:id="@+id/list_item_star4"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
-                android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite"
-                app:tint="@color/black" />
-
-            <ImageView
-                android:id="@+id/list_item_star5"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
-                android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite"
-                app:tint="@color/black" />
+                android:progressTint="@color/black"
+                android:progressBackgroundTint="@color/black"
+                android:stepSize="1"
+                android:rating="5"/>
 
         </LinearLayout>
-
         <TextView
             android:id="@+id/list_item_ageRating"
             android:layout_width="wrap_content"

@@ -5,13 +5,6 @@ import com.mikhailgrigorev.mts_home.MovieInfoAdapter
 class MoviesDataSourceImpl : MoviesDataSource {
     override fun getMovies() =listOf(
         MovieData(
-            //viewType = MovieInfoAdapter.VIEW_TYPE_ZERO,
-            title = "Поселенцы",
-            description = "После экологической катастрофы на Земле Реза, его жена Илса и их дочь Ремми вынуждены поселиться ...",
-            ageRestriction = 16,
-            imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tBUYDwiJVDcnjPneOitVetJk2Rt.jpg"
-        ),
-        MovieData(
             //viewType = MovieInfoAdapter.VIEW_TYPE_ONE,
             title = "Гнев человеческий",
             description = "Эйч — загадочный и холодный на вид джентльмен, но внутри него пылает жажда справедливости. Преследуя...",
