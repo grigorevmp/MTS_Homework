@@ -2,20 +2,28 @@ package com.mikhailgrigorev.mts_home
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.SyncStateContract.Helpers.update
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
 import com.mikhailgrigorev.mts_home.movieData.MovieData
 import com.mikhailgrigorev.mts_home.movieData.MoviesDataSourceImpl
 import com.mikhailgrigorev.mts_home.movieData.MoviesModel
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 
 class MoviesFragment: Fragment(){
@@ -33,8 +41,6 @@ class MoviesFragment: Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //return super.onCreateView(inflater, container, savedInstanceState)
-
         val view = inflater.inflate(R.layout.fragment_movies_list, container, false)
         val gd = GridLayoutManager(view.context, 2)
 
@@ -81,7 +87,6 @@ class MoviesFragment: Fragment(){
 
         recycler.layoutManager = gd
 
-
         recycler.addItemDecoration( RecyclerViewDecoration(20, 50, 2, true))
 
         recyclerGenre.adapter = adapterGenre
@@ -93,6 +98,23 @@ class MoviesFragment: Fragment(){
             recycler.visibility = View.GONE
             recyclerEmpty.visibility = View.VISIBLE
         }
+        val swipeContainer = view.findViewById(R.id.swipeContainer) as SwipeRefreshLayout
+
+        val handler = CoroutineExceptionHandler { _, exception ->
+            Log.d("Coroutines error", "handled $exception")
+            lifecycleScope.cancel()
+            swipeContainer.isRefreshing = false
+        }
+
+        swipeContainer.setOnRefreshListener {
+            val job = lifecycleScope.launch(handler + Job()){
+                Thread.sleep(200)
+                onMoviesChanged(adapter.movies.subList(1, adapter.movies.size))
+                swipeContainer.isRefreshing = false
+            }
+            //job.cancel()
+        }
+
 
         return view
     }
@@ -119,7 +141,7 @@ class MoviesFragment: Fragment(){
         getString(R.string.genre_click_message, title)
 
 
-    fun onMoviesChanged (movies: List<MovieData>){
+    private fun onMoviesChanged (movies: List<MovieData>){
         val callback = MovieCallback(adapter.movies, movies)
         val diff = DiffUtil.calculateDiff(callback)
         adapter.movies = movies
@@ -127,61 +149,6 @@ class MoviesFragment: Fragment(){
 
     }
 
-   // val BUNDLE_RECYCLER_LAYOUT = "classname.recycler.layout";
-    //val BUNDLE_RECYCLER_LAYOUT2 = "classname.recycler.layout";
 
-    /*private fun restorePreviousState(savedInstanceState: Bundle) {
-        val savedRecyclerLayoutState =
-            savedInstanceState.getParcelable<Parcelable>(BUNDLE_RECYCLER_LAYOUT)
-        //val savedRecyclerLayoutState2 =
-        //savedInstanceState.getParcelable<Parcelable>(BUNDLE_RECYCLER_LAYOUT2)
-        recycler.layoutManager!!.onRestoreInstanceState(savedRecyclerLayoutState)
-
-
-        if (state != null)
-            recycler.layoutManager!!.onRestoreInstanceState(state)
-
-        //recyclerGenre.layoutManager!!.onRestoreInstanceState(savedRecyclerLayoutState2)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        if (savedInstanceState != null) {
-            val savedRecyclerLayoutState =
-                savedInstanceState.getParcelable<Parcelable>(BUNDLE_RECYCLER_LAYOUT)
-            //val savedRecyclerLayoutState2 =
-                //savedInstanceState.getParcelable<Parcelable>(BUNDLE_RECYCLER_LAYOUT2)
-            recycler.layoutManager!!.onRestoreInstanceState(savedRecyclerLayoutState)
-            Toast.makeText(this.context, "ft", Toast.LENGTH_SHORT).show()
-            //recyclerGenre.layoutManager!!.onRestoreInstanceState(savedRecyclerLayoutState2)
-        }
-    }
-
-   /* override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-            outState.putParcelable(
-                BUNDLE_RECYCLER_LAYOUT,
-                recycler.layoutManager!!.onSaveInstanceState()
-
-            )
-        state = recycler.layoutManager!!.onSaveInstanceState()
-
-    }*/
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        state = recycler.layoutManager!!.onSaveInstanceState()
-        state2 = recyclerGenre.layoutManager!!.onSaveInstanceState()
-    }
-
-   /* override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (state != null)
-            recycler.layoutManager!!.onRestoreInstanceState(state)
-        if (state2 != null)
-            recyclerGenre.layoutManager!!.onRestoreInstanceState(state2)
-
-
-    }*/*/
 
 }

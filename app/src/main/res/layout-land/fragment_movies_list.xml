@@ -45,7 +45,18 @@
         app:spanCount="1">
 
     </androidx.recyclerview.widget.RecyclerView>
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/movies_screen_margin"
+        android:layout_marginTop="@dimen/movie_list_top_margin"
+        android:layout_marginEnd="@dimen/movies_screen_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintTop_toBottomOf="@id/genreList">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moviesList"
         android:layout_width="match_parent"
@@ -55,17 +66,13 @@
         android:layout_marginEnd="@dimen/movies_screen_margin"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/genreList"
         app:layout_constraintVertical_bias="0.0"
         app:spanCount="4"
         tools:visibility="visible">
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <TextView
         android:id="@+id/emptyMoviesList"
         android:layout_width="match_parent"
