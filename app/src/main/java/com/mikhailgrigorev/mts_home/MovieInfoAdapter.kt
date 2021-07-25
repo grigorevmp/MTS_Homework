@@ -50,7 +50,7 @@ class MovieInfoAdapter(
 
     }
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int = movies.size + 1
 
 
     private fun getMovieAt(position: Int): MovieData? {
