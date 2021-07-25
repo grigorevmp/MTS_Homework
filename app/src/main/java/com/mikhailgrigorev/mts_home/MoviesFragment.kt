@@ -2,7 +2,6 @@ package com.mikhailgrigorev.mts_home
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.provider.SyncStateContract.Helpers.update
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +19,8 @@ import com.mikhailgrigorev.mts_home.genreData.GenreModel
 import com.mikhailgrigorev.mts_home.movieData.MovieData
 import com.mikhailgrigorev.mts_home.movieData.MoviesDataSourceImpl
 import com.mikhailgrigorev.mts_home.movieData.MoviesModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlin.random.Random
 
 
 class MoviesFragment: Fragment(){
@@ -107,12 +104,18 @@ class MoviesFragment: Fragment(){
         }
 
         swipeContainer.setOnRefreshListener {
-            val job = lifecycleScope.launch(handler + Job()){
-                Thread.sleep(200)
-                onMoviesChanged(adapter.movies.subList(1, adapter.movies.size))
-                swipeContainer.isRefreshing = false
+            runBlocking {
+                val job = lifecycleScope.launch(handler + Job()) {
+                    delay(2000)
+                    val start = Random.nextInt(0, 3)
+                    onMoviesChanged(
+                        moviesModel.getMovies()
+                            .subList(start, moviesModel.getMovies().size - 3 + start)
+                    )
+                    swipeContainer.isRefreshing = false
+                }
+                //job.cancel()
             }
-            //job.cancel()
         }
 
 
