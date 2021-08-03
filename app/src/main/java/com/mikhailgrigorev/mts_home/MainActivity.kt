@@ -1,19 +1,22 @@
 package com.mikhailgrigorev.mts_home
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.transition.TransitionManager
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.fragment.app.Fragment
+import androidx.core.view.get
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
-import com.mikhailgrigorev.mts_home.movieData.*
+import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 
 
 private const val MOVIES_INITIAL_POSITION = 0
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private var state2: Parcelable? = null
     private lateinit var recycler: RecyclerView
     private lateinit var recyclerGenre: RecyclerView
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,42 +40,47 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val bottomNavigationBar = findViewById<BottomNavigationView>(R.id.bottom_tab_bar)
-        underlineSelectedItem(-1)
+        //val fragment: View? = findViewById(R.id.my_nav_host_fragment)
 
-        //supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MoviesFragment()).commit()
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MoviesFragment(), "TAG").commit()
-        } else {
-            someFragment =
-                supportFragmentManager.findFragmentByTag("TAG") as? MoviesFragment
-        }
+        val host: NavHostFragment = supportFragmentManager
+            .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment? ?: return
+        val navController = host.navController
+        setUpBottomNav(navController)
 
 
-        bottomNavigationBar.setOnItemSelectedListener {
+    }
 
+    private fun setUpBottomNav(navController: NavController) {
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_tab_bar)
+        bottomNav?.setupWithNavController(navController)
 
-            underlineSelectedItem(it.itemId)
-
-            val selectedFragment: Fragment?
-            when (it.itemId) {
-                R.id.homeFragment -> {
-                    selectedFragment = MoviesFragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).commit()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.profileFragment -> {
-                    selectedFragment = ProfileFragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).commit()
-                    return@setOnItemSelectedListener true
-                }
-                else -> false
-            }
+        bottomNav.setOnItemSelectedListener {item ->
+            onNavDestinationSelected(item, Navigation.findNavController(this, R.id.my_nav_host_fragment))
         }
     }
 
-    private fun underlineSelectedItem(itemId: Int) {
+    //val host: NavHostFragment = fragment as NavHostFragment? ?: return
+    //navController = host.navController
+    //navController.navigate(R.id.navigation_1)
+//
+//
+    //val bottomNavigationBar = findViewById<BottomNavigationView>(R.id.bottom_tab_bar)
+    //underlineSelectedItem(-1)
+//
+    //supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MoviesFragment()).commit()
+
+    //if (savedInstanceState == null) {
+    //    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MoviesFragment(), "TAG").commit()
+    //} else {
+    //    someFragment =
+    //        supportFragmentManager.findFragmentByTag("TAG") as? MoviesFragment
+    //}
+
+
+
+    //}
+
+    /*fun underlineSelectedItem(itemId: Int) {
         val constraintLayout: ConstraintLayout = findViewById(R.id.mainLayout)
         TransitionManager.beginDelayedTransition(constraintLayout)
         val constraintSet = ConstraintSet()
@@ -85,28 +94,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun getItemPosition(itemId: Int): Int {
         return when (itemId) {
-            R.id.homeFragment -> 0
-            R.id.profileFragment -> 1
+            R.id.home_fragment -> 0
+            R.id.profile_fragment -> 1
             else -> 0
         }
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        //state = recycler.layoutManager!!.onSaveInstanceState()
-        //state2 = recyclerGenre.layoutManager!!.onSaveInstanceState()
-    }
-
-    override fun onResume() {
-       super.onResume()
-       //if (state != null)
-       //    recycler.layoutManager!!.onRestoreInstanceState(state)
-       //if (state2 != null)
-       //    recyclerGenre.layoutManager!!.onRestoreInstanceState(state2)
-
-
-    }
+    }*/
 
 
 

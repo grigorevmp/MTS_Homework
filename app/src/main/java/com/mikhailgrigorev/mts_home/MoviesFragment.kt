@@ -2,14 +2,18 @@ package com.mikhailgrigorev.mts_home
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -41,6 +45,7 @@ class MoviesFragment: Fragment(){
         val view = inflater.inflate(R.layout.fragment_movies_list, container, false)
         val gd = GridLayoutManager(view.context, 2)
 
+
         recycler = view.findViewById(R.id.moviesList)
         val recyclerEmpty = view.findViewById<TextView>(R.id.emptyMoviesList)
         recyclerGenre = view.findViewById(R.id.genreList)
@@ -50,7 +55,14 @@ class MoviesFragment: Fragment(){
 
         val listener: OnItemClickListener = object : OnItemClickListener {
             override fun onItemClick(movie: MovieData) {
-                activity?.supportFragmentManager?.beginTransaction()
+                sendArguments(view,
+                    movie.imageUrl,
+                    movie.title,
+                    movie.description,
+                    movie.ageRestriction,
+                    movie.rateScore,)
+
+                /*activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.fragment_container, MoviesDetailFragment.
                     newInstance(
                         movie.imageUrl,
@@ -60,7 +72,7 @@ class MoviesFragment: Fragment(){
                         movie.rateScore,
                     )
                     )?.addToBackStack(null)
-                ?.commit()
+                ?.commit()*/
             }
         }
 
@@ -134,6 +146,17 @@ class MoviesFragment: Fragment(){
             message.isNullOrEmpty() -> { showToast(getString(R.string.main_empty_message)) }
             else -> Toast.makeText(view?.context, message, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun sendArguments(view: View, movieImageUrl: String, movieTitle: String,
+                      movieDesc: String, movieAge: Int, movieStar: Int) {
+        val action = MoviesFragmentDirections.actionOpenMovie(
+            movieImageUrl,
+            movieTitle,
+            movieDesc,
+            movieAge,
+            movieStar)
+        Navigation.findNavController(view).navigate(action)
     }
 
 

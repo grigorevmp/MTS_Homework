@@ -13,7 +13,15 @@ class ProfileFragment: Fragment()  {
         savedInstanceState: Bundle?
     ): View? {
         //return super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+
+        return view
     }
+
+
+
+
+
 }
 
