@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import coil.load
@@ -24,11 +25,11 @@ class MoviesDetailFragment: Fragment()  {
         val bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById<LinearLayout>(R.id.bottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-        val movieNameValue = view.findViewById<TextView>(R.id.movieName)?.apply {
+        view.findViewById<TextView>(R.id.movieName)?.apply {
             text = arguments?.getString("MovieTitle")
         }
 
-        val movieDescriptionValue = view.findViewById<TextView>(R.id.movie_description)?.apply {
+        view.findViewById<TextView>(R.id.movie_description)?.apply {
             text = arguments?.getString("MovieDesc")
         }
 
@@ -36,43 +37,15 @@ class MoviesDetailFragment: Fragment()  {
 
         movieCoverValue?.load(arguments?.getString("MovieImageUrl"))
 
-        val ageRatingValue = view.findViewById<TextView>(R.id.ageRating)?.apply {
+        view.findViewById<TextView>(R.id.ageRating)?.apply {
             text =
                 context.getString(R.string.main_age_restriction_text, arguments?.getInt("MovieAge"))
         }
 
-        val movieStar1 = view.findViewById<ImageView>(R.id.star1)
-        val movieStar2 = view.findViewById<ImageView>(R.id.star2)
-        val movieStar3 = view.findViewById<ImageView>(R.id.star3)
-        val movieStar4 = view.findViewById<ImageView>(R.id.star4)
-        val movieStar5 = view.findViewById<ImageView>(R.id.star5)
+        val ratingbar = view.findViewById<RatingBar>(R.id.ratingbar)
 
-        when (arguments?.getInt("MovieRate")) {
-            1 ->
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-            2 -> {
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar2.setBackgroundResource(R.drawable.ic_favorite_full)
-            }
-            3 -> {
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar2.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar3.setBackgroundResource(R.drawable.ic_favorite_full)
-            }
-            4 -> {
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar2.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar3.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar4.setBackgroundResource(R.drawable.ic_favorite_full)
-            }
-            5 -> {
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar2.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar3.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar4.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar5.setBackgroundResource(R.drawable.ic_favorite_full)
-            }
-        }
+
+        ratingbar.rating = arguments?.getInt("MovieRate")!!.toFloat()
 
 
 
