@@ -102,7 +102,11 @@ class MoviesFragment : Fragment() {
 
         gd.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (adapter.getItemViewType(position) == MoviesAdapter.VIEW_CARD_HEADER_TITLE) 2 else 1
+                return if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    if (adapter.getItemViewType(position) == MoviesAdapter.VIEW_CARD_HEADER_TITLE) 4 else 1
+                } else {
+                    if (adapter.getItemViewType(position) == MoviesAdapter.VIEW_CARD_HEADER_TITLE) 2 else 1
+                }
             }
         }
 

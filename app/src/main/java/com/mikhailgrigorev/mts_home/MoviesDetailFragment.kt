@@ -18,7 +18,7 @@ class MoviesDetailFragment: Fragment()  {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //return super.onCreateView(inflater, container, savedInstanceState)
+
         val view = inflater.inflate(R.layout.fragment_movie_details, container, false)
 
         val safeArgs = MoviesDetailFragmentArgs.fromBundle(requireArguments())
@@ -26,11 +26,11 @@ class MoviesDetailFragment: Fragment()  {
         val bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById<LinearLayout>(R.id.bottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-        val movieNameValue = view.findViewById<TextView>(R.id.movieName)?.apply {
+        view.findViewById<TextView>(R.id.movieName)?.apply {
             text = safeArgs.title
         }
 
-        val movieDescriptionValue = view.findViewById<TextView>(R.id.movie_description)?.apply {
+        view.findViewById<TextView>(R.id.movie_description)?.apply {
             text = safeArgs.description
         }
 
@@ -38,7 +38,7 @@ class MoviesDetailFragment: Fragment()  {
 
         movieCoverValue?.load(safeArgs.imageUrl)
 
-        val ageRatingValue = view.findViewById<TextView>(R.id.ageRating)?.apply {
+        view.findViewById<TextView>(R.id.ageRating)?.apply {
             text =
                 context.getString(R.string.main_age_restriction_text, safeArgs.ageRestriction)
         }
@@ -49,21 +49,5 @@ class MoviesDetailFragment: Fragment()  {
 
         return view
     }
-
-    companion object {
-        fun newInstance(movieImageUrl: String, movieTitle: String,
-                        movieDesc: String, movieAge: Int, movieStar: Int): MoviesDetailFragment {
-            val args = Bundle()
-            args.putString("MovieImageUrl", movieImageUrl)
-            args.putString("MovieTitle", movieTitle)
-            args.putString("MovieDesc", movieDesc)
-            args.putInt("MovieAge", movieAge)
-            args.putInt("MovieRate", movieStar)
-            val fragment = MoviesDetailFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
 
 }

@@ -110,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="17dp"
                 android:numStars="5"
+                android:isIndicator="true"
                 android:backgroundTint="@color/black"
                 android:progressTint="@color/black"
                 android:progressBackgroundTint="@color/black"
