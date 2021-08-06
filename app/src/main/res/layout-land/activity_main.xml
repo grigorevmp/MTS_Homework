@@ -46,97 +46,6 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-        <!--DELETE ME
-        <HorizontalScrollView
-            android:id="@id/genres"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/popular_header">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@id/thriller_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/tag"
-                    android:paddingStart="@dimen/genre_horizontal_margin"
-                    android:paddingTop="@dimen/genre_vertical_margin"
-                    android:paddingEnd="@dimen/genre_horizontal_margin"
-                    android:paddingBottom="@dimen/genre_vertical_margin"
-                    android:text="@string/thriller"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/genre_size"
-                    tools:ignore="SmallSp" />
-
-                <TextView
-                    android:id="@id/drama_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/genre_margin"
-                    android:background="@drawable/tag"
-                    android:paddingStart="@dimen/genre_horizontal_margin_high"
-                    android:paddingTop="@dimen/genre_vertical_margin"
-                    android:paddingEnd="@dimen/genre_horizontal_margin"
-                    android:paddingBottom="@dimen/genre_vertical_margin"
-                    android:text="@string/drama"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/genre_size"
-                    tools:ignore="SmallSp" />
-
-                <TextView
-                    android:id="@id/comedy_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/genre_margin"
-                    android:background="@drawable/tag"
-                    android:paddingStart="@dimen/genre_horizontal_margin"
-                    android:paddingTop="@dimen/genre_vertical_margin"
-                    android:paddingEnd="@dimen/genre_horizontal_margin"
-                    android:paddingBottom="@dimen/genre_vertical_margin"
-                    android:text="@string/comedy"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/genre_size"
-                    tools:ignore="SmallSp" />
-
-                <TextView
-                    android:id="@id/art_house_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/genre_margin"
-                    android:background="@drawable/tag"
-                    android:paddingStart="@dimen/genre_horizontal_margin_medium"
-                    android:paddingTop="@dimen/genre_vertical_margin"
-                    android:paddingEnd="@dimen/genre_horizontal_margin"
-                    android:paddingBottom="@dimen/genre_vertical_margin"
-                    android:text="@string/art_house"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/genre_size"
-                    tools:ignore="SmallSp" />
-
-                <TextView
-                    android:id="@id/melodrama_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/genre_margin"
-                    android:background="@drawable/tag"
-                    android:paddingStart="@dimen/genre_horizontal_margin"
-                    android:paddingTop="@dimen/genre_vertical_margin"
-                    android:paddingEnd="@dimen/genre_horizontal_margin"
-                    android:paddingBottom="@dimen/genre_vertical_margin"
-                    android:text="@string/melodrama"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/genre_size"
-                    tools:ignore="SmallSp" />
-            </LinearLayout>
-        </HorizontalScrollView-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moviesList"
         android:layout_width="match_parent"
@@ -145,15 +54,15 @@
         android:layout_marginTop="@dimen/movie_list_top_margin"
         android:layout_marginEnd="@dimen/movies_screen_margin"
         android:orientation="vertical"
-        app:layout_constrainedHeight="true"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/bottom_tab_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/genreList"
         app:layout_constraintVertical_bias="0.0"
-        app:spanCount="2"
-        tools:visibility="visible">
+        app:layout_constrainedHeight="true"
+        tools:visibility="visible"
+        app:spanCount="4">
 
     </androidx.recyclerview.widget.RecyclerView>
 

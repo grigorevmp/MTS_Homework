@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/movies_list_item_root"
+    android:layout_width="@dimen/list_item_width"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        android:layout_margin="@dimen/card_layout_margin"
+        android:elevation="@dimen/card_elevation">
+
+        <ImageView
+            android:id="@+id/list_item_image"
+            android:layout_width="@dimen/list_item_width"
+            android:layout_height="@dimen/list_item_height"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/makkellani" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/list_item_movie_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        tools:text="@string/movie_name"
+        android:ellipsize="end"
+        android:textSize="@dimen/movie_description"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/item_movie_name_top"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp" />
+
+    <TextView
+        android:id="@+id/list_item_movie_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_movie_desc_top"
+        android:textSize="@dimen/actor_name_size"
+        android:textColor="@color/black"
+        android:textStyle="normal"
+        tools:text="@string/movie_description"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
+        tools:maxLength="150"
+        />
+
+    <LinearLayout
+        android:id="@+id/list_item_movie_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:id="@+id/list_item_starsGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_gravity="bottom">
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/ratingbar"
+                style="@style/CustomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:numStars="5"
+                android:backgroundTint="@color/black"
+                android:progressTint="@color/black"
+                android:progressBackgroundTint="@color/black"
+                android:stepSize="1"
+                android:rating="5"/>
+
+        </LinearLayout>
+
+        <!--LinearLayout
+            android:id="@+id/list_item_starsGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:gravity="start|bottom">
+
+
+            <ImageView
+                android:id="@+id/list_item_star1"
+                android:layout_width="@dimen/star_width"
+                android:layout_height="@dimen/star_height"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@+id/list_item_star2"
+                android:layout_width="@dimen/star_width"
+                android:layout_height="@dimen/star_height"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@+id/list_item_star3"
+                android:layout_width="@dimen/star_width"
+                android:layout_height="@dimen/star_height"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@+id/list_item_star4"
+                android:layout_width="@dimen/star_width"
+                android:layout_height="@dimen/star_height"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@+id/list_item_star5"
+                android:layout_width="@dimen/star_width"
+                android:layout_height="@dimen/star_height"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/rating_description"
+                android:src="@drawable/ic_favorite"
+                app:tint="@color/black" />
+
+        </LinearLayout-->
+
+        <TextView
+            android:id="@+id/list_item_ageRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/age_rating_small"
+            android:paddingTop="@dimen/age_rating_small_top"
+            android:paddingStart="@dimen/age_rating_small_horizontal"
+            android:paddingEnd="@dimen/age_rating_small_horizontal"
+            android:layout_gravity="end"
+            tools:text="@string/ageRating"
+            android:textColor="@color/black"
+            android:textSize="@dimen/age_text_size_small" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

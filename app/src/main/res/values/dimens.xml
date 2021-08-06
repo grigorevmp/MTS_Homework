@@ -26,12 +26,19 @@
     <dimen name="bottom_bar_height_plus">60dp</dimen>
     <dimen name="search_top_margin">32dp</dimen>
     <dimen name="movies_screen_margin">20dp</dimen>
-    <dimen name="header_top_margin">73dp</dimen>
+    <dimen name="header_top_margin">72dp</dimen>
     <dimen name="genre_margin">6dp</dimen>
-    <dimen name="genre_horizontal_margin_medium">12dp</dimen>
     <dimen name="genre_horizontal_margin_high">12dp</dimen>
     <dimen name="age_rating_small_horizontal">4dp</dimen>
     <dimen name="list_item_width">150dp</dimen>
     <dimen name="list_item_height">216dp</dimen>
-    <dimen name="age_rating_small_top" >6dp</dimen>
+    <dimen name="age_rating_small_top" >5dp</dimen>
+    <dimen name="item_movie_margin">24dp</dimen>
+    <dimen name="item_movie_desc_top">10dp</dimen>
+    <dimen name="item_movie_name_top">8dp</dimen>
+    <dimen name="card_elevation">6dp</dimen>
+    <dimen name="card_corner_radius">10dp</dimen>
+    <dimen name="card_layout_margin">5dp</dimen>
+    <dimen name="tab_indicator_height">2dp</dimen>
+    <dimen name="movie_list_top_margin">10dp</dimen>
 </resources>
