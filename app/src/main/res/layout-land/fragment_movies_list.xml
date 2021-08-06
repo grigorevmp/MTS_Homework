@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ImageView
         android:id="@+id/search"
         android:layout_width="wrap_content"
@@ -31,7 +30,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/genreList"
         android:layout_width="match_parent"
@@ -45,6 +43,7 @@
         app:spanCount="1">
 
     </androidx.recyclerview.widget.RecyclerView>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
@@ -57,20 +56,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constrainedHeight="true"
         app:layout_constraintTop_toBottomOf="@id/genreList">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/moviesList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/movies_screen_margin"
-        android:layout_marginTop="@dimen/movie_list_top_margin"
-        android:layout_marginEnd="@dimen/movies_screen_margin"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintVertical_bias="0.0"
-        app:spanCount="4"
-        tools:visibility="visible">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/moviesList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:spanCount="4"
+            tools:visibility="visible">
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <TextView
@@ -89,5 +83,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/genreList" />
 
+
+    <!--com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@id/bottom_tab_bar"
+        app:labelVisibilityMode="unlabeled"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:background="@color/white"
+        app:itemIconTint="@drawable/bottom_nav_selector"
+        android:orientation="horizontal"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

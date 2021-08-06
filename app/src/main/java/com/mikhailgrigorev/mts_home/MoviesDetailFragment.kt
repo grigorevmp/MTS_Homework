@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.mikhailgrigorev.mts_home.movieData.MovieData
 
 class MoviesDetailFragment: Fragment()  {
     override fun onCreateView(

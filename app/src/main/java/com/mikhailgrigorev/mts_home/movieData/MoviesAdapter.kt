@@ -1,12 +1,11 @@
 package com.mikhailgrigorev.mts_home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.movieData.MovieData
-import com.mikhailgrigorev.mts_home.movieData.MoviesDataSourceImpl
-import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 
 
 interface OnItemClickListener {
@@ -14,11 +13,12 @@ interface OnItemClickListener {
 }
 
 
-class MovieInfoAdapter(
+class MoviesAdapter(
     context: Context,
-    var movies: List<MovieData>,
     private val itemClickListener: OnItemClickListener
-): RecyclerView.Adapter<ViewHolder>() {
+
+) : RecyclerView.Adapter<ViewHolder>() {
+    var movies: MutableList<MovieData> = ArrayList()
 
     companion object {
         const val VIEW_CARD_MOVIE = 1
@@ -34,8 +34,6 @@ class MovieInfoAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        //return ViewHolder(inflater.inflate(R.layout.item_movie, parent, false))
-
         if (viewType == VIEW_CARD_MOVIE) {
             return ViewHolder(
                 inflater.inflate(R.layout.item_movie, parent, false)
@@ -47,14 +45,19 @@ class MovieInfoAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(position != 0)
+        if (position != 0)
             getMovieAt(position - 1)?.let { (holder).bind(it, position, itemClickListener) }
-        /*if (position == 0) {
-            (holder as ViewHolder2).bind(movies[position], itemClickListener)
-        } else {
-            (holder as ViewHolder1).bind(movies[position], itemClickListener)
-        }*/
 
+
+    }
+
+    fun initData(movies_: List<MovieData>?) {
+        if (movies_ != null) {
+            movies.clear()
+            movies.addAll(movies_)
+            notifyDataSetChanged()
+            Log.d("initDataBlock", "size  = $itemCount")
+        }
     }
 
     override fun getItemCount(): Int = movies.size + 1
