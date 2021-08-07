@@ -58,4 +58,6 @@
     <string name="exit">Выход</string>
 
 
+    <string name="unwatched">Непросмотренное</string>
+    <string name="recommended">Рекомендуемое</string>
 </resources>

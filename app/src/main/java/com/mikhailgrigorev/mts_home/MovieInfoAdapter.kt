@@ -34,7 +34,6 @@ class MovieInfoAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        //return ViewHolder(inflater.inflate(R.layout.item_movie, parent, false))
 
         if (viewType == VIEW_CARD_MOVIE) {
             return ViewHolder(
@@ -49,11 +48,7 @@ class MovieInfoAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(position != 0)
             getMovieAt(position - 1)?.let { (holder).bind(it, position, itemClickListener) }
-        /*if (position == 0) {
-            (holder as ViewHolder2).bind(movies[position], itemClickListener)
-        } else {
-            (holder as ViewHolder1).bind(movies[position], itemClickListener)
-        }*/
+  
 
     }
 

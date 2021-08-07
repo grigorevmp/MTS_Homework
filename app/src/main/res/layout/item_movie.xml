@@ -83,6 +83,7 @@
                 android:rating="5"/>
 
         </LinearLayout>
+
         <TextView
             android:id="@+id/list_item_ageRating"
             android:layout_width="wrap_content"
@@ -91,6 +92,7 @@
             android:paddingTop="@dimen/age_rating_small_top"
             android:paddingStart="@dimen/age_rating_small_horizontal"
             android:paddingEnd="@dimen/age_rating_small_horizontal"
+            android:layout_gravity="end"
             tools:text="@string/ageRating"
             android:textColor="@color/black"
             android:textSize="@dimen/age_text_size_small" />

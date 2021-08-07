@@ -9,14 +9,13 @@ import coil.load
 import com.mikhailgrigorev.mts_home.movieData.MovieData
 
 
-
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val movieCover = itemView.findViewById<ImageView>(R.id.list_item_image)
         private val movieName = itemView.findViewById<TextView>(R.id.list_item_movie_name)
         private val movieDesc = itemView.findViewById<TextView>(R.id.list_item_movie_desc)
-        private val ratingbar = itemView.findViewById<RatingBar>(R.id.ratingbar)
         private val movieAge = itemView.findViewById<TextView>(R.id.list_item_ageRating)
+        private val ratingbar = itemView.findViewById<RatingBar>(R.id.ratingbar)
 
         fun bind(movie: MovieData, position: Int, clickListener: OnItemClickListener) {
 
@@ -31,6 +30,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             itemView.setOnClickListener {
                 clickListener.onItemClick(movie)
+
             }
         }
 

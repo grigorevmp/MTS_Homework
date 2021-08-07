@@ -2,6 +2,7 @@ package com.mikhailgrigorev.mts_home
 
 import android.graphics.Color
 import android.os.Build
+import android.app.LauncherActivity.ListItem
 import android.os.Bundle
 import android.os.Parcelable
 import android.transition.TransitionManager
@@ -10,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
@@ -36,10 +40,30 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        val gd = GridLayoutManager(this, 2)
+
+
+        initDataSource()
+
+        adapter = MovieInfoAdapter(this, moviesModel.getMovies(), this)
+
+        adapterGenre = GenreAdapter(this, genreModel.getGenre(), this)
+
         val bottomNavigationBar = findViewById<BottomNavigationView>(R.id.bottom_tab_bar)
         underlineSelectedItem(-1)
 
-        //supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MoviesFragment()).commit()
+
+        gd.spanSizeLookup = object : SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (adapter.getItemViewType(position) == MovieInfoAdapter.VIEW_CARD_HEADER_TITLE) 2 else 1
+            }
+        }
+
+        recycler.layoutManager = gd
+
+
+        recycler.addItemDecoration( RecyclerViewDecoration(20, 50, 2, true))
+        recyclerGenre.addItemDecoration( RecyclerViewDecoration(0, 6))
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MoviesFragment(), "TAG").commit()
@@ -47,6 +71,8 @@ class MainActivity : AppCompatActivity() {
             someFragment =
                 supportFragmentManager.findFragmentByTag("TAG") as? MoviesFragment
         }
+
+    }
 
 
         bottomNavigationBar.setOnItemSelectedListener {
