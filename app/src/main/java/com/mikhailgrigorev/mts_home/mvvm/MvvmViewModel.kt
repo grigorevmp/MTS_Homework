@@ -19,14 +19,25 @@ class MvvmViewModel : ViewModel() {
     val dataList: LiveData<List<MovieData>> get() = _dataList
     private val _dataList = MutableLiveData<List<MovieData>>()
 
+    val currentMovie: LiveData<MovieData> get() = _currentMovie
+    private val _currentMovie = MutableLiveData<MovieData>()
 
     fun loadMovies() {
-        model.loadMovies(object : MoviesModel.LoadUserCallback {
+        model.loadMovies(object : MoviesModel.LoadMovieCallback {
             override fun onLoad(movies: List<MovieData>?) {
                 _dataList.postValue(movies)
                 _viewState.postValue(MyViewState(isDownloaded = false))
             }
         })
+    }
+
+    fun loadMovie(id: Int) {
+        model.loadMovie(object : MoviesModel.LoadMovieByIdCallback {
+            override fun onLoad(movie: MovieData?) {
+                _currentMovie.postValue(movie)
+                _viewState.postValue(MyViewState(isDownloaded = false))
+            }
+        }, id)
     }
 
     fun add(userData: MovieData) {

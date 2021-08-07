@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/gnev"
         android:adjustViewBounds="true"
         tools:srcCompat="@drawable/makkellani"
         android:contentDescription="@string/cover_description" />
@@ -25,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="5dp"
-        android:background="@drawable/card_backgroud_res"
+        android:background="@drawable/card_background_res"
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -65,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/date_right_margin"
-                        android:text="@string/date"
+                        tools:text="@string/date"
                         android:textColor="@color/black"
                         android:textSize="@dimen/date_size"
                         app:layout_constraintStart_toEndOf="@+id/genre"
@@ -78,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/small_top_margin"
-                    android:text="@string/movie_name"
+                    tools:text="@string/movie_name"
                     android:textColor="@color/black"
                     android:textSize="@dimen/movie_name_size" />
 
@@ -93,7 +92,7 @@
                 android:paddingStart="@dimen/genre_start_text"
                 android:paddingTop="@dimen/genre_top_text"
                 android:paddingEnd="@dimen/genre_end_text"
-                android:text="@string/ageRating"
+                tools:text="@string/ageRating"
                 android:textColor="@color/black"
                 android:textSize="@dimen/age_text_size" />
         </LinearLayout>
@@ -109,7 +108,7 @@
                 style="@style/CustomRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="17dp"
-                android:numStars="5"
+                tools:numStars="5"
                 android:isIndicator="true"
                 android:backgroundTint="@color/black"
                 android:progressTint="@color/black"
@@ -124,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/description_top_margin"
-            android:text="@string/movie_description"
+            tools:text="@string/movie_description"
             android:textColor="@color/black"
             android:textSize="@dimen/movie_description" />
 

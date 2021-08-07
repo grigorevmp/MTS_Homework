@@ -1,5 +1,7 @@
 package com.mikhailgrigorev.mts_home
 
+import android.app.ProgressDialog
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +11,29 @@ import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.mikhailgrigorev.mts_home.movieData.MovieData
+import com.mikhailgrigorev.mts_home.mvvm.MvvmViewModel
 
-class MoviesDetailFragment: Fragment()  {
+class MoviesDetailFragment: Fragment() {
+    private val movieViewModel: MvvmViewModel by viewModels()
+    private val progressDialog by lazy {
+        ProgressDialog.show(
+            this.context,
+            "",
+            getString(R.string.please_wait)
+        )
+    }
+
+    private lateinit var movieName: TextView
+    private lateinit var movieDescription: TextView
+    private lateinit var movieCoverValue: ImageView
+    private lateinit var ageRating: TextView
+    private lateinit var ratingbar: RatingBar
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,31 +44,55 @@ class MoviesDetailFragment: Fragment()  {
 
         val safeArgs = MoviesDetailFragmentArgs.fromBundle(requireArguments())
 
-        val bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById<LinearLayout>(R.id.bottomSheet))
+        val bottomSheetBehavior =
+            BottomSheetBehavior.from(view.findViewById<LinearLayout>(R.id.bottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
-        view.findViewById<TextView>(R.id.movieName)?.apply {
-            text = safeArgs.title
+        val orientation = this.resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            bottomSheetBehavior.peekHeight=600
         }
 
-        view.findViewById<TextView>(R.id.movie_description)?.apply {
-            text = safeArgs.description
-        }
+        movieName = view.findViewById(R.id.movieName)
+        movieDescription = view.findViewById(R.id.movie_description)
+        movieCoverValue = view.findViewById(R.id.movieCover)
+        ageRating = view.findViewById(R.id.ageRating)
+        ratingbar = view.findViewById(R.id.ratingbar)
 
-        val movieCoverValue = view.findViewById<ImageView>(R.id.movieCover)
+        movieViewModel.currentMovie.observe(viewLifecycleOwner, Observer(::setDataToFragment))
+        movieViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
 
-        movieCoverValue?.load(safeArgs.imageUrl)
-
-        view.findViewById<TextView>(R.id.ageRating)?.apply {
-            text =
-                context.getString(R.string.main_age_restriction_text, safeArgs.ageRestriction)
-        }
-
-        val ratingbar = view.findViewById<RatingBar>(R.id.ratingbar)
-
-        ratingbar.rating = safeArgs.rateScore.toFloat()
+        movieViewModel.loadMovie(safeArgs.id)
 
         return view
     }
+
+    private fun setDataToFragment(movie: MovieData) {
+        movieName.apply {
+            text = movie.title
+        }
+
+        movieDescription.apply {
+            text = movie.description
+        }
+
+
+        movieCoverValue.load(movie.imageUrl)
+
+        ageRating.apply {
+            text =
+                context.getString(R.string.main_age_restriction_text, movie.ageRestriction)
+        }
+
+        ratingbar.rating = movie.rateScore.toFloat()
+    }
+
+    private fun render(viewState: MoviesFragment.ViewState) = with(viewState) {
+        if (isDownloaded) {
+            progressDialog.show()
+        } else {
+            progressDialog.dismiss()
+        }
+    }
+
 
 }

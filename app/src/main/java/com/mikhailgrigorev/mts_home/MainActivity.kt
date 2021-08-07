@@ -1,17 +1,14 @@
 package com.mikhailgrigorev.mts_home
 
 import android.os.Bundle
-import android.os.Parcelable
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.mikhailgrigorev.mts_home.genreData.GenreModel
-import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +16,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.statusBarColor = getColor(R.color.cardBackground)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         setContentView(R.layout.activity_main)
 

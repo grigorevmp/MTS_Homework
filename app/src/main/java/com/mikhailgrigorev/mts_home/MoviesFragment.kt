@@ -3,7 +3,6 @@ package com.mikhailgrigorev.mts_home
 import android.app.ProgressDialog
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +25,6 @@ import com.mikhailgrigorev.mts_home.movieData.MovieData
 import com.mikhailgrigorev.mts_home.movieData.MoviesDataSourceImpl
 import com.mikhailgrigorev.mts_home.mvvm.MvvmViewModel
 import kotlinx.coroutines.*
-import kotlin.random.Random
 
 
 class MoviesFragment : Fragment() {
@@ -38,9 +36,9 @@ class MoviesFragment : Fragment() {
     private lateinit var recyclerGenre: RecyclerView
 
 
-    private val myViewModel: MvvmViewModel by viewModels()
+    private val movieViewModel: MvvmViewModel by viewModels()
 
-    private val progressDialog by lazy { ProgressDialog.show(this.context, "", "Please wait") }
+    private val progressDialog by lazy { ProgressDialog.show(this.context, "", getString(R.string.please_wait)) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,11 +64,7 @@ class MoviesFragment : Fragment() {
             override fun onItemClick(movie: MovieData) {
                 sendArguments(
                     view,
-                    movie.imageUrl,
-                    movie.title,
-                    movie.description,
-                    movie.ageRestriction,
-                    movie.rateScore,
+                    movie.id
                 )
             }
         }
@@ -95,10 +89,10 @@ class MoviesFragment : Fragment() {
             recycler.addItemDecoration(RecyclerViewDecoration(20, 50, 2, true))
         }
 
-        myViewModel.dataList.observe(viewLifecycleOwner, Observer(adapter::initData))
-        myViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
+        movieViewModel.dataList.observe(viewLifecycleOwner, Observer(adapter::initData))
+        movieViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
 
-        myViewModel.loadMovies()
+        movieViewModel.loadMovies()
 
         gd.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -129,17 +123,13 @@ class MoviesFragment : Fragment() {
         swipeContainer.setOnRefreshListener {
             runBlocking {
                 val job = lifecycleScope.launch(handler + Job()) {
-                    delay(2000)
-                    val start = Random.nextInt(0, 3)
                     onMoviesChanged(
-                        baseMoviesModel.getMovies()
-                            .subList(start, baseMoviesModel.getMovies().size - 3 + start)
+                        baseMoviesModel.getRandomMovies()
                     )
                     swipeContainer.isRefreshing = false
                 }
             }
         }
-
 
         return view
     }
@@ -159,14 +149,9 @@ class MoviesFragment : Fragment() {
     }
 
 
-    fun sendArguments(view: View, movieImageUrl: String, movieTitle: String,
-                      movieDesc: String, movieAge: Int, movieStar: Int) {
+    fun sendArguments(view: View, movieId: Int) {
         val action = MoviesFragmentDirections.actionOpenMovie(
-            movieImageUrl,
-            movieTitle,
-            movieDesc,
-            movieAge,
-            movieStar)
+            movieId)
         Navigation.findNavController(view).navigate(action)
     }
 

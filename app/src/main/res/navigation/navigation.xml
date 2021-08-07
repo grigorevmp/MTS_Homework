@@ -19,23 +19,7 @@
             app:destination="@id/movies_detail_fragment" >
 
             <argument
-                android:name = "imageUrl"
-                app:argType = "string"
-                />
-            <argument
-                android:name = "title"
-                app:argType = "string"
-                />
-            <argument
-                android:name = "description"
-                app:argType = "string"
-                />
-            <argument
-                android:name = "ageRestriction"
-                app:argType = "integer"
-                />
-            <argument
-                android:name = "rateScore"
+                android:name = "id"
                 app:argType = "integer"
                 />
 
@@ -54,23 +38,7 @@
         android:name="com.mikhailgrigorev.mts_home.MoviesDetailFragment"
         tools:layout="@layout/fragment_movie_details" >
         <argument
-            android:name = "imageUrl"
-            app:argType = "string"
-            />
-        <argument
-            android:name = "title"
-            app:argType = "string"
-            />
-        <argument
-            android:name = "description"
-            app:argType = "string"
-            />
-        <argument
-            android:name = "ageRestriction"
-            app:argType = "integer"
-            />
-        <argument
-            android:name = "rateScore"
+            android:name = "id"
             app:argType = "integer"
             />
         <action

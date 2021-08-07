@@ -26,7 +26,7 @@
     <dimen name="bottom_bar_height">48dp</dimen>
     <dimen name="extra_top_margin">48dp</dimen>
     <dimen name="bottom_bar_height_plus">60dp</dimen>
-    <dimen name="search_top_margin">32dp</dimen>
+    <dimen name="search_top_margin">52dp</dimen>
     <dimen name="movies_screen_margin">20dp</dimen>
     <dimen name="header_top_margin">72dp</dimen>
     <dimen name="genre_margin">6dp</dimen>
