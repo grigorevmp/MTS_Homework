@@ -106,15 +106,11 @@ class MoviesFragment: Fragment(){
         swipeContainer.setOnRefreshListener {
             runBlocking {
                 val job = lifecycleScope.launch(handler + Job()) {
-                    delay(2000)
-                    val start = Random.nextInt(0, 3)
                     onMoviesChanged(
-                        moviesModel.getMovies()
-                            .subList(start, moviesModel.getMovies().size - 3 + start)
+                        moviesModel.getRandomMovies()
                     )
                     swipeContainer.isRefreshing = false
                 }
-                //job.cancel()
             }
         }
 
