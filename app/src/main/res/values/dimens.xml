@@ -50,4 +50,5 @@
     <dimen name="elevation">16dp</dimen>
     <dimen name="settings_arrow_height">8dp</dimen>
     <dimen name="movie_list_top_margin">10dp</dimen>
+    <dimen name="logout_button_bottom">60dp</dimen>
 </resources>

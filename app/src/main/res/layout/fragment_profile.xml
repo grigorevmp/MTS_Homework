@@ -374,7 +374,7 @@
                 android:layout_height="@dimen/bottom_bar_height"
                 app:cornerRadius="@dimen/button_corner"
                 android:layout_marginTop="@dimen/subhead_top_margin"
-                android:layout_marginBottom="@dimen/subhead_top_margin"
+                android:layout_marginBottom="@dimen/logout_button_bottom"
                 android:layout_marginStart="@dimen/movies_screen_margin"
                 android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:backgroundTint="@color/button_grey"
