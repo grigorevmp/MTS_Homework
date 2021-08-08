@@ -18,6 +18,8 @@ data class Movie(
     @ColumnInfo(name = "age_restriction")
     val ageRestriction: Int,
     @ColumnInfo(name = "image_url")
-    val imageUrl: String
+    val imageUrl: String,
+    @ColumnInfo(name = "actors")
+    val actors: String = "0"
 
 )

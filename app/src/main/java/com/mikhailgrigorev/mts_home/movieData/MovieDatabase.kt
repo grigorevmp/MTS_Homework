@@ -8,13 +8,21 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import androidx.room.migration.Migration
 
 
-@Database(entities = [Movie::class], version = 1)
+
+@Database(entities = [Movie::class], version = 2)
 abstract class MovieDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao?
 
     companion object {
+
+        private val MIGRATION_Movie_1_2: Migration = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE movie ADD COLUMN actors TEXT DEFAULT '0' NOT NULL")
+            }
+        }
 
         private var instance: MovieDatabase? = null
         private const val DATABASE_NAME = "Movie.db"
@@ -24,6 +32,7 @@ abstract class MovieDatabase : RoomDatabase() {
             if(instance == null)
                 instance = Room.databaseBuilder(context.applicationContext, MovieDatabase::class.java,
                     DATABASE_NAME)
+                    .addMigrations(MIGRATION_Movie_1_2)
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build()
