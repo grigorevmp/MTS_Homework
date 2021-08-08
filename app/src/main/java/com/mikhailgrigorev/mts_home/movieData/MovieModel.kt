@@ -1,17 +1,20 @@
 package com.mikhailgrigorev.mts_home.movieData
 
+import android.app.Application
 import android.content.ContentValues
+import android.content.Context
 import android.os.AsyncTask
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 class BaseMoviesModel(
-    private val moviesDataSource: MoviesDataSource
+    private val allMovies: List<Movie>
 ) {
 
-    private fun getMovies() = moviesDataSource.getMovies()
+    private fun getMovies() = allMovies
 
-    suspend fun getRandomMovies(): List<MovieData> {
+    suspend fun getRandomMovies(): List<Movie> {
         delay(2000)
         val start = Random.nextInt(0, 3)
         return getMovies().subList(start, getMovies().size - 3 + start)
@@ -22,7 +25,7 @@ class BaseMoviesModel(
 
 class MoviesModel : MoviesModelApi {
 
-    override fun loadMovie(callback: LoadMovieByIdCallback?, id: Int) {
+    override fun loadMovie(callback: LoadMovieByIdCallback?, id: Long) {
         val loadMovieTask = LoadMovieTask(callback, id)
         loadMovieTask.execute()
     }
@@ -43,11 +46,11 @@ class MoviesModel : MoviesModelApi {
     }
 
     interface LoadMovieCallback {
-        fun onLoad(movies: List<MovieData>?)
+        fun onLoad(movies: List<Movie>?)
     }
 
     interface LoadMovieByIdCallback {
-        fun onLoad(movie: MovieData?)
+        fun onLoad(movie: Movie?)
     }
 
     interface CompleteCallback {
@@ -57,33 +60,31 @@ class MoviesModel : MoviesModelApi {
 
 class LoadMovieTask(
     private val callback: MoviesModel.LoadMovieByIdCallback?,
-    private val id: Int
+    private val id: Long
 ) :
-    AsyncTask<Void?, Void?, MovieData>() {
-    override fun doInBackground(vararg params: Void?): MovieData {
-        var resultMovie: MovieData? = null
-        val allMovies = MoviesDataSourceImpl().getMovies()
-        for (movie in allMovies){
-            if (movie.id == id)
-                resultMovie = movie
-        }
-        return resultMovie!!
+    AsyncTask<Void?, Void?, Movie>() {
+    override fun doInBackground(vararg params: Void?): Movie {
+        val movieRepo = MovieRepository(Application())
+        return movieRepo.getMovieById(id)
     }
 
-    override fun onPostExecute(movie: MovieData) {
+    override fun onPostExecute(movie: Movie) {
         callback?.onLoad(movie)
     }
 }
 
 class LoadMoviesTask(
-    private val callback: MoviesModel.LoadMovieCallback?
+    private val callback: MoviesModel.LoadMovieCallback?,
 ) :
-    AsyncTask<Void?, Void?, List<MovieData>>() {
-    override fun doInBackground(vararg params: Void?): List<MovieData> {
-        return MoviesDataSourceImpl().getMovies()
+    AsyncTask<Void?, Void?, List<Movie>>() {
+    override fun doInBackground(vararg params: Void?): List<Movie> {
+        val movieRepo = MovieRepository(Application())
+
+        return movieRepo.getAllMovies()
     }
 
-    override fun onPostExecute(movies: List<MovieData>) {
+
+    override fun onPostExecute(movies: List<Movie>) {
         callback?.onLoad(movies)
     }
 }
@@ -118,7 +119,7 @@ class ClearMoviesTask(
 
 interface MoviesModelApi {
     fun loadMovies(callback: MoviesModel.LoadMovieCallback?)
-    fun loadMovie(callback: MoviesModel.LoadMovieByIdCallback?, id: Int)
+    fun loadMovie(callback: MoviesModel.LoadMovieByIdCallback?, id: Long)
     fun addMovie(contentValues: ContentValues?, callback: MoviesModel.CompleteCallback?)
     fun clearMovies(completeCallback: MoviesModel.CompleteCallback?)
 }

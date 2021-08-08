@@ -6,8 +6,8 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.mikhailgrigorev.mts_home.movieData.MovieData
-
+import com.mikhailgrigorev.mts_home.movieData.Movie
+import com.mikhailgrigorev.mts_home.movieData.OnItemClickListener
 
 
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -18,7 +18,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ratingbar = itemView.findViewById<RatingBar>(R.id.ratingbar)
         private val movieAge = itemView.findViewById<TextView>(R.id.list_item_ageRating)
 
-        fun bind(movie: MovieData, position: Int, clickListener: OnItemClickListener) {
+        fun bind(movie: Movie, position: Int, clickListener: OnItemClickListener) {
 
             movieCover?.load(movie.imageUrl)
             movieName?.text = movie.title

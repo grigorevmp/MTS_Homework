@@ -20,9 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
-import com.mikhailgrigorev.mts_home.movieData.BaseMoviesModel
-import com.mikhailgrigorev.mts_home.movieData.MovieData
-import com.mikhailgrigorev.mts_home.movieData.MoviesDataSourceImpl
+import com.mikhailgrigorev.mts_home.movieData.*
 import com.mikhailgrigorev.mts_home.mvvm.MvvmViewModel
 import kotlinx.coroutines.*
 
@@ -57,14 +55,14 @@ class MoviesFragment : Fragment() {
         val recyclerEmpty = view.findViewById<TextView>(R.id.emptyMoviesList)
         recyclerGenre = view.findViewById(R.id.genreList)
 
-        initDataSource()
+        initDataSource(view)
 
 
         val listener: OnItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(movie: MovieData) {
+            override fun onItemClick(movie: Movie) {
                 sendArguments(
                     view,
-                    movie.id
+                    movie.id!!
                 )
             }
         }
@@ -135,8 +133,11 @@ class MoviesFragment : Fragment() {
     }
 
 
-    private fun initDataSource() {
-        baseMoviesModel = BaseMoviesModel(MoviesDataSourceImpl())
+    private fun initDataSource(view: View) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val movieRepo = MovieRepository(view.context)
+            baseMoviesModel = BaseMoviesModel(movieRepo.getAllMovies())
+        }
         genreModel = GenreModel(GenreDataSourceImpl())
     }
 
@@ -149,7 +150,7 @@ class MoviesFragment : Fragment() {
     }
 
 
-    fun sendArguments(view: View, movieId: Int) {
+    fun sendArguments(view: View, movieId: Long) {
         val action = MoviesFragmentDirections.actionOpenMovie(
             movieId)
         Navigation.findNavController(view).navigate(action)
@@ -159,10 +160,10 @@ class MoviesFragment : Fragment() {
         getString(R.string.genre_click_message, title)
 
 
-    private fun onMoviesChanged(movies: List<MovieData>) {
+    private fun onMoviesChanged(movies: List<Movie>) {
         val callback = MovieCallback(adapter.movies, movies)
         val diff = DiffUtil.calculateDiff(callback)
-        adapter.movies = movies as MutableList<MovieData>
+        adapter.movies = movies as MutableList<Movie>
         diff.dispatchUpdatesTo(adapter)
 
     }

@@ -15,7 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.mikhailgrigorev.mts_home.movieData.MovieData
+import com.mikhailgrigorev.mts_home.movieData.Movie
 import com.mikhailgrigorev.mts_home.mvvm.MvvmViewModel
 
 class MoviesDetailFragment: Fragment() {
@@ -66,7 +66,7 @@ class MoviesDetailFragment: Fragment() {
         return view
     }
 
-    private fun setDataToFragment(movie: MovieData) {
+    private fun setDataToFragment(movie: Movie) {
         movieName.apply {
             text = movie.title
         }
