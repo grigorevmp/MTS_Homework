@@ -1,8 +1,6 @@
 package com.mikhailgrigorev.mts_home.movieData
 
-import android.app.Application
 import android.content.Context
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

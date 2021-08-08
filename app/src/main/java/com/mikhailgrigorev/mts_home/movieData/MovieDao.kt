@@ -1,6 +1,5 @@
 package com.mikhailgrigorev.mts_home.movieData
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 

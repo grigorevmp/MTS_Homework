@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/account_mail"
+        android:id="@+id/accountMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/account_mail"
@@ -57,7 +57,7 @@
         android:layout_marginStart="@dimen/movies_screen_margin"
         android:textSize="@dimen/sub_head_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_mail"/>
+        app:layout_constraintTop_toBottomOf="@+id/accountMail" />
 
             <TextView
                 android:id="@id/genre"
@@ -370,6 +370,7 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_bar_height"
                 app:cornerRadius="@dimen/button_corner"

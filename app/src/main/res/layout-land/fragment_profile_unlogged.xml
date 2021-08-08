@@ -14,6 +14,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/avatar"
                 android:layout_width="@dimen/avatar_size"
                 android:layout_height="@dimen/avatar_size"
                 android:layout_marginTop="@dimen/extra_top_margin"
@@ -27,81 +28,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginTop="@dimen/profile_top_name_margin"
-                android:text="@string/account_name"
+                android:text="@string/welcome"
                 android:textColor="@color/black"
                 android:textSize="@dimen/movie_name_size"
+                app:layout_constraintBottom_toBottomOf="@+id/avatar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/avatar" />
 
-            <TextView
-                android:id="@+id/accountMail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/account_mail"
-                android:textColor="@color/black"
-                android:layout_marginTop="@dimen/mail_vertical_margin"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:textSize="@dimen/movie_description"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userLogin" />
-
-            <TextView
-                android:id="@+id/interests"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/interests"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/interest_margin_top"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:textSize="@dimen/sub_head_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/accountMail" />
-
-            <TextView
-                android:id="@id/genre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginTop="@dimen/description_top_margin"
-                android:background="@drawable/tag"
-                android:paddingStart="@dimen/genre_horizontal_margin"
-                android:paddingTop="@dimen/genre_vertical_margin"
-                android:paddingEnd="@dimen/genre_horizontal_margin"
-                android:paddingBottom="@dimen/genre_vertical_margin"
-                android:text="@string/thriller"
-                android:textColor="@color/black"
-                android:textSize="@dimen/genre_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/interests"
-                tools:ignore="SmallSp" />
-
-            <TextView
-                android:id="@+id/personal_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/personal_data"
-                android:textColor="@color/black"
-                android:layout_marginTop="@dimen/subhead_top_margin"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:textSize="@dimen/sub_head_size"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/genre"/>
 
             <TextView
                 android:id="@+id/settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/movies_screen_margin"
                 android:text="@string/settings"
                 android:textColor="@color/black"
-                android:layout_marginTop="@dimen/subhead_top_margin"
-                android:layout_marginStart="@dimen/movies_screen_margin"
+                android:layout_marginTop="@dimen/extra_top_margin"
                 android:textSize="@dimen/sub_head_size"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPhone"/>
+                app:layout_constraintTop_toBottomOf="@+id/enterButton" />
 
             <TextView
                 android:id="@+id/app"
@@ -115,68 +61,6 @@
                 android:layout_marginTop="@dimen/subhead_top_margin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings5" />
-
-            <EditText
-                android:id="@+id/editTextTextPassword2"
-                android:layout_width="match_parent"
-                android:textSize="@dimen/edit_field_text_size"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/black"
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="@string/password_hint"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
-
-            <EditText
-                android:id="@+id/editTextTextEmailAddress"
-                android:layout_width="match_parent"
-                android:textSize="@dimen/edit_field_text_size"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/black"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
-                android:text="@string/e_mail_hint"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextPhone"
-                android:layout_width="match_parent"
-                android:textSize="@dimen/edit_field_text_size"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="phone"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/black"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
-                android:text="@string/phone_hint"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <EditText
-                android:id="@+id/editTextTextPersonName"
-                android:layout_width="match_parent"
-                android:textSize="@dimen/edit_field_text_size"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
-                android:layout_marginTop="@dimen/description_top_margin"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/black"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/name_hint"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/personal_data" />
 
             <LinearLayout
                 android:id="@+id/settings1"
@@ -346,45 +230,94 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_marginTop="@dimen/description_top_margin"
                 android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/logout_button_bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings6"
                 tools:ignore="UseCompoundDrawables">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/movie_description"
+                    android:text="@string/ask_question"
                     android:textColor="@color/black"
-                    android:text="@string/ask_question"/>
+                    android:textSize="@dimen/movie_description" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow" />
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:id="@+id/logout"
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_container"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_bar_height"
-                app:cornerRadius="@dimen/button_corner"
-                android:layout_marginTop="@dimen/subhead_top_margin"
-                android:layout_marginBottom="@dimen/logout_button_bottom"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
-                android:backgroundTint="@color/button_grey"
-                android:text="@string/exit"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/small_border_radius"
+                app:boxCornerRadiusBottomStart="@dimen/small_border_radius"
+                app:boxCornerRadiusTopEnd="@dimen/small_border_radius"
+                app:boxCornerRadiusTopStart="@dimen/small_border_radius"
+                app:endIconMode="clear_text"
+                android:layout_marginTop="@dimen/header_top_margin"
+                android:layout_marginStart="@dimen/left_margin_value"
+                android:layout_marginEnd="@dimen/left_margin_value"
+                app:placeholderTextColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/settings7" />
+                app:layout_constraintTop_toBottomOf="@+id/avatar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_container"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/small_border_radius"
+                app:boxCornerRadiusBottomStart="@dimen/small_border_radius"
+                app:boxCornerRadiusTopEnd="@dimen/small_border_radius"
+                app:boxCornerRadiusTopStart="@dimen/small_border_radius"
+                app:endIconMode="clear_text"
+                android:layout_marginTop="@dimen/small_top_margin"
+                android:layout_marginStart="@dimen/left_margin_value"
+                android:layout_marginEnd="@dimen/left_margin_value"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_container">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/enterButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enter"
+                android:layout_marginTop="@dimen/small_top_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_container" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

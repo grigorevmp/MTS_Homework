@@ -2,9 +2,7 @@ package com.mikhailgrigorev.mts_home.movieData
 
 import android.app.Application
 import android.content.ContentValues
-import android.content.Context
 import android.os.AsyncTask
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
