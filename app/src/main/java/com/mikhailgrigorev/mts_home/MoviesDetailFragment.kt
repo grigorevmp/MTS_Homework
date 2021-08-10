@@ -15,11 +15,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.mikhailgrigorev.mts_home.movieData.Movie
+import com.mikhailgrigorev.mts_home.movieData.MovieData
 import com.mikhailgrigorev.mts_home.mvvm.MovieCardViewModel
 
 class MoviesDetailFragment: Fragment() {
-    private val movieCardViewModel: MovieCardViewModel by viewModels()
+
+    private val movieViewModel: MovieCardViewModel by viewModels()
+
     private val progressDialog by lazy {
         ProgressDialog.show(
             this.context,
@@ -58,15 +60,15 @@ class MoviesDetailFragment: Fragment() {
         ageRating = view.findViewById(R.id.ageRating)
         ratingbar = view.findViewById(R.id.ratingbar)
 
-        movieCardViewModel.currentMovie.observe(viewLifecycleOwner, Observer(::setDataToFragment))
-        movieCardViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
+        movieViewModel.currentMovie.observe(viewLifecycleOwner, Observer(::setDataToFragment))
+        movieViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
 
-        movieCardViewModel.loadMovie(safeArgs.id)
+        movieViewModel.loadMovie(safeArgs.id)
 
         return view
     }
 
-    private fun setDataToFragment(movie: Movie) {
+    private fun setDataToFragment(movie: MovieData) {
         movieName.apply {
             text = movie.title
         }
@@ -94,10 +96,8 @@ class MoviesDetailFragment: Fragment() {
         }
     }
 
+
     data class ViewState(
         val isDownloaded: Boolean = false
     )
-
-
-
 }

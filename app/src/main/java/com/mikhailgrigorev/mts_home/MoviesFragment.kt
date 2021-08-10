@@ -20,12 +20,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
-import com.mikhailgrigorev.mts_home.movieData.*
+import com.mikhailgrigorev.mts_home.movieData.BaseMoviesModel
+import com.mikhailgrigorev.mts_home.movieData.MovieData
+import com.mikhailgrigorev.mts_home.movieData.MoviesDataSourceImpl
 import com.mikhailgrigorev.mts_home.mvvm.MoviesViewModel
 import kotlinx.coroutines.*
 
 
 class MoviesFragment : Fragment() {
+    private lateinit var baseMoviesModel: BaseMoviesModel
     private lateinit var genreModel: GenreModel
     private lateinit var adapter: MoviesAdapter
     private lateinit var adapterGenre: GenreAdapter
@@ -54,14 +57,14 @@ class MoviesFragment : Fragment() {
         val recyclerEmpty = view.findViewById<TextView>(R.id.emptyMoviesList)
         recyclerGenre = view.findViewById(R.id.genreList)
 
-        initDataSource(view)
+        initDataSource()
 
 
         val listener: OnItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(movie: Movie) {
+            override fun onItemClick(movie: MovieData) {
                 sendArguments(
                     view,
-                    movie.id!!
+                    movie.id
                 )
             }
         }
@@ -120,6 +123,9 @@ class MoviesFragment : Fragment() {
         swipeContainer.setOnRefreshListener {
             runBlocking {
                 val job = lifecycleScope.launch(handler + Job()) {
+                    onMoviesChanged(
+                        baseMoviesModel.getRandomMovies()
+                    )
                     swipeContainer.isRefreshing = false
                 }
             }
@@ -129,7 +135,8 @@ class MoviesFragment : Fragment() {
     }
 
 
-    private fun initDataSource(view: View) {
+    private fun initDataSource() {
+        baseMoviesModel = BaseMoviesModel(MoviesDataSourceImpl())
         genreModel = GenreModel(GenreDataSourceImpl())
     }
 
@@ -142,7 +149,7 @@ class MoviesFragment : Fragment() {
     }
 
 
-    fun sendArguments(view: View, movieId: Long) {
+    fun sendArguments(view: View, movieId: Int) {
         val action = MoviesFragmentDirections.actionOpenMovie(
             movieId)
         Navigation.findNavController(view).navigate(action)
@@ -152,10 +159,10 @@ class MoviesFragment : Fragment() {
         getString(R.string.genre_click_message, title)
 
 
-    private fun onMoviesChanged(movies: List<Movie>) {
+    private fun onMoviesChanged(movies: List<MovieData>) {
         val callback = MovieCallback(adapter.movies, movies)
         val diff = DiffUtil.calculateDiff(callback)
-        adapter.movies = movies as MutableList<Movie>
+        adapter.movies = movies as MutableList<MovieData>
         diff.dispatchUpdatesTo(adapter)
 
     }
