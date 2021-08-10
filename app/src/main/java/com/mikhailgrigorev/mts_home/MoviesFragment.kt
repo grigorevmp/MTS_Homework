@@ -23,7 +23,7 @@ import com.mikhailgrigorev.mts_home.genreData.GenreModel
 import com.mikhailgrigorev.mts_home.movieData.BaseMoviesModel
 import com.mikhailgrigorev.mts_home.movieData.MovieData
 import com.mikhailgrigorev.mts_home.movieData.MoviesDataSourceImpl
-import com.mikhailgrigorev.mts_home.mvvm.MvvmViewModel
+import com.mikhailgrigorev.mts_home.mvvm.MoviesViewModel
 import kotlinx.coroutines.*
 
 
@@ -36,7 +36,7 @@ class MoviesFragment : Fragment() {
     private lateinit var recyclerGenre: RecyclerView
 
 
-    private val movieViewModel: MvvmViewModel by viewModels()
+    private val movieViewModel: MoviesViewModel by viewModels()
 
     private val progressDialog by lazy { ProgressDialog.show(this.context, "", getString(R.string.please_wait)) }
 

@@ -16,10 +16,12 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mikhailgrigorev.mts_home.movieData.MovieData
-import com.mikhailgrigorev.mts_home.mvvm.MvvmViewModel
+import com.mikhailgrigorev.mts_home.mvvm.MovieCardViewModel
 
 class MoviesDetailFragment: Fragment() {
-    private val movieViewModel: MvvmViewModel by viewModels()
+
+    private val movieViewModel: MovieCardViewModel by viewModels()
+
     private val progressDialog by lazy {
         ProgressDialog.show(
             this.context,
@@ -86,7 +88,7 @@ class MoviesDetailFragment: Fragment() {
         ratingbar.rating = movie.rateScore.toFloat()
     }
 
-    private fun render(viewState: MoviesFragment.ViewState) = with(viewState) {
+    private fun render(viewState: MoviesDetailFragment.ViewState) = with(viewState) {
         if (isDownloaded) {
             progressDialog.show()
         } else {
@@ -95,4 +97,7 @@ class MoviesDetailFragment: Fragment() {
     }
 
 
+    data class ViewState(
+        val isDownloaded: Boolean = false
+    )
 }
