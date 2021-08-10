@@ -8,14 +8,14 @@ import com.mikhailgrigorev.mts_home.MoviesFragment
 import com.mikhailgrigorev.mts_home.movieData.Movie
 import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 
-typealias MyViewState = MoviesFragment.ViewState
+typealias MoviesFragmentViewState = MoviesFragment.ViewState
 
-class MvvmViewModel : ViewModel() {
+class MoviesViewModel : ViewModel() {
 
     private val model = MoviesModel()
 
-    val viewState: LiveData<MyViewState> get() = _viewState
-    private val _viewState = MutableLiveData<MyViewState>()
+    val viewState: LiveData<MoviesFragmentViewState> get() = _viewState
+    private val _viewState = MutableLiveData<MoviesFragmentViewState>()
 
     val dataList: LiveData<List<Movie>> get() = _dataList
     private val _dataList = MutableLiveData<List<Movie>>()
@@ -27,7 +27,7 @@ class MvvmViewModel : ViewModel() {
         model.loadMovies(object : MoviesModel.LoadMovieCallback {
             override fun onLoad(movies: List<Movie>?) {
                 _dataList.postValue(movies)
-                _viewState.postValue(MyViewState(isDownloaded = false))
+                _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))
             }
         })
     }
@@ -36,7 +36,7 @@ class MvvmViewModel : ViewModel() {
         model.loadMovie(object : MoviesModel.LoadMovieByIdCallback {
             override fun onLoad(movie: Movie?) {
                 _currentMovie.postValue(movie)
-                _viewState.postValue(MyViewState(isDownloaded = false))
+                _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))
             }
         }, id)
     }
@@ -45,7 +45,7 @@ class MvvmViewModel : ViewModel() {
     }
 
     fun clear(context: Context) {
-        _viewState.postValue(MyViewState(isDownloaded = true))
+        _viewState.postValue(MoviesFragmentViewState(isDownloaded = true))
         model.clearMovies(object : MoviesModel.CompleteCallback {
             override fun onComplete() {
                 loadMovies()

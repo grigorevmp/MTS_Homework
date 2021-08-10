@@ -16,10 +16,10 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mikhailgrigorev.mts_home.movieData.Movie
-import com.mikhailgrigorev.mts_home.mvvm.MvvmViewModel
+import com.mikhailgrigorev.mts_home.mvvm.MovieCardViewModel
 
 class MoviesDetailFragment: Fragment() {
-    private val movieViewModel: MvvmViewModel by viewModels()
+    private val movieCardViewModel: MovieCardViewModel by viewModels()
     private val progressDialog by lazy {
         ProgressDialog.show(
             this.context,
@@ -58,10 +58,10 @@ class MoviesDetailFragment: Fragment() {
         ageRating = view.findViewById(R.id.ageRating)
         ratingbar = view.findViewById(R.id.ratingbar)
 
-        movieViewModel.currentMovie.observe(viewLifecycleOwner, Observer(::setDataToFragment))
-        movieViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
+        movieCardViewModel.currentMovie.observe(viewLifecycleOwner, Observer(::setDataToFragment))
+        movieCardViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
 
-        movieViewModel.loadMovie(safeArgs.id)
+        movieCardViewModel.loadMovie(safeArgs.id)
 
         return view
     }
@@ -86,13 +86,18 @@ class MoviesDetailFragment: Fragment() {
         ratingbar.rating = movie.rateScore.toFloat()
     }
 
-    private fun render(viewState: MoviesFragment.ViewState) = with(viewState) {
+    private fun render(viewState: MoviesDetailFragment.ViewState) = with(viewState) {
         if (isDownloaded) {
             progressDialog.show()
         } else {
             progressDialog.dismiss()
         }
     }
+
+    data class ViewState(
+        val isDownloaded: Boolean = false
+    )
+
 
 
 }
