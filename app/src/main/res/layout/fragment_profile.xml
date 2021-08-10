@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/userLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/movies_screen_margin"
@@ -44,7 +44,7 @@
         android:layout_marginStart="@dimen/movies_screen_margin"
         android:textSize="@dimen/movie_description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/userLogin" />
 
     <TextView
         android:id="@+id/interests"
@@ -374,7 +374,7 @@
                 android:layout_height="@dimen/bottom_bar_height"
                 app:cornerRadius="@dimen/button_corner"
                 android:layout_marginTop="@dimen/subhead_top_margin"
-                android:layout_marginBottom="@dimen/subhead_top_margin"
+                android:layout_marginBottom="@dimen/logout_button_bottom"
                 android:layout_marginStart="@dimen/movies_screen_margin"
                 android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:backgroundTint="@color/button_grey"

@@ -2,17 +2,54 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation">
+    android:id="@+id/navigation"
+    app:startDestination="@id/movies_fragment">
 
     <fragment
-        android:id="@+id/navigation_1"
-        tools:layout="@layout/fragment_movies_list" />
+        android:id="@+id/movies_fragment"
+        android:name="com.mikhailgrigorev.mts_home.MoviesFragment"
+        tools:layout="@layout/fragment_movies_list" >
+
+        <action
+            android:id="@+id/action_open_profile"
+            app:destination="@id/profile_fragment">
+        </action>
+        <action
+            android:id="@+id/action_open_movie"
+            app:destination="@id/movies_detail_fragment" >
+
+            <argument
+                android:name = "id"
+                app:argType = "integer"
+                />
+
+        </action>
+    </fragment>
     <fragment
-        android:id="@+id/navigation_2"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/profile_fragment"
+        android:name="com.mikhailgrigorev.mts_home.ProfileFragment"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_open_movies"
+            app:destination="@id/movies_fragment" />
+    </fragment>
     <fragment
-        android:id="@+id/navigation_3"
-        tools:layout="@layout/fragment_movie_details" />
+        android:id="@+id/movies_detail_fragment"
+        android:name="com.mikhailgrigorev.mts_home.MoviesDetailFragment"
+        tools:layout="@layout/fragment_movie_details" >
+        <argument
+            android:name = "id"
+            app:argType = "integer"
+            />
+        <action
+            android:id="@+id/action_open_movies"
+            app:destination="@id/movies_fragment" />
+        <action
+            android:id="@+id/action_open_profile"
+            app:destination="@id/profile_fragment"
+            app:popUpTo="@id/movies_detail_fragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 
 </navigation>
 

@@ -5,11 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.genreData.GenreData
-import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
-import com.mikhailgrigorev.mts_home.genreData.GenreModel
-import com.mikhailgrigorev.mts_home.movieData.MovieData
-import com.mikhailgrigorev.mts_home.movieData.MoviesDataSourceImpl
-import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 
 interface OnGenreItemClickListener {
     fun onGenreItemClick(genre: String)

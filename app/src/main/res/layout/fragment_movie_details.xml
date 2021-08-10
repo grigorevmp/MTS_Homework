@@ -14,31 +14,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/gnev"
         android:adjustViewBounds="true"
         tools:srcCompat="@drawable/makkellani"
         android:contentDescription="@string/cover_description" />
 
-    <LinearLayout
+
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/bottomSheet"
         app:behavior_hideable="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="5dp"
-        android:background="@drawable/card_backgroud_res"
+        android:background="@drawable/card_background_res"
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/genre_top_margin"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginTop="@dimen/genre_top_margin"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -65,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/date_right_margin"
-                        android:text="@string/date"
+                        tools:text="@string/date"
                         android:textColor="@color/black"
                         android:textSize="@dimen/date_size"
                         app:layout_constraintStart_toEndOf="@+id/genre"
@@ -78,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/small_top_margin"
-                    android:text="@string/movie_name"
+                    tools:text="@string/movie_name"
                     android:textColor="@color/black"
                     android:textSize="@dimen/movie_name_size" />
 
@@ -93,7 +98,7 @@
                 android:paddingStart="@dimen/genre_start_text"
                 android:paddingTop="@dimen/genre_top_text"
                 android:paddingEnd="@dimen/genre_end_text"
-                android:text="@string/ageRating"
+                tools:text="@string/ageRating"
                 android:textColor="@color/black"
                 android:textSize="@dimen/age_text_size" />
         </LinearLayout>
@@ -104,50 +109,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/rating_top_margin">
 
-            <ImageView
-                android:id="@+id/star1"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/ratingbar"
+                style="@style/CustomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                tools:numStars="5"
+                android:isIndicator="true"
                 android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite_full"
-                app:tint="@color/black" />
-
-            <ImageView
-                android:id="@+id/star2"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
-                android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite_full"
-                app:tint="@color/black" />
-
-            <ImageView
-                android:id="@+id/star3"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
-                android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite_full"
-                app:tint="@color/black" />
-
-            <ImageView
-                android:id="@+id/star4"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
-                android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite_full"
-                app:tint="@color/black" />
-
-            <ImageView
-                android:id="@+id/star5"
-                android:layout_width="@dimen/star_width"
-                android:layout_height="@dimen/star_height"
-                android:backgroundTint="@color/black"
-                android:contentDescription="@string/rating_description"
-                android:src="@drawable/ic_favorite"
-                app:tint="@color/black" />
+                android:progressTint="@color/black"
+                android:progressBackgroundTint="@color/black"
+                android:stepSize="1"
+                android:rating="5"/>
 
         </LinearLayout>
 
@@ -156,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/description_top_margin"
-            android:text="@string/movie_description"
+            tools:text="@string/movie_description"
             android:textColor="@color/black"
             android:textSize="@dimen/movie_description" />
 
@@ -262,9 +235,9 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+        </LinearLayout>
 
-    </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

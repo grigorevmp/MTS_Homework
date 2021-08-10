@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Homework/app/src/main/res/drawable-anydpi/ic_favorite1.xml" value="0.3231111111111111" />
+        <entry key="..\:/Homework/app/src/main/res/drawable-anydpi/ic_favorite_full1.xml" value="0.3231111111111111" />
+        <entry key="..\:/Homework/app/src/main/res/layout-land/fragment_movie_details.xml" value="0.3054054054054054" />
+        <entry key="..\:/Homework/app/src/main/res/layout-land/fragment_profile.xml" value="0.2481981981981982" />
+        <entry key="..\:/Homework/app/src/main/res/layout/fragment_movie_details.xml" value="0.3070652173913043" />
         <entry key="..\:/Homework/app/src/main/res/layout/fragment_movies_list.xml" value="0.3070652173913043" />
+        <entry key="..\:/Homework/app/src/main/res/layout/fragment_profile.xml" value="0.31351351351351353" />
       </map>
     </option>
   </component>

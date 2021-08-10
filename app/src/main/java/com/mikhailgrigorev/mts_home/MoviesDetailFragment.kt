@@ -1,98 +1,103 @@
 package com.mikhailgrigorev.mts_home
 
+import android.app.ProgressDialog
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mikhailgrigorev.mts_home.movieData.MovieData
+import com.mikhailgrigorev.mts_home.mvvm.MovieCardViewModel
 
-class MoviesDetailFragment: Fragment()  {
+class MoviesDetailFragment: Fragment() {
+
+    private val movieViewModel: MovieCardViewModel by viewModels()
+
+    private val progressDialog by lazy {
+        ProgressDialog.show(
+            this.context,
+            "",
+            getString(R.string.please_wait)
+        )
+    }
+
+    private lateinit var movieName: TextView
+    private lateinit var movieDescription: TextView
+    private lateinit var movieCoverValue: ImageView
+    private lateinit var ageRating: TextView
+    private lateinit var ratingbar: RatingBar
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //return super.onCreateView(inflater, container, savedInstanceState)
+
         val view = inflater.inflate(R.layout.fragment_movie_details, container, false)
 
-        val bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById<LinearLayout>(R.id.bottomSheet))
+        val safeArgs = MoviesDetailFragmentArgs.fromBundle(requireArguments())
+
+        val bottomSheetBehavior =
+            BottomSheetBehavior.from(view.findViewById<LinearLayout>(R.id.bottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
-        val movieNameValue = view.findViewById<TextView>(R.id.movieName)?.apply {
-            text = arguments?.getString("MovieTitle")
+        val orientation = this.resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            bottomSheetBehavior.peekHeight=600
         }
 
-        val movieDescriptionValue = view.findViewById<TextView>(R.id.movie_description)?.apply {
-            text = arguments?.getString("MovieDesc")
-        }
+        movieName = view.findViewById(R.id.movieName)
+        movieDescription = view.findViewById(R.id.movie_description)
+        movieCoverValue = view.findViewById(R.id.movieCover)
+        ageRating = view.findViewById(R.id.ageRating)
+        ratingbar = view.findViewById(R.id.ratingbar)
 
-        val movieCoverValue = view.findViewById<ImageView>(R.id.movieCover)
+        movieViewModel.currentMovie.observe(viewLifecycleOwner, Observer(::setDataToFragment))
+        movieViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
 
-        movieCoverValue?.load(arguments?.getString("MovieImageUrl"))
-
-        val ageRatingValue = view.findViewById<TextView>(R.id.ageRating)?.apply {
-            text =
-                context.getString(R.string.main_age_restriction_text, arguments?.getInt("MovieAge"))
-        }
-
-        val movieStar1 = view.findViewById<ImageView>(R.id.star1)
-        val movieStar2 = view.findViewById<ImageView>(R.id.star2)
-        val movieStar3 = view.findViewById<ImageView>(R.id.star3)
-        val movieStar4 = view.findViewById<ImageView>(R.id.star4)
-        val movieStar5 = view.findViewById<ImageView>(R.id.star5)
-
-        when (arguments?.getInt("MovieRate")) {
-            1 ->
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-            2 -> {
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar2.setBackgroundResource(R.drawable.ic_favorite_full)
-            }
-            3 -> {
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar2.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar3.setBackgroundResource(R.drawable.ic_favorite_full)
-            }
-            4 -> {
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar2.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar3.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar4.setBackgroundResource(R.drawable.ic_favorite_full)
-            }
-            5 -> {
-                movieStar1.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar2.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar3.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar4.setBackgroundResource(R.drawable.ic_favorite_full)
-                movieStar5.setBackgroundResource(R.drawable.ic_favorite_full)
-            }
-        }
-
-
+        movieViewModel.loadMovie(safeArgs.id)
 
         return view
     }
 
-    companion object {
-        fun newInstance(movieImageUrl: String, movieTitle: String,
-                        movieDesc: String, movieAge: Int, movieStar: Int): MoviesDetailFragment {
-            val args = Bundle()
-            args.putString("MovieImageUrl", movieImageUrl)
-            args.putString("MovieTitle", movieTitle)
-            args.putString("MovieDesc", movieDesc)
-            args.putInt("MovieAge", movieAge)
-            args.putInt("MovieRate", movieStar)
-            val fragment = MoviesDetailFragment()
-            fragment.arguments = args
-            return fragment
+    private fun setDataToFragment(movie: MovieData) {
+        movieName.apply {
+            text = movie.title
+        }
+
+        movieDescription.apply {
+            text = movie.description
+        }
+
+
+        movieCoverValue.load(movie.imageUrl)
+
+        ageRating.apply {
+            text =
+                context.getString(R.string.main_age_restriction_text, movie.ageRestriction)
+        }
+
+        ratingbar.rating = movie.rateScore.toFloat()
+    }
+
+    private fun render(viewState: MoviesDetailFragment.ViewState) = with(viewState) {
+        if (isDownloaded) {
+            progressDialog.show()
+        } else {
+            progressDialog.dismiss()
         }
     }
 
 
+    data class ViewState(
+        val isDownloaded: Boolean = false
+    )
 }
