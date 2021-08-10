@@ -124,7 +124,9 @@ class MoviesFragment : Fragment() {
             runBlocking {
                 val job = lifecycleScope.launch(handler + Job()) {
                     onMoviesChanged(
+
                         baseMoviesModel.getRandomMovies()
+
                     )
                     swipeContainer.isRefreshing = false
                 }

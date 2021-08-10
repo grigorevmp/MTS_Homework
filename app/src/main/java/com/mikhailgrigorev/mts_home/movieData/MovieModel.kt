@@ -121,4 +121,5 @@ interface MoviesModelApi {
     fun loadMovie(callback: MoviesModel.LoadMovieByIdCallback?, id: Int)
     fun addMovie(contentValues: ContentValues?, callback: MoviesModel.CompleteCallback?)
     fun clearMovies(completeCallback: MoviesModel.CompleteCallback?)
+
 }
