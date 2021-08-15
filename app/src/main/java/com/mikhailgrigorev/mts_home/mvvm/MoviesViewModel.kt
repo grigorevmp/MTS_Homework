@@ -3,9 +3,10 @@ package com.mikhailgrigorev.mts_home.mvvm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mikhailgrigorev.mts_home.MovieResponse.MoviesModel
 import com.mikhailgrigorev.mts_home.MoviesFragment
+import com.mikhailgrigorev.mts_home.api.MovieResponse
 import com.mikhailgrigorev.mts_home.movieData.MovieData
-import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 
 typealias MoviesFragmentViewState = MoviesFragment.ViewState
 
@@ -16,13 +17,13 @@ class MoviesViewModel : ViewModel() {
     val viewState: LiveData<MoviesFragmentViewState> get() = _viewState
     private val _viewState = MutableLiveData<MoviesFragmentViewState>()
 
-    val dataList: LiveData<List<MovieData>> get() = _dataList
-    private val _dataList = MutableLiveData<List<MovieData>>()
+    val dataList: LiveData<List<MovieResponse>> get() = _dataList
+    private val _dataList = MutableLiveData<List<MovieResponse>>()
 
 
     fun loadMovies() {
         model.loadMovies(object : MoviesModel.LoadMovieCallback {
-            override fun onLoad(movies: List<MovieData>?) {
+            override fun onLoad(movies: List<MovieResponse>?) {
                 _dataList.postValue(movies)
                 _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))
             }

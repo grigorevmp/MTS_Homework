@@ -15,7 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.mikhailgrigorev.mts_home.movieData.MovieData
+import com.mikhailgrigorev.mts_home.api.MovieResponse
 import com.mikhailgrigorev.mts_home.mvvm.MovieCardViewModel
 
 class MoviesDetailFragment: Fragment() {
@@ -68,27 +68,27 @@ class MoviesDetailFragment: Fragment() {
         return view
     }
 
-    private fun setDataToFragment(movie: MovieData) {
+    private fun setDataToFragment(movie: MovieResponse) {
         movieName.apply {
             text = movie.title
         }
 
         movieDescription.apply {
-            text = movie.description
+            text = movie.overview
         }
 
 
-        movieCoverValue.load(movie.imageUrl)
+        movieCoverValue.load(movie.poster_path)
 
         ageRating.apply {
             text =
                 context.getString(R.string.main_age_restriction_text, movie.ageRestriction)
         }
 
-        ratingbar.rating = movie.rateScore.toFloat()
+        ratingbar.rating = movie.vote_average.toFloat()
     }
 
-    private fun render(viewState: MoviesDetailFragment.ViewState) = with(viewState) {
+    private fun render(viewState: ViewState) = with(viewState) {
         if (isDownloaded) {
             progressDialog.show()
         } else {
