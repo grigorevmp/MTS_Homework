@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Homework</string>
+    <string name="app_name">TheMovieDatabase Client</string>
     <string name="cover_description">Image of movie</string>
     <string name="thriller">боевики</string>
     <string name="drama">драмы</string>

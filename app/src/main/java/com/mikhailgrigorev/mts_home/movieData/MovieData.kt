@@ -1,5 +1,8 @@
 package com.mikhailgrigorev.mts_home.movieData
 
+import java.io.Serializable
+import java.util.ArrayList
+
 data class MovieData(
     val id: Int,
     val title: String,

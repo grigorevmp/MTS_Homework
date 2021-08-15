@@ -1,9 +1,15 @@
-package com.mikhailgrigorev.mts_home.movieData
+package com.mikhailgrigorev.mts_home.MovieResponse
 
 import android.content.ContentValues
 import android.os.AsyncTask
-import kotlinx.coroutines.delay
-import kotlin.random.Random
+import com.mikhailgrigorev.mts_home.App
+import com.mikhailgrigorev.mts_home.api.MovieResponse
+import com.mikhailgrigorev.mts_home.api.ObjectResponse
+import com.mikhailgrigorev.mts_home.movieData.MoviesDataSource
+import kotlinx.serialization.SerialName
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BaseMoviesModel(
     private val moviesDataSource: MoviesDataSource
@@ -11,11 +17,11 @@ class BaseMoviesModel(
 
     private fun getMovies() = moviesDataSource.getMovies()
 
-    suspend fun getRandomMovies(): List<MovieData> {
-        delay(2000)
-        val start = Random.nextInt(0, 3)
-        return getMovies().subList(start, getMovies().size - 3 + start)
-    }
+    // suspend fun getRandomMovies(): List<MovieResponse> {
+    //     delay(2000)
+    //     val start = Random.nextInt(0, 3)
+    //     return getMovies().subList(start, getMovies().size - 3 + start)
+    // }
 
 
 }
@@ -43,11 +49,11 @@ class MoviesModel : MoviesModelApi {
     }
 
     interface LoadMovieCallback {
-        fun onLoad(movies: List<MovieData>?)
+        fun onLoad(movies: List<MovieResponse>?)
     }
 
     interface LoadMovieByIdCallback {
-        fun onLoad(movie: MovieData?)
+        fun onLoad(movie: MovieResponse)
     }
 
     interface CompleteCallback {
@@ -59,18 +65,26 @@ class LoadMovieTask(
     private val callback: MoviesModel.LoadMovieByIdCallback?,
     private val id: Int
 ) :
-    AsyncTask<Void?, Void?, MovieData>() {
-    override fun doInBackground(vararg params: Void?): MovieData {
-        var resultMovie: MovieData? = null
-        val allMovies = MoviesDataSourceImpl().getMovies()
-        for (movie in allMovies){
-            if (movie.id == id)
-                resultMovie = movie
-        }
-        return resultMovie!!
+    AsyncTask<Void?, Void?, MovieResponse>() {
+    override fun doInBackground(vararg params: Void?): MovieResponse {
+        // var resultMovie: MovieResponse? = null
+        // val allMovies = MoviesDataSourceImpl().getMovies()
+        // for (movie in allMovies){
+        //     if (movie.id == id)
+        //         resultMovie = movie
+        // }
+        // return resultMovie!!
+        return MovieResponse(0, "2",  "r", "f", 4, 17, arrayListOf(4, 5),
+            false,
+            "9",
+            "9",
+           false,
+            6F,
+            6,
+            "58",)
     }
 
-    override fun onPostExecute(movie: MovieData) {
+    override fun onPostExecute(movie: MovieResponse) {
         callback?.onLoad(movie)
     }
 }
@@ -78,13 +92,29 @@ class LoadMovieTask(
 class LoadMoviesTask(
     private val callback: MoviesModel.LoadMovieCallback?
 ) :
-    AsyncTask<Void?, Void?, List<MovieData>>() {
-    override fun doInBackground(vararg params: Void?): List<MovieData> {
-        return MoviesDataSourceImpl().getMovies()
+    AsyncTask<Void?, Void?, List<MovieResponse>>() {
+    override fun doInBackground(vararg params: Void?): List<MovieResponse> {
+        var result: List<MovieResponse> = arrayListOf()
+        App.instance.apiService.getMovies().enqueue(object : Callback<ObjectResponse> {
+            override fun onResponse(
+                call: Call<ObjectResponse>,
+                response: Response<ObjectResponse>
+            ) {
+                result = response.body()?.results ?: emptyList()
+            }
+
+            override fun onFailure(call: Call<ObjectResponse>, t: Throwable) {
+            }
+        })
+        return result
     }
 
-    override fun onPostExecute(movies: List<MovieData>) {
-        callback?.onLoad(movies)
+
+    // return MoviesDataSourceImpl().getMovies()
+
+
+    override fun onPostExecute(result: List<MovieResponse>?) {
+        callback?.onLoad(result)
     }
 }
 

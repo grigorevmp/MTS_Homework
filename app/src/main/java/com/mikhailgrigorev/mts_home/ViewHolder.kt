@@ -6,9 +6,10 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.mikhailgrigorev.mts_home.movieData.MovieData
+import com.mikhailgrigorev.mts_home.api.MovieResponse
+import com.mikhailgrigorev.mts_home.movieData.OnItemClickListener
 
-
+const val PATH_HEADER = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
 
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -18,13 +19,15 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ratingbar = itemView.findViewById<RatingBar>(R.id.ratingbar)
         private val movieAge = itemView.findViewById<TextView>(R.id.list_item_ageRating)
 
-        fun bind(movie: MovieData, position: Int, clickListener: OnItemClickListener) {
+        fun bind(movie: MovieResponse, position: Int, clickListener: OnItemClickListener) {
 
-            movieCover?.load(movie.imageUrl)
+            val uri = PATH_HEADER + movie.poster_path
+
+            movieCover?.load(uri)
             movieName?.text = movie.title
-            movieDesc?.text = movie.description
+            movieDesc?.text = movie.overview
 
-            ratingbar.rating = movie.rateScore.toFloat()
+            ratingbar.rating = movie.vote_average.toFloat()
 
             movieAge?.text =
                 itemView.context.getString(R.string.main_age_restriction_text, movie.ageRestriction)
