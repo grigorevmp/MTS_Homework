@@ -15,6 +15,13 @@ data class ObjectResponse(
 
 @Keep
 @Serializable
+data class GenresResponse(
+    @SerialName("genres") val genres: List<GenreResponse>
+)
+
+
+@Keep
+@Serializable
 data class GenreResponse(
     @SerialName("id") val id: Int = 0,
     @SerialName("name") val genre: String = "null"

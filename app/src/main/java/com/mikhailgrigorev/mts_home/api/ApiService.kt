@@ -36,7 +36,7 @@ interface ApiService {
     @GET("genre/movie/list")
     fun getGenres(
         @Query("api_key") api_key: String = API_KEY
-    ): Call<MovieResponse>
+    ): Call<GenresResponse>
 
 
     companion object {

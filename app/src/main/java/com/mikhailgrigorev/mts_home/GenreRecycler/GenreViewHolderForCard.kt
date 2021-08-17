@@ -7,17 +7,17 @@ import com.mikhailgrigorev.mts_home.R
 import com.mikhailgrigorev.mts_home.api.GenreResponse
 import com.mikhailgrigorev.mts_home.genreData.Genre
 
-class GenreViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class GenreViewHolderForCard(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     private var parent = itemView.findViewById<TextView>(R.id.item_tag_root)
 
-    fun bind(genre: Genre, clickListener: OnGenreItemClickListener?) {
+    fun bind(genre: GenreResponse, clickListener: OnGenreItemClickListener?) {
 
-        parent.text = genre.name
+        parent.text = genre.genre
 
         if(clickListener != null)
             itemView.setOnClickListener {
-                clickListener.onGenreItemClick(genre.name)
+                clickListener.onGenreItemClick(genre.genre)
             }
     }
 }

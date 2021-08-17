@@ -20,10 +20,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.OnGenreItemClickListener
+import com.mikhailgrigorev.mts_home.Movie.MoviesDataSourceImpl
 import com.mikhailgrigorev.mts_home.api.MovieResponse
 import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
+import com.mikhailgrigorev.mts_home.genreData.GenreModelPreview
 import com.mikhailgrigorev.mts_home.movieData.*
+import com.mikhailgrigorev.mts_home.mvvm.GenresViewModel
 import com.mikhailgrigorev.mts_home.mvvm.MoviesViewModel
 import com.mikhailgrigorev.mts_home.network.NetworkManager
 import com.mikhailgrigorev.mts_home.network.NetworkManagerImpl
@@ -31,8 +34,6 @@ import kotlinx.coroutines.*
 
 
 class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
-    private lateinit var baseMoviesModel: BaseMoviesModel
-    private lateinit var genreModel: GenreModel
     private lateinit var adapter: MoviesAdapter
     private lateinit var recycler: RecyclerView
     private lateinit var recyclerEmpty: TextView
@@ -42,6 +43,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
 
 
     private val movieViewModel: MoviesViewModel by viewModels()
+    private val genreViewModel: GenresViewModel by viewModels()
 
     private val progressDialog by lazy { ProgressDialog.show(this.context, "", getString(R.string.please_wait)) }
 
@@ -87,7 +89,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
 
         adapter = MoviesAdapter(view.context, listener)
         adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
-        adapterGenre = GenreAdapter(view.context, genreModel.getGenres(), listenerGenre)
+        adapterGenre = GenreAdapter(view.context, listenerGenre)
         adapterGenre.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 
 
@@ -105,7 +107,11 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         movieViewModel.dataList.observe(viewLifecycleOwner, Observer(adapter::initData))
         movieViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
 
+        genreViewModel.dataList.observe(viewLifecycleOwner, Observer(adapterGenre::initData))
+        genreViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
+
         movieViewModel.loadMovies()
+        genreViewModel.loadMovies()
 
         gd.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -178,8 +184,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
     }
 
     private fun initDataSource() {
-        //baseMoviesModel = BaseMoviesModel(MoviesDataSourceImpl())
-        genreModel = GenreModel(GenreDataSourceImpl())
+        //test
     }
 
 

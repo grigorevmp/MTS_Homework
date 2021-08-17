@@ -1,11 +1,11 @@
 package com.mikhailgrigorev.mts_home
 
 import androidx.recyclerview.widget.DiffUtil
-import com.mikhailgrigorev.mts_home.movieData.MovieData
+import com.mikhailgrigorev.mts_home.movieData.Movie
 
 class MovieCallback (
-    private val oldList: List<MovieData>,
-    private val newList: List<MovieData>,
+    private val oldList: List<Movie>,
+    private val newList: List<Movie>,
         ): DiffUtil.Callback(){
     override fun getOldListSize(): Int = oldList.size
 
