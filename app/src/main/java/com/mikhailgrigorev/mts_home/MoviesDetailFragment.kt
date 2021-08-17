@@ -15,6 +15,7 @@ import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mikhailgrigorev.mts_home.ActorsRecycler.ActorAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapter
+import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapterForCard
 import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
 import com.mikhailgrigorev.mts_home.mvvm.MovieCardViewModel
 
@@ -36,7 +37,7 @@ class MoviesDetailFragment: Fragment() {
     private lateinit var ageRating: TextView
     private lateinit var ratingbar: RatingBar
     private lateinit var releaseDate: TextView
-    private lateinit var adapterGenre: GenreAdapter
+    private lateinit var adapterGenre: GenreAdapterForCard
     private lateinit var adapterActor: ActorAdapter
     private lateinit var recyclerGenre: RecyclerView
     private lateinit var recyclerActor: RecyclerView
@@ -91,7 +92,7 @@ class MoviesDetailFragment: Fragment() {
             text = movie.release_date
         }
 
-        adapterGenre = GenreAdapter(this.requireView().context, movie.genres, null)
+        adapterGenre = GenreAdapterForCard(this.requireView().context, movie.genres, null)
         adapterGenre.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 
         adapterActor= ActorAdapter(this.requireView().context, movie.credits.cast)

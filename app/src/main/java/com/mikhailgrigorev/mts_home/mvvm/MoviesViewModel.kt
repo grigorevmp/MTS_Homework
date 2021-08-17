@@ -7,7 +7,7 @@ import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.MoviesFragment
 import com.mikhailgrigorev.mts_home.api.MovieResponse
 import com.mikhailgrigorev.mts_home.api.ObjectResponse
-import com.mikhailgrigorev.mts_home.movieData.MovieData
+import com.mikhailgrigorev.mts_home.movieData.Movie
 import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,7 +44,7 @@ class MoviesViewModel : ViewModel() {
         })
     }
 
-    fun add(userData: MovieData) {
+    fun add(userData: Movie) {
     }
 
     fun clear() {

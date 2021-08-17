@@ -1,11 +1,14 @@
 package com.mikhailgrigorev.mts_home.GenreRecycler
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.R
 import com.mikhailgrigorev.mts_home.api.GenreResponse
+import com.mikhailgrigorev.mts_home.api.MovieResponse
+import com.mikhailgrigorev.mts_home.genreData.Genre
 
 interface OnGenreItemClickListener {
     fun onGenreItemClick(genre: String)
@@ -13,9 +16,11 @@ interface OnGenreItemClickListener {
 
 class GenreAdapter(
     context: Context,
-    var genres: List<GenreResponse>,
     private val itemClickListener: OnGenreItemClickListener?):
     RecyclerView.Adapter<GenreViewHolder>() {
+
+
+    var genres: MutableList<Genre> = ArrayList()
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -29,11 +34,21 @@ class GenreAdapter(
 
     override fun getItemCount() = genres.size
 
-    private fun getGenreAt(position: Int): GenreResponse? {
+    private fun getGenreAt(position: Int): Genre? {
         return when {
             genres.isEmpty() -> null
             position >= genres.size -> null
             else -> genres[position]
+        }
+    }
+
+
+    fun initData(genres_: List<Genre>?) {
+        if (genres_ != null) {
+            genres.clear()
+            genres.addAll(genres_)
+            notifyDataSetChanged()
+            Log.d("initDataBlock", "size  = $itemCount")
         }
     }
 }
