@@ -41,11 +41,11 @@ class UserAccountHelper {
         }
 
         private fun md5(s: String): String {
-            val MD5 = "MD5"
+            val md5 = "MD5"
             try {
                 // Create MD5 Hash
                 val digest: MessageDigest = MessageDigest
-                    .getInstance(MD5)
+                    .getInstance(md5)
                 digest.update(s.toByteArray())
                 val messageDigest: ByteArray = digest.digest()
 
