@@ -10,6 +10,9 @@ import com.mikhailgrigorev.mts_home.api.GenresResponse
 import com.mikhailgrigorev.mts_home.genreData.Genre
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
 import com.mikhailgrigorev.mts_home.genreData.GenreRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
 
@@ -34,13 +37,14 @@ class GenresViewModel : ViewModel() {
                     response: Response<GenresResponse>
                 ) {
                     val genres: MutableList<Genre> = arrayListOf()
-                    val genres_ = response.body()!!.genres
-                    for (genre in genres_){
+                    val genresResponse = response.body()!!.genres
+                    for (genre in genresResponse) {
                         genres.add(Genre(genre.id, genre.genre))
                     }
-
-                    val movieRepo = GenreRepository(Application())
-                    movieRepo.insertAll(genres)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val movieRepo = GenreRepository(Application())
+                        movieRepo.insertAll(genres)
+                    }
 
                     _dataList.postValue(genres)
                     _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))

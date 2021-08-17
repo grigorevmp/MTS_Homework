@@ -1,13 +1,12 @@
 package com.mikhailgrigorev.mts_home.GenreRecycler
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.R
-import com.mikhailgrigorev.mts_home.api.GenreResponse
-import com.mikhailgrigorev.mts_home.api.MovieResponse
 import com.mikhailgrigorev.mts_home.genreData.Genre
 
 interface OnGenreItemClickListener {
@@ -20,7 +19,7 @@ class GenreAdapter(
     RecyclerView.Adapter<GenreViewHolder>() {
 
 
-    var genres: MutableList<Genre> = ArrayList()
+    private var genres: MutableList<Genre> = ArrayList()
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -43,6 +42,7 @@ class GenreAdapter(
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun initData(genres_: List<Genre>?) {
         if (genres_ != null) {
             genres.clear()

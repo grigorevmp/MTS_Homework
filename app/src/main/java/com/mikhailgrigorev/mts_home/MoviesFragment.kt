@@ -20,11 +20,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.OnGenreItemClickListener
-import com.mikhailgrigorev.mts_home.Movie.MoviesDataSourceImpl
 import com.mikhailgrigorev.mts_home.api.MovieResponse
-import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
-import com.mikhailgrigorev.mts_home.genreData.GenreModel
-import com.mikhailgrigorev.mts_home.genreData.GenreModelPreview
+import com.mikhailgrigorev.mts_home.genreData.GenreRepository
 import com.mikhailgrigorev.mts_home.movieData.*
 import com.mikhailgrigorev.mts_home.mvvm.GenresViewModel
 import com.mikhailgrigorev.mts_home.mvvm.MoviesViewModel
@@ -69,7 +66,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         recyclerEmpty = view.findViewById(R.id.emptyMoviesList)
         recyclerGenre = view.findViewById(R.id.genreList)
 
-        initDataSource()
+        initDataSource(view)
 
 
         val listener: OnItemClickListener = object : OnItemClickListener {
@@ -153,12 +150,6 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // init()
-        //requestData()
-    }
-
     private fun init(){
         networkStateManager = context?.let { NetworkManagerImpl(it) }
         networkStateManager?.register(this)
@@ -183,8 +174,11 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         }
     }
 
-    private fun initDataSource() {
-        //test
+    private fun initDataSource(view: View) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val movieRepo = MovieRepository(view.context)
+            val genreRepo = GenreRepository(view.context)
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.mikhailgrigorev.mts_home.movieData
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,7 +21,7 @@ class MoviesAdapter(
     private val itemClickListener: OnItemClickListener
 
 ) : RecyclerView.Adapter<ViewHolder>() {
-    var movies: MutableList<MovieResponse> = ArrayList()
+    private var movies: MutableList<MovieResponse> = ArrayList()
 
     companion object {
         const val VIEW_CARD_MOVIE = 1
@@ -53,6 +54,7 @@ class MoviesAdapter(
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun initData(movies_: List<MovieResponse>?) {
         if (movies_ != null) {
             movies.clear()

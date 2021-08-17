@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        tools:srcCompat="@drawable/makkellani"
         android:contentDescription="@string/cover_description" />
 
 
@@ -96,7 +95,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/starsGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/rating_top_margin">
@@ -126,7 +124,6 @@
             android:textSize="@dimen/movie_description" />
 
         <TextView
-            android:id="@+id/actors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/date_top_margin"
@@ -142,7 +139,6 @@
             tools:ignore="ScrollViewCount">
 
             <LinearLayout
-                android:id="@+id/actor_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
