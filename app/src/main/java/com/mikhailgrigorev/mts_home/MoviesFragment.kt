@@ -18,9 +18,10 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapter
+import com.mikhailgrigorev.mts_home.GenreRecycler.OnGenreItemClickListener
 import com.mikhailgrigorev.mts_home.MovieResponse.BaseMoviesModel
 import com.mikhailgrigorev.mts_home.api.MovieResponse
-import com.mikhailgrigorev.mts_home.api.ObjectResponse
 import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
 import com.mikhailgrigorev.mts_home.movieData.*
@@ -28,18 +29,15 @@ import com.mikhailgrigorev.mts_home.mvvm.MoviesViewModel
 import com.mikhailgrigorev.mts_home.network.NetworkManager
 import com.mikhailgrigorev.mts_home.network.NetworkManagerImpl
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
     private lateinit var baseMoviesModel: BaseMoviesModel
     private lateinit var genreModel: GenreModel
     private lateinit var adapter: MoviesAdapter
-    private lateinit var adapterGenre: GenreAdapter
     private lateinit var recycler: RecyclerView
     private lateinit var recyclerEmpty: TextView
+    private lateinit var adapterGenre: GenreAdapter
     private lateinit var recyclerGenre: RecyclerView
     private lateinit var progressBar: ProgressBar
 
@@ -90,7 +88,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
 
         adapter = MoviesAdapter(view.context, listener)
         adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
-        adapterGenre = GenreAdapter(view.context, genreModel.getGenre(), listenerGenre)
+        adapterGenre = GenreAdapter(view.context, genreModel.getGenres(), listenerGenre)
         adapterGenre.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 
 
@@ -102,32 +100,13 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
             recycler.addItemDecoration(RecyclerViewDecoration(20, 50, 2, true))
         }
 
-        // movieViewModel.dataList.observe(viewLifecycleOwner, Observer(adapter::initData))
-        // movieViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
-
-        // movieViewModel.loadMovies()
-
         networkStateManager = context?.let { NetworkManagerImpl(it) }
         networkStateManager?.register(this)
-        var result: List<MovieResponse> = arrayListOf()
-        showProgressBar(isShow = true)
-        App.instance.apiService.getMovies().enqueue(object : Callback<ObjectResponse> {
-            override fun onResponse(
-                call: Call<ObjectResponse>,
-                response: Response<ObjectResponse>
-            ) {
-                result = response.body()?.results ?: emptyList()
-                adapter.initData(result)
-                recycler.adapter = adapter
-                processRequestResult(isSuccess = true)
-            }
 
-            override fun onFailure(call: Call<ObjectResponse>, t: Throwable) {
-                t.printStackTrace()
-                processRequestResult(isSuccess = false)
-            }
-        })
+        movieViewModel.dataList.observe(viewLifecycleOwner, Observer(adapter::initData))
+        movieViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
 
+        movieViewModel.loadMovies()
 
         gd.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -139,7 +118,6 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
             }
         }
 
-        adapter.initData(result)
         recycler.adapter = adapter
 
         recyclerGenre.adapter = adapterGenre
@@ -161,9 +139,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         swipeContainer.setOnRefreshListener {
             runBlocking {
                 val job = lifecycleScope.launch(handler + Job()) {
-                    //onMoviesChanged(
-                    //    baseMoviesModel.getRandomMovies()
-                    //)
+                    movieViewModel.loadMovies()
                     swipeContainer.isRefreshing = false
                 }
             }

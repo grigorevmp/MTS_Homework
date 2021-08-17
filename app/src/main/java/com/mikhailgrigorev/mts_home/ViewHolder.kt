@@ -27,10 +27,13 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             movieName?.text = movie.title
             movieDesc?.text = movie.overview
 
-            ratingbar.rating = movie.vote_average.toFloat()
+            ratingbar.rating = movie.vote_average
 
-            movieAge?.text =
-                itemView.context.getString(R.string.main_age_restriction_text, movie.ageRestriction)
+            if(movie.adult)
+                movieAge?.text =
+                    itemView.context.getString(R.string.main_age_restriction_text, 18)
+            else
+                movieAge?.visibility = View.GONE
 
             itemView.setOnClickListener {
                 clickListener.onItemClick(movie)

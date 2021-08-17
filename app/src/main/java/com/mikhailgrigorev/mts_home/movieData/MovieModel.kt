@@ -3,6 +3,8 @@ package com.mikhailgrigorev.mts_home.MovieResponse
 import android.content.ContentValues
 import android.os.AsyncTask
 import com.mikhailgrigorev.mts_home.App
+import com.mikhailgrigorev.mts_home.api.GenreResponse
+import com.mikhailgrigorev.mts_home.api.MovieOneResponse
 import com.mikhailgrigorev.mts_home.api.MovieResponse
 import com.mikhailgrigorev.mts_home.api.ObjectResponse
 import com.mikhailgrigorev.mts_home.movieData.MoviesDataSource
@@ -53,7 +55,7 @@ class MoviesModel : MoviesModelApi {
     }
 
     interface LoadMovieByIdCallback {
-        fun onLoad(movie: MovieResponse)
+        fun onLoad(movie: MovieOneResponse)
     }
 
     interface CompleteCallback {
@@ -65,8 +67,8 @@ class LoadMovieTask(
     private val callback: MoviesModel.LoadMovieByIdCallback?,
     private val id: Int
 ) :
-    AsyncTask<Void?, Void?, MovieResponse>() {
-    override fun doInBackground(vararg params: Void?): MovieResponse {
+    AsyncTask<Void?, Void?, MovieOneResponse>() {
+    override fun doInBackground(vararg params: Void?): MovieOneResponse {
         // var resultMovie: MovieResponse? = null
         // val allMovies = MoviesDataSourceImpl().getMovies()
         // for (movie in allMovies){
@@ -74,7 +76,7 @@ class LoadMovieTask(
         //         resultMovie = movie
         // }
         // return resultMovie!!
-        return MovieResponse(0, "2",  "r", "f", 4, 17, arrayListOf(4, 5),
+        return MovieOneResponse(0, "2",  "r", "f", 4F, 17, arrayListOf(GenreResponse(4, "r")),
             false,
             "9",
             "9",
@@ -84,7 +86,7 @@ class LoadMovieTask(
             "58",)
     }
 
-    override fun onPostExecute(movie: MovieResponse) {
+    override fun onPostExecute(movie: MovieOneResponse) {
         callback?.onLoad(movie)
     }
 }
