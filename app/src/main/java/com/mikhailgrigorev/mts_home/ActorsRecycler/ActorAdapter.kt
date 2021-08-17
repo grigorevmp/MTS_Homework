@@ -9,7 +9,7 @@ import com.mikhailgrigorev.mts_home.api.ActorResponse
 
 class ActorAdapter(
     context: Context,
-    var actors: List<ActorResponse>):
+    private var actors: List<ActorResponse>):
     RecyclerView.Adapter<ActorViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)

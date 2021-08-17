@@ -11,10 +11,6 @@ class App : Application() {
 
     val apiService: ApiService by lazy { ApiService.create() }
 
-    override fun onCreate() {
-        super.onCreate()
-    }
-
     companion object {
         lateinit var instance: App
             private set

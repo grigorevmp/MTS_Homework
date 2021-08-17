@@ -5,21 +5,6 @@ import android.content.ContentValues
 import android.os.AsyncTask
 
 
-class GenreModelPreview(
-    private val genresDataSource:GenreDataSourceImpl
-) {
-
-    fun getGenres() = genresDataSource.getGenres()
-
-    fun getGenre(id: Int): String? {
-        for (genre in genresDataSource.getGenres()){
-            if (genre.id == id)
-                return genre.genre
-        }
-        return null
-    }
-}
-
 class GenreModel : GenreModelApi {
 
     override fun loadGenre(callback: LoadGenreByIdCallback?, id: Int) {

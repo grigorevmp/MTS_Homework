@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/actor_card_root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -15,12 +14,11 @@
 
     <ImageView
         android:id="@+id/actor_card_image"
+        android:contentDescription="@string/profile_image"
         android:layout_width="@dimen/actor_card_width"
         android:layout_height="@dimen/actor_card_height"
-        android:contentDescription="@string/card_of_an_actor"
         android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:src="@drawable/steitem" />
+        android:adjustViewBounds="true" />
 
     </androidx.cardview.widget.CardView>
 

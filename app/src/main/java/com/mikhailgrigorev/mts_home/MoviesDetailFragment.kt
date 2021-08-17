@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mikhailgrigorev.mts_home.ActorsRecycler.ActorAdapter
-import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapterForCard
 import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
 import com.mikhailgrigorev.mts_home.mvvm.MovieCardViewModel
@@ -111,7 +110,7 @@ class MoviesDetailFragment: Fragment() {
                 context.getString(R.string.main_age_restriction_text, movie.ageRestriction)
         }
 
-        ratingbar.rating = movie.vote_average.toFloat()
+        ratingbar.rating = movie.vote_average
     }
 
 

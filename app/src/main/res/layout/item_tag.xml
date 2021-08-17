@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/genre_vertical_margin"
     android:paddingEnd="@dimen/genre_horizontal_margin"
     android:paddingBottom="@dimen/genre_vertical_margin"
-    tools:text="@string/thriller"
+    android:gravity="center"
+    tools:text="t"
     android:textColor="@color/black"
     android:textSize="@dimen/genre_size" />

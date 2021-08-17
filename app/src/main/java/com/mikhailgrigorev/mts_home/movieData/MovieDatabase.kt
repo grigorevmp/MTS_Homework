@@ -50,9 +50,9 @@ abstract class MovieDatabase : RoomDatabase() {
 
         private fun populateDatabase(db: MovieDatabase) {
             val movieDao = db.movieDao()
-            CoroutineScope(IO).launch {
-                movieDao!!.insertAll(MovieTestData.getMovies())
-            }
+            //CoroutineScope(IO).launch {
+                //movieDao!!.insertAll(MovieTestData.getMovies())
+            //}
         }
 
 

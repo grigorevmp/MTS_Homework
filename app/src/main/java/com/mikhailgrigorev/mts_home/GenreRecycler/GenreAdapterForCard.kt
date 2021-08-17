@@ -9,7 +9,7 @@ import com.mikhailgrigorev.mts_home.api.GenreResponse
 
 class GenreAdapterForCard(
     context: Context,
-    var genres: List<GenreResponse>,
+    private var genres: List<GenreResponse>,
     private val itemClickListener: OnGenreItemClickListener?):
     RecyclerView.Adapter<GenreViewHolderForCard>() {
 

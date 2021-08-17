@@ -58,7 +58,7 @@ class ProfileFragment: Fragment()  {
         return view
     }
 
-    private suspend fun setDataToView(view: View, userId: Long){
+    private fun setDataToView(view: View, userId: Long){
         val userLogin = view.findViewById<TextView>(R.id.userLogin)
         val accountMail = view.findViewById<TextView>(R.id.accountMail)
         val editTextTextPersonName =

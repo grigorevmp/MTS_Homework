@@ -24,11 +24,11 @@ class RecyclerViewDecoration
         val position: Int = parent.getChildAdapterPosition(view)
         val column = position % spanCount
         if(includeEdge) {
-            outRect.left = margin_horizontal - column * margin_horizontal / spanCount;
-            outRect.right = (column + 1) * margin_horizontal / spanCount;
+            outRect.left = margin_horizontal - column * margin_horizontal / spanCount
+            outRect.right = (column + 1) * margin_horizontal / spanCount
 
             if (position < spanCount) {
-                outRect.top = margin_horizontal;
+                outRect.top = margin_horizontal
             }
         }
         else{

@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.R
-import com.mikhailgrigorev.mts_home.api.GenreResponse
 import com.mikhailgrigorev.mts_home.genreData.Genre
 
 class GenreViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
