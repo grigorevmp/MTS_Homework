@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.MoviesDetailFragment
 import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
+import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
