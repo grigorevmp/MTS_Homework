@@ -1,6 +1,5 @@
 package com.mikhailgrigorev.mts_home.movieData
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,11 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.R
 import com.mikhailgrigorev.mts_home.ViewHolder
-import com.mikhailgrigorev.mts_home.api.MovieResponse
 
 
 interface OnItemClickListener {
-    fun onItemClick(movie: MovieResponse)
+    fun onItemClick(movie: Movie)
 }
 
 
@@ -21,7 +19,7 @@ class MoviesAdapter(
     private val itemClickListener: OnItemClickListener
 
 ) : RecyclerView.Adapter<ViewHolder>() {
-    var movies: MutableList<MovieResponse> = ArrayList()
+    var movies: MutableList<Movie> = ArrayList()
 
     companion object {
         const val VIEW_CARD_MOVIE = 1
@@ -54,8 +52,7 @@ class MoviesAdapter(
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun initData(movies_: List<MovieResponse>?) {
+    fun initData(movies_: List<Movie>?) {
         if (movies_ != null) {
             movies.clear()
             movies.addAll(movies_)
@@ -67,7 +64,7 @@ class MoviesAdapter(
     override fun getItemCount(): Int = movies.size + 1
 
 
-    private fun getMovieAt(position: Int): MovieResponse? {
+    private fun getMovieAt(position: Int): Movie? {
         return when {
             movies.isEmpty() -> null
             position >= movies.size -> null

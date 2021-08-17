@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.mikhailgrigorev.mts_home.movieData.MovieDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,24 +19,18 @@ abstract class UserDatabase : RoomDatabase() {
         private const val DATABASE_NAME = "User.db"
 
         @Synchronized
-        fun getInstance(): UserDatabase {
+        fun getInstance(context: Context): UserDatabase {
+            if (instance == null)
+                instance = Room.databaseBuilder(
+                    context.applicationContext, UserDatabase::class.java,
+                    DATABASE_NAME
+                )
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
+                    .build()
+
             return instance!!
-        }
 
-
-        fun setInstance(context: Context): UserDatabase? {
-            if (instance == null) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    if (instance == null) {
-                        instance = Room.databaseBuilder(
-                            context.applicationContext,
-                            UserDatabase::class.java, DATABASE_NAME
-                        ).build()
-                    }
-                   populateDatabase(instance!!)
-                }
-            }
-            return instance
         }
 
         private val roomCallback = object : Callback() {

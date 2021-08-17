@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import androidx.room.migration.Migration
-import kotlinx.coroutines.Dispatchers
+
 
 
 @Database(entities = [Movie::class], version = 2)
@@ -28,24 +28,17 @@ abstract class MovieDatabase : RoomDatabase() {
         private const val DATABASE_NAME = "Movie.db"
 
         @Synchronized
-        fun getInstance(): MovieDatabase {
+        fun getInstance(context: Context): MovieDatabase {
+            if(instance == null)
+                instance = Room.databaseBuilder(context.applicationContext, MovieDatabase::class.java,
+                    DATABASE_NAME)
+                    .addMigrations(MIGRATION_Movie_1_2)
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
+                    .build()
+
             return instance!!
 
-        }
-
-        fun setInstance(context: Context): MovieDatabase? {
-            if (instance == null) {
-                CoroutineScope(IO).launch {
-                    if (instance == null) {
-                        instance = Room.databaseBuilder(
-                            context.applicationContext,
-                            MovieDatabase::class.java, DATABASE_NAME
-                        ).build()
-                    }
-                    populateDatabase(instance!!)
-                }
-            }
-            return instance
         }
 
         private val roomCallback = object : Callback() {

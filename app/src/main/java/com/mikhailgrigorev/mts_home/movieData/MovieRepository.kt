@@ -5,14 +5,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MovieRepository {
+class MovieRepository(context: Context) {
 
     private var movieDao: MovieDao
+    private var allMovies: List<Movie>
 
-    private val database = MovieDatabase.getInstance()
+    private val database = MovieDatabase.getInstance(context)
 
     init {
         movieDao = database.movieDao()!!
+        allMovies = movieDao.getAll()
     }
 
     fun insert(movie: Movie) {
@@ -39,11 +41,11 @@ class MovieRepository {
         }
     }
 
-    suspend fun getAllMovies(): List<Movie> {
-        return movieDao.getAll()
+    fun getAllMovies(): List<Movie> {
+        return allMovies
     }
 
-    suspend fun getMovieById(id: Long): Movie {
+    fun getMovieById(id: Long): Movie {
         return movieDao.getById(id)!!
     }
 

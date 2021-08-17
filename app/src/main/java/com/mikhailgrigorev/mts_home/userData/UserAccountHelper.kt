@@ -13,9 +13,9 @@ import java.security.NoSuchAlgorithmException
 
 class UserAccountHelper {
     companion object {
-        fun login(sharedPreferences: SharedPreferences, view: View, login: String, password: String) {
+        fun login(context: Context, sharedPreferences: SharedPreferences, view: View, login: String, password: String) {
             CoroutineScope(Dispatchers.IO).launch {
-                val userRepo = UserRepository()
+                val userRepo = UserRepository(context)
                 val user = userRepo.getUserByLogin(login)
                 if (user != null){
                     if(md5(password) == user.passwordHash)

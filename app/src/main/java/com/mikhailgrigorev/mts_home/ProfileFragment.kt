@@ -1,6 +1,5 @@
 package com.mikhailgrigorev.mts_home
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,36 +7,17 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import com.mikhailgrigorev.mts_home.mvvm.UserViewModel
 import com.mikhailgrigorev.mts_home.userData.Encryption
-import com.mikhailgrigorev.mts_home.userData.User
 import com.mikhailgrigorev.mts_home.userData.UserAccountHelper
+import com.mikhailgrigorev.mts_home.userData.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProfileFragment: Fragment()  {
-    private val userViewModel: UserViewModel by viewModels()
-    private val progressDialog by lazy {
-        ProgressDialog.show(
-            this.context,
-            "",
-            getString(R.string.please_wait)
-        )
-    }
-
-    private lateinit var userLogin: TextView
-    private lateinit var accountMail: TextView
-    private lateinit var editTextTextPersonName: EditText
-    private lateinit var editTextTextPassword: EditText
-    private lateinit var editTextTextEmailAddress: EditText
-    private lateinit var editTextPhone: EditText
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,12 +26,9 @@ class ProfileFragment: Fragment()  {
 
         var view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        userLogin = view.findViewById(R.id.userLogin)
-        accountMail = view.findViewById(R.id.accountMail)
-        editTextTextPersonName = view.findViewById(R.id.editTextTextPersonName)
-        editTextTextPassword = view.findViewById(R.id.editTextTextPassword2)
-        editTextTextEmailAddress = view.findViewById(R.id.editTextTextEmailAddress)
-        editTextPhone = view.findViewById(R.id.editTextPhone)
+        CoroutineScope(Dispatchers.IO).launch {
+            val userRepo = UserRepository(view.context)
+        }
 
         val sharedPreferences = this.context?.let { Encryption.getSecretSharedPref(it) }
         val userId = sharedPreferences?.getLong("user_id", -1)
@@ -61,22 +38,19 @@ class ProfileFragment: Fragment()  {
             enterButton.setOnClickListener {
                 val login = view.findViewById<TextInputEditText>(R.id.login)
                 val password = view.findViewById<TextInputEditText>(R.id.password)
-                UserAccountHelper.login(sharedPreferences, view,
-                    login.text.toString(),
-                    password.text.toString()
-                )
+                UserAccountHelper.login(view.context,
+                    sharedPreferences, view, login.text.toString(),  password.text.toString())
                 refreshCurrentFragment(this)
             }
         }
         else{
-            userViewModel.currentUser.observe(viewLifecycleOwner, Observer(::setDataToView))
-            userViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
-
-            userViewModel.loadUser(userId!!)
+            CoroutineScope(Dispatchers.IO).launch {
+                setDataToView(view, userId!!)
+            }
 
             val logout = view.findViewById<MaterialButton>(R.id.logout)
             logout.setOnClickListener {
-                UserAccountHelper.logout(sharedPreferences)
+                UserAccountHelper.logout(sharedPreferences!!)
                 refreshCurrentFragment(this)
             }
         }
@@ -84,8 +58,18 @@ class ProfileFragment: Fragment()  {
         return view
     }
 
-    private fun setDataToView(user: User){
+    private suspend fun setDataToView(view: View, userId: Long){
+        val userLogin = view.findViewById<TextView>(R.id.userLogin)
+        val accountMail = view.findViewById<TextView>(R.id.accountMail)
+        val editTextTextPersonName =
+            view.findViewById<EditText>(R.id.editTextTextPersonName)
+        val editTextTextPassword = view.findViewById<EditText>(R.id.editTextTextPassword2)
+        val editTextTextEmailAddress =
+            view.findViewById<EditText>(R.id.editTextTextEmailAddress)
+        val editTextPhone = view.findViewById<EditText>(R.id.editTextPhone)
 
+        val userRepo = UserRepository(view.context)
+        val user = userRepo.getUserById(userId)
         userLogin.text = user.login
         accountMail.text = user.email
         editTextTextPersonName.setText(user.name)
@@ -101,19 +85,6 @@ class ProfileFragment: Fragment()  {
         navController.popBackStack(id!!,true)
         navController.navigate(id)
     }
-
-
-    private fun render(viewState: ViewState) = with(viewState) {
-        if (isDownloaded) {
-            progressDialog.show()
-        } else {
-            progressDialog.dismiss()
-        }
-    }
-
-    data class ViewState(
-        val isDownloaded: Boolean = false
-    )
 
 
 

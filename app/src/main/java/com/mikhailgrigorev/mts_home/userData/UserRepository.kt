@@ -1,17 +1,20 @@
 package com.mikhailgrigorev.mts_home.userData
 
+import android.content.Context
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserRepository {
+class UserRepository(context: Context) {
 
     private var userDao: UserDao
+    private var allUsers: List<User>
 
-    private val database = UserDatabase.getInstance()
+    private val database = UserDatabase.getInstance(context)
 
     init {
         userDao = database.userDao()!!
+        allUsers = userDao.getAll()
     }
 
     fun insert(user: User) {
@@ -32,13 +35,17 @@ class UserRepository {
         }
     }
 
-    fun deleteAllUsers() {
+    fun deleteAllMovies() {
         CoroutineScope(Dispatchers.IO).launch {
             userDao.deleteAll()
         }
     }
 
-    suspend fun getUserById(id: Long): User {
+    fun getAllUsers(): List<User> {
+        return allUsers
+    }
+
+    fun getUserById(id: Long): User {
         return userDao.getById(id)!!
     }
 
