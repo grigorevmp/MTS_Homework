@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.OnGenreItemClickListener
-import com.mikhailgrigorev.mts_home.MovieResponse.BaseMoviesModel
 import com.mikhailgrigorev.mts_home.api.MovieResponse
 import com.mikhailgrigorev.mts_home.genreData.GenreDataSourceImpl
 import com.mikhailgrigorev.mts_home.genreData.GenreModel
@@ -179,7 +178,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
     }
 
     private fun initDataSource() {
-        baseMoviesModel = BaseMoviesModel(MoviesDataSourceImpl())
+        //baseMoviesModel = BaseMoviesModel(MoviesDataSourceImpl())
         genreModel = GenreModel(GenreDataSourceImpl())
     }
 

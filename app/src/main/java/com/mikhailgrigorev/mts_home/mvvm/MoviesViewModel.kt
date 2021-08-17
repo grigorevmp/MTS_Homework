@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mikhailgrigorev.mts_home.App
-import com.mikhailgrigorev.mts_home.MovieResponse.MoviesModel
 import com.mikhailgrigorev.mts_home.MoviesFragment
 import com.mikhailgrigorev.mts_home.api.MovieResponse
 import com.mikhailgrigorev.mts_home.api.ObjectResponse
 import com.mikhailgrigorev.mts_home.movieData.MovieData
+import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

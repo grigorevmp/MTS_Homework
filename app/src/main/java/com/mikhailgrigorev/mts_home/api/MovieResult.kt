@@ -10,7 +10,7 @@ import java.util.ArrayList
 @Serializable
 data class ObjectResponse(
     @SerialName("results") val results: List<MovieResponse>
-    )
+)
 
 
 @Keep
