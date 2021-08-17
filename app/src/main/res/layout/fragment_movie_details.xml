@@ -44,50 +44,42 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                android:orientation="vertical">
+                    android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/genres_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/extra_small_top_margin"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/popular_header"
+                        app:spanCount="1">
+
+                    </androidx.recyclerview.widget.RecyclerView>
 
                     <TextView
-                        android:id="@id/genre"
+                        android:id="@+id/release_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/tag"
-                        android:paddingStart="@dimen/genre_horizontal_margin"
-                        android:paddingTop="@dimen/genre_vertical_margin"
-                        android:paddingEnd="@dimen/genre_horizontal_margin"
-                        android:paddingBottom="@dimen/genre_vertical_margin"
-                        android:text="@string/thriller"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/genre_size"
-                        tools:ignore="SmallSp" />
-
-                    <TextView
-                        android:id="@+id/date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/date_right_margin"
-                        tools:text="@string/date"
+                        android:layout_marginTop="@dimen/small_top_margin"
                         android:textColor="@color/black"
                         android:textSize="@dimen/date_size"
                         app:layout_constraintStart_toEndOf="@+id/genre"
-                        app:layout_constraintTop_toTopOf="@+id/movieCard" />
+                        app:layout_constraintTop_toTopOf="@+id/movieCard"
+                        tools:text="@string/date" />
+
+                    <TextView
+                        android:id="@+id/movieName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_top_margin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/movie_name_size"
+                        tools:text="@string/movie_name" />
 
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/movieName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/small_top_margin"
-                    tools:text="@string/movie_name"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/movie_name_size" />
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/ageRating"
@@ -155,83 +147,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/actor_card1"
-                    android:layout_width="wrap_content"
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/actors_container"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
+                    android:layout_marginTop="@dimen/extra_small_top_margin"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/popular_header"
+                    app:spanCount="1" />
 
-                    <ImageView
-                        android:id="@+id/actor_card_image1"
-                        android:layout_width="@dimen/actor_card_width"
-                        android:layout_height="@dimen/actor_card_height"
-                        android:contentDescription="@string/card_of_an_actor"
-                        android:src="@drawable/steitem" />
-
-                    <TextView
-                        android:id="@+id/actor_name1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/extra_small_top_margin"
-                        android:text="@string/actor1"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/actor_name_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/actor_card2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/actors_distance"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/actor_card_image2"
-                        android:layout_width="@dimen/actor_card_width"
-                        android:layout_height="@dimen/actor_card_height"
-                        android:contentDescription="@string/card_of_an_actor"
-                        android:src="@drawable/makkellani" />
-
-                    <TextView
-                        android:id="@+id/actor_name2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/extra_small_top_margin"
-                        android:text="@string/actor2"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/actor_name_size" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/actor_card3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/actors_distance"
-                    android:orientation="vertical"
-                    android:layout_marginEnd="@dimen/left_margin_value"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/actor_card_image3"
-                        android:layout_width="@dimen/actor_card_width"
-                        android:layout_height="@dimen/actor_card_height"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="@string/card_of_an_actor"
-                        android:src="@drawable/harnett2" />
-
-                    <TextView
-                        android:id="@+id/actor_name3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/extra_small_top_margin"
-                        android:text="@string/actor1"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/actor_name_size" />
-
-                </LinearLayout>
             </LinearLayout>
         </HorizontalScrollView>
 

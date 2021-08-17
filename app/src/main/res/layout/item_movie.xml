@@ -50,6 +50,8 @@
         android:paddingStart="3dp"
         android:paddingEnd="3dp"
         tools:maxLength="150"
+        android:ellipsize="marquee"
+        android:maxLength="150"
         />
 
     <LinearLayout

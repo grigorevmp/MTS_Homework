@@ -3,10 +3,15 @@ package com.mikhailgrigorev.mts_home.mvvm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.MovieResponse.MoviesModel
 import com.mikhailgrigorev.mts_home.MoviesFragment
 import com.mikhailgrigorev.mts_home.api.MovieResponse
+import com.mikhailgrigorev.mts_home.api.ObjectResponse
 import com.mikhailgrigorev.mts_home.movieData.MovieData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 typealias MoviesFragmentViewState = MoviesFragment.ViewState
 
@@ -22,9 +27,18 @@ class MoviesViewModel : ViewModel() {
 
 
     fun loadMovies() {
-        model.loadMovies(object : MoviesModel.LoadMovieCallback {
-            override fun onLoad(movies: List<MovieResponse>?) {
+        App.instance.apiService.getMovies().enqueue(object : Callback<ObjectResponse> {
+            override fun onResponse(
+                call: Call<ObjectResponse>,
+                response: Response<ObjectResponse>
+            ) {
+                val movies = response.body()?.results ?: emptyList()
                 _dataList.postValue(movies)
+                _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))
+            }
+
+            override fun onFailure(call: Call<ObjectResponse>, t: Throwable) {
+                _dataList.postValue(null)
                 _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))
             }
         })
