@@ -62,7 +62,7 @@ class LoadMovieTask(
 ) :
     AsyncTask<Void?, Void?, Movie>() {
     override fun doInBackground(vararg params: Void?): Movie {
-        val movieRepo = MovieRepository(Application())
+        val movieRepo = MovieRepository()
         return movieRepo.getMovieById(id)
     }
 
@@ -76,8 +76,7 @@ class LoadMoviesTask(
 ) :
     AsyncTask<Void?, Void?, List<Movie>>() {
     override fun doInBackground(vararg params: Void?): List<Movie> {
-        val movieRepo = MovieRepository(Application())
-
+        val movieRepo = MovieRepository()
         return movieRepo.getAllMovies()
     }
 

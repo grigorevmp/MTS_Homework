@@ -5,12 +5,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MovieRepository(context: Context) {
+class MovieRepository {
 
     private var movieDao: MovieDao
     private var allMovies: List<Movie>
 
-    private val database = MovieDatabase.getInstance(context)
+    private val database = MovieDatabase.getInstance()
 
     init {
         movieDao = database.movieDao()!!

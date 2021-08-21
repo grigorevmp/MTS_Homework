@@ -26,7 +26,6 @@ import kotlinx.coroutines.*
 
 
 class MoviesFragment : Fragment() {
-    private lateinit var baseMoviesModel: BaseMoviesModel
     private lateinit var genreModel: GenreModel
     private lateinit var adapter: MoviesAdapter
     private lateinit var adapterGenre: GenreAdapter
@@ -121,9 +120,6 @@ class MoviesFragment : Fragment() {
         swipeContainer.setOnRefreshListener {
             runBlocking {
                 val job = lifecycleScope.launch(handler + Job()) {
-                    onMoviesChanged(
-                        baseMoviesModel.getRandomMovies()
-                    )
                     swipeContainer.isRefreshing = false
                 }
             }
@@ -134,10 +130,6 @@ class MoviesFragment : Fragment() {
 
 
     private fun initDataSource(view: View) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val movieRepo = MovieRepository(view.context)
-            baseMoviesModel = BaseMoviesModel(movieRepo.getAllMovies())
-        }
         genreModel = GenreModel(GenreDataSourceImpl())
     }
 
