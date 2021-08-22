@@ -34,7 +34,7 @@ class UserRepository {
         }
     }
 
-    fun deleteAllMovies() {
+    fun deleteAllUsers() {
         CoroutineScope(Dispatchers.IO).launch {
             userDao.deleteAll()
         }
