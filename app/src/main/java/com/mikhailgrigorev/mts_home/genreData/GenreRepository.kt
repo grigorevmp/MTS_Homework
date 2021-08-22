@@ -1,16 +1,15 @@
 package com.mikhailgrigorev.mts_home.genreData
 
-import android.content.Context
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class GenreRepository(context: Context) {
+class GenreRepository {
 
     private var genreDao: GenreDao
     private var allGenres: List<Genre>
 
-    private val database = GenreDatabase.getInstance(context)
+    private val database = GenreDatabase.getInstance()
 
     init {
         genreDao = database.genreDao()!!

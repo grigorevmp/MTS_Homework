@@ -1,6 +1,5 @@
 package com.mikhailgrigorev.mts_home.mvvm
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,7 +41,7 @@ class GenresViewModel : ViewModel() {
                         genres.add(Genre(genre.id, genre.genre))
                     }
                     CoroutineScope(Dispatchers.IO).launch {
-                        val movieRepo = GenreRepository(Application())
+                        val movieRepo = GenreRepository()
                         movieRepo.insertAll(genres)
                     }
 

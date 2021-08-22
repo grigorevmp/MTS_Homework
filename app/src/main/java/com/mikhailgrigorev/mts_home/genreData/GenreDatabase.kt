@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 
 @Database(entities = [Genre::class], version = 1)
@@ -16,17 +19,23 @@ abstract class GenreDatabase : RoomDatabase(){
         private const val DATABASE_NAME = "Genre.db"
 
         @Synchronized
-        fun getInstance(context: Context): GenreDatabase {
-            if(instance == null)
-                instance = Room.databaseBuilder(context.applicationContext, GenreDatabase::class.java,
-                    DATABASE_NAME
-                )
-                    .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
-                    .build()
-
+        fun getInstance(): GenreDatabase {
             return instance!!
 
+        }
+
+        fun setInstance(context: Context): GenreDatabase? {
+            if (instance == null) {
+                CoroutineScope(IO).launch {
+                    if (instance == null) {
+                        instance = Room.databaseBuilder(
+                            context.applicationContext,
+                            GenreDatabase::class.java, DATABASE_NAME
+                        ).build()
+                    }
+                }
+            }
+            return instance
         }
 
         private val roomCallback = object : Callback() {

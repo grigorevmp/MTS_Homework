@@ -46,7 +46,7 @@ class LoadGenreTask(
 ) :
     AsyncTask<Void?, Void?, Genre>() {
     override fun doInBackground(vararg params: Void?): Genre {
-        val genreRepo = GenreRepository(Application())
+        val genreRepo = GenreRepository()
         return genreRepo.getGenreById(id)
     }
 
@@ -60,7 +60,7 @@ class LoadGenresTask(
 ) :
     AsyncTask<Void?, Void?, List<Genre>>() {
     override fun doInBackground(vararg params: Void?): List<Genre> {
-        val genreRepo = GenreRepository(Application())
+        val genreRepo = GenreRepository()
         return genreRepo.getAllGenres()
     }
 

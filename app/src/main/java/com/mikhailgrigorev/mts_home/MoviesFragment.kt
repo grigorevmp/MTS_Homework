@@ -66,9 +66,6 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         recyclerEmpty = view.findViewById(R.id.emptyMoviesList)
         recyclerGenre = view.findViewById(R.id.genreList)
 
-        initDataSource(view)
-
-
         val listener: OnItemClickListener = object : OnItemClickListener {
             override fun onItemClick(movie: MovieResponse) {
                 sendArguments(
@@ -171,13 +168,6 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
             } catch (e: Exception) {
                 processRequestResult(isSuccess = false)
             }
-        }
-    }
-
-    private fun initDataSource(view: View) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val movieRepo = MovieRepository(view.context)
-            val genreRepo = GenreRepository(view.context)
         }
     }
 
