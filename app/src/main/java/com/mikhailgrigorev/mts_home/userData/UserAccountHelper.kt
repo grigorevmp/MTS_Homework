@@ -13,9 +13,9 @@ import java.security.NoSuchAlgorithmException
 
 class UserAccountHelper {
     companion object {
-        fun login(context: Context, sharedPreferences: SharedPreferences, view: View, login: String, password: String) {
+        fun login(sharedPreferences: SharedPreferences, view: View, login: String, password: String) {
             CoroutineScope(Dispatchers.IO).launch {
-                val userRepo = UserRepository(context)
+                val userRepo = UserRepository()
                 val user = userRepo.getUserByLogin(login)
                 if (user != null){
                     if(md5(password) == user.passwordHash)
@@ -41,11 +41,11 @@ class UserAccountHelper {
         }
 
         private fun md5(s: String): String {
-            val md5 = "MD5"
+            val MD5 = "MD5"
             try {
                 // Create MD5 Hash
                 val digest: MessageDigest = MessageDigest
-                    .getInstance(md5)
+                    .getInstance(MD5)
                 digest.update(s.toByteArray())
                 val messageDigest: ByteArray = digest.digest()
 

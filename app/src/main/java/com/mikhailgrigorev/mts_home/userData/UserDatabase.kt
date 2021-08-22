@@ -19,18 +19,23 @@ abstract class UserDatabase : RoomDatabase() {
         private const val DATABASE_NAME = "User.db"
 
         @Synchronized
-        fun getInstance(context: Context): UserDatabase {
-            if (instance == null)
-                instance = Room.databaseBuilder(
-                    context.applicationContext, UserDatabase::class.java,
-                    DATABASE_NAME
-                )
-                    .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
-                    .build()
-
+        fun getInstance(): UserDatabase {
             return instance!!
+        }
 
+
+        fun setInstance(context: Context): UserDatabase? {
+            if (instance == null) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    if (instance == null) {
+                        instance = Room.databaseBuilder(
+                            context.applicationContext,
+                            UserDatabase::class.java, DATABASE_NAME
+                        ).build()
+                    }
+                }
+            }
+            return instance
         }
 
         private val roomCallback = object : Callback() {

@@ -27,18 +27,25 @@ abstract class MovieDatabase : RoomDatabase() {
         private var instance: MovieDatabase? = null
         private const val DATABASE_NAME = "Movie.db"
 
-        @Synchronized
-        fun getInstance(context: Context): MovieDatabase {
-            if(instance == null)
-                instance = Room.databaseBuilder(context.applicationContext, MovieDatabase::class.java,
-                    DATABASE_NAME)
-                    .addMigrations(MIGRATION_Movie_1_2)
-                    .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
-                    .build()
 
+        @Synchronized
+        fun getInstance(): MovieDatabase {
             return instance!!
 
+        }
+
+        fun setInstance(context: Context): MovieDatabase? {
+            if (instance == null) {
+                CoroutineScope(IO).launch {
+                    if (instance == null) {
+                        instance = Room.databaseBuilder(
+                            context.applicationContext,
+                            MovieDatabase::class.java, DATABASE_NAME
+                        ).build()
+                    }
+                }
+            }
+            return instance
         }
 
         private val roomCallback = object : Callback() {
