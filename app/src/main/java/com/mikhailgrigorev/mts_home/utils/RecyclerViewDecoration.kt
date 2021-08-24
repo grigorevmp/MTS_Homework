@@ -1,4 +1,4 @@
-package com.mikhailgrigorev.mts_home
+package com.mikhailgrigorev.mts_home.utils
 
 import android.graphics.Rect
 import android.view.View

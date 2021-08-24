@@ -13,10 +13,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.mikhailgrigorev.mts_home.ActorsRecycler.ActorAdapter
+import com.mikhailgrigorev.mts_home.actorsRecycler.ActorAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapterForCard
 import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
 import com.mikhailgrigorev.mts_home.mvvm.MovieCardViewModel
+import com.mikhailgrigorev.mts_home.utils.RecyclerViewDecoration
 
 class MoviesDetailFragment: Fragment() {
 

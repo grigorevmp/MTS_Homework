@@ -1,4 +1,4 @@
-package com.mikhailgrigorev.mts_home
+package com.mikhailgrigorev.mts_home.moviesRecycler
 
 import android.view.View
 import android.widget.ImageView
@@ -6,8 +6,8 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.mikhailgrigorev.mts_home.R
 import com.mikhailgrigorev.mts_home.api.MovieResponse
-import com.mikhailgrigorev.mts_home.movieData.OnItemClickListener
 
 const val PATH_HEADER = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
 

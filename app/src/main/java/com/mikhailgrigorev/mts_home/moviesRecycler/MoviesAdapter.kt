@@ -1,4 +1,4 @@
-package com.mikhailgrigorev.mts_home.movieData
+package com.mikhailgrigorev.mts_home.moviesRecycler
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.R
-import com.mikhailgrigorev.mts_home.ViewHolder
 import com.mikhailgrigorev.mts_home.api.MovieResponse
 
 

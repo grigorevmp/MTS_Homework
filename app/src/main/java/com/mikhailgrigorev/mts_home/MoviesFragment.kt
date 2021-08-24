@@ -21,12 +21,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.OnGenreItemClickListener
 import com.mikhailgrigorev.mts_home.api.MovieResponse
-import com.mikhailgrigorev.mts_home.genreData.GenreRepository
-import com.mikhailgrigorev.mts_home.movieData.*
+import com.mikhailgrigorev.mts_home.moviesRecycler.MoviesAdapter
+import com.mikhailgrigorev.mts_home.moviesRecycler.OnItemClickListener
 import com.mikhailgrigorev.mts_home.mvvm.GenresViewModel
 import com.mikhailgrigorev.mts_home.mvvm.MoviesViewModel
 import com.mikhailgrigorev.mts_home.network.NetworkManager
 import com.mikhailgrigorev.mts_home.network.NetworkManagerImpl
+import com.mikhailgrigorev.mts_home.utils.RecyclerViewDecoration
 import kotlinx.coroutines.*
 
 
