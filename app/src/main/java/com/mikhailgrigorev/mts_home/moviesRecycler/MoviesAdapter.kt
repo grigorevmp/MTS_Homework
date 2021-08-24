@@ -1,4 +1,4 @@
-package com.mikhailgrigorev.mts_home.movieData
+package com.mikhailgrigorev.mts_home.moviesRecycler
 
 import android.annotation.SuppressLint
 import android.content.Context

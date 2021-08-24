@@ -1,4 +1,4 @@
-package com.mikhailgrigorev.mts_home.ActorsRecycler
+package com.mikhailgrigorev.mts_home.actorsRecycler
 
 import android.content.Context
 import android.view.LayoutInflater

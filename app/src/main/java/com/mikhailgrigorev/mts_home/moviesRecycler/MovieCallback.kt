@@ -1,4 +1,4 @@
-package com.mikhailgrigorev.mts_home
+package com.mikhailgrigorev.mts_home.moviesRecycler
 
 import androidx.recyclerview.widget.DiffUtil
 import com.mikhailgrigorev.mts_home.movieData.Movie
