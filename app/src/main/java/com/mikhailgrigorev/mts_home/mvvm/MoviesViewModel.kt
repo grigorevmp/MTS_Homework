@@ -3,15 +3,9 @@ package com.mikhailgrigorev.mts_home.mvvm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.MoviesFragment
-import com.mikhailgrigorev.mts_home.api.MovieResponse
-import com.mikhailgrigorev.mts_home.api.ObjectResponse
 import com.mikhailgrigorev.mts_home.movieData.Movie
 import com.mikhailgrigorev.mts_home.movieData.MoviesModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 typealias MoviesFragmentViewState = MoviesFragment.ViewState
 
@@ -22,33 +16,34 @@ class MoviesViewModel : ViewModel() {
     val viewState: LiveData<MoviesFragmentViewState> get() = _viewState
     private val _viewState = MutableLiveData<MoviesFragmentViewState>()
 
-    val dataList: LiveData<List<MovieResponse>> get() = _dataList
-    private val _dataList = MutableLiveData<List<MovieResponse>>()
+    val dataList: LiveData<List<Movie>> get() = _dataList
+    private val _dataList = MutableLiveData<List<Movie>>()
 
 
     fun loadMovies() {
-        App.instance.apiService.getMovies().enqueue(object : Callback<ObjectResponse> {
-            override fun onResponse(
-                call: Call<ObjectResponse>,
-                response: Response<ObjectResponse>
-            ) {
-                val movies = response.body()?.results ?: emptyList()
-                _dataList.postValue(movies)
-                _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))
-            }
-
-            override fun onFailure(call: Call<ObjectResponse>, t: Throwable) {
-                _dataList.postValue(null)
-                _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))
+        model.loadMovies(object : MoviesModel.LoadMovieCallback {
+            override fun onLoad(movies: List<Movie>?) {
+                if (movies != null) {
+                    if (movies.isEmpty()){
+                        _viewState.postValue(MoviesFragmentViewState(isDownloading = true))
+                    }
+                    else{
+                        _dataList.postValue(movies)
+                        _viewState.postValue(MoviesFragmentViewState(isDownloading = false))
+                    }
+                }
+                else
+                    _viewState.postValue(MoviesFragmentViewState(isDownloading = true))
             }
         })
     }
+
 
     fun add(userData: Movie) {
     }
 
     fun clear() {
-        _viewState.postValue(MoviesFragmentViewState(isDownloaded = true))
+        _viewState.postValue(MoviesFragmentViewState(isDownloading = true))
         model.clearMovies(object : MoviesModel.CompleteCallback {
             override fun onComplete() {
                 loadMovies()

@@ -1,6 +1,7 @@
 package com.mikhailgrigorev.mts_home
 
 import android.app.Application
+import com.mikhailgrigorev.mts_home.actorData.ActorDatabase
 import com.mikhailgrigorev.mts_home.api.ApiService
 import com.mikhailgrigorev.mts_home.genreData.GenreDatabase
 import com.mikhailgrigorev.mts_home.movieData.MovieDatabase
@@ -14,6 +15,7 @@ class App : Application() {
         MovieDatabase.setInstance(this)
         GenreDatabase.setInstance(this)
         UserDatabase.setInstance(this)
+        ActorDatabase.setInstance(this)
     }
 
     init {

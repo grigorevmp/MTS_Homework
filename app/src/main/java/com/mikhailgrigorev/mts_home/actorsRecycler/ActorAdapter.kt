@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.R
-import com.mikhailgrigorev.mts_home.api.ActorResponse
 
 class ActorAdapter(
     context: Context,
-    private var actors: List<ActorResponse>):
+    private var actorsNames: List<String>,
+    private var actorsPaths: List<String>):
     RecyclerView.Adapter<ActorViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -22,13 +22,13 @@ class ActorAdapter(
         getActorAt(position)?.let { holder.bind(it) }
     }
 
-    override fun getItemCount() = actors.size
+    override fun getItemCount() = actorsNames.size
 
-    private fun getActorAt(position: Int): ActorResponse? {
+    private fun getActorAt(position: Int): Pair<String, String>?{
         return when {
-            actors.isEmpty() -> null
-            position >= actors.size -> null
-            else -> actors[position]
+            actorsNames.isEmpty() -> null
+            position >= actorsNames.size -> null
+            else -> Pair(actorsNames[position], actorsPaths[position])
         }
     }
 }

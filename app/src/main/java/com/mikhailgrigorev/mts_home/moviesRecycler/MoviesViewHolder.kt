@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.mikhailgrigorev.mts_home.R
 import com.mikhailgrigorev.mts_home.api.MovieResponse
+import com.mikhailgrigorev.mts_home.movieData.Movie
 import com.mikhailgrigorev.mts_home.moviesRecycler.OnItemClickListener
 
 const val PATH_HEADER = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
@@ -20,7 +21,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ratingbar = itemView.findViewById<RatingBar>(R.id.ratingbar)
         private val movieAge = itemView.findViewById<TextView>(R.id.list_item_ageRating)
 
-        fun bind(movie: MovieResponse, position: Int, clickListener: OnItemClickListener) {
+        fun bind(movie: Movie, position: Int, clickListener: OnItemClickListener) {
 
             val uri = PATH_HEADER + movie.poster_path
 

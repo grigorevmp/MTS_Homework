@@ -29,47 +29,32 @@ class GenresViewModel : ViewModel() {
 
 
     fun loadMovies() {
-        App.instance.apiService.getGenres()
-            .enqueue(object : retrofit2.Callback<GenresResponse> {
-                override fun onResponse(
-                    call: Call<GenresResponse>,
-                    response: Response<GenresResponse>
-                ) {
-                    val genres: MutableList<Genre> = arrayListOf()
-                    val genresResponse = response.body()!!.genres
-                    for (genre in genresResponse) {
-                        genres.add(Genre(genre.id, genre.genre))
-                    }
-                    CoroutineScope(Dispatchers.IO).launch {
-                        val movieRepo = GenreRepository()
-                        movieRepo.insertAll(genres)
-                    }
-
-                    _dataList.postValue(genres)
-                    _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))
-
-                }
-                override fun onFailure(call: Call<GenresResponse>, t: Throwable) {
-                    t.printStackTrace()
-                }
-
-            })
-
-
-
         model.loadGenres(object : GenreModel.LoadGenreCallback {
             override fun onLoad(genres: List<Genre>?) {
-                _dataList.postValue(genres)
-                _viewState.postValue(MoviesFragmentViewState(isDownloaded = false))
+                if (genres != null){
+                    if (genres.isNotEmpty()){
+                        _dataList.postValue(genres)
+                        _viewState.postValue(MoviesFragmentViewState(isDownloading = false))
+                    }
+                    else
+                        _viewState.postValue(MoviesFragmentViewState(isDownloading = true))
+                }
+                else
+                    _viewState.postValue(MoviesFragmentViewState(isDownloading = true))
+
+
             }
         })
+
+
+
     }
 
     fun add(genre: Genre) {
     }
 
     fun clear() {
-        _viewState.postValue(MoviesFragmentViewState(isDownloaded = true))
+        _viewState.postValue(MoviesFragmentViewState(isDownloading = true))
         model.clearMovies(object : GenreModel.CompleteCallback {
             override fun onComplete() {
                 loadMovies()

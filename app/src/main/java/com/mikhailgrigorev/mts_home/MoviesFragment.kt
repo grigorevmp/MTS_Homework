@@ -21,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.OnGenreItemClickListener
 import com.mikhailgrigorev.mts_home.api.MovieResponse
+import com.mikhailgrigorev.mts_home.movieData.Movie
 import com.mikhailgrigorev.mts_home.moviesRecycler.MoviesAdapter
 import com.mikhailgrigorev.mts_home.moviesRecycler.OnItemClickListener
 import com.mikhailgrigorev.mts_home.mvvm.GenresViewModel
@@ -68,7 +69,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         recyclerGenre = view.findViewById(R.id.genreList)
 
         val listener: OnItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(movie: MovieResponse) {
+            override fun onItemClick(movie: Movie) {
                 sendArguments(
                     view,
                     movie.id
@@ -196,15 +197,14 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         //val diff = DiffUtil.calculateDiff(callback)
         //adapter.movies = movies as MutableList<MovieData>
         //diff.dispatchUpdatesTo(adapter)
-
     }
 
     data class ViewState(
-        val isDownloaded: Boolean = false
+        val isDownloading: Boolean = false
     )
 
     private fun render(viewState: ViewState) = with(viewState) {
-        if (isDownloaded) {
+        if (isDownloading) {
             progressDialog.show()
         } else {
             progressDialog.dismiss()

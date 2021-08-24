@@ -1,6 +1,7 @@
 package com.mikhailgrigorev.mts_home.genreData
 
 import androidx.room.*
+import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
 
 
 @Dao
@@ -15,7 +16,7 @@ interface GenreDao {
     fun insert(movie: Genre?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(films: List<Genre>)
+    fun insertAll(genres: List<Genre>)
 
     @Update
     fun update(v: Genre?)

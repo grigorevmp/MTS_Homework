@@ -3,14 +3,10 @@ package com.mikhailgrigorev.mts_home.mvvm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.MoviesDetailFragment
-import com.mikhailgrigorev.mts_home.api.MovieOneResponse
 import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
+import com.mikhailgrigorev.mts_home.movieData.Movie
 import com.mikhailgrigorev.mts_home.movieData.MoviesModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 typealias MoviesDetailsFragmentViewState = MoviesDetailFragment.ViewState
 
@@ -21,28 +17,22 @@ class MovieCardViewModel : ViewModel(){
     val viewState: LiveData<MoviesDetailsFragmentViewState> get() = _viewState
     private val _viewState = MutableLiveData<MoviesDetailsFragmentViewState>()
 
-    val currentMovie: LiveData<MovieWithActorsResponse> get() = _currentMovie
-    private val _currentMovie = MutableLiveData<MovieWithActorsResponse>()
+    val currentMovie: LiveData<Movie> get() = _currentMovie
+    private val _currentMovie = MutableLiveData<Movie>()
 
 
     fun loadMovie(id: Int) {
-        App.instance.apiService.getMovieByIdWithActors(id.toString())
-            .enqueue(object : Callback<MovieWithActorsResponse> {
-                override fun onResponse(
-                    call: Call<MovieWithActorsResponse>,
-                    response: Response<MovieWithActorsResponse>
-                ) {
-                    val movie = response.body()!!
+        model.loadMovie(object : MoviesModel.LoadMovieByIdCallback {
+            override fun onLoad(movie: Movie?) {
+                if (movie != null) {
                     _currentMovie.postValue(movie)
-                    _viewState.postValue(MoviesDetailsFragmentViewState(isDownloaded = false))
+                    _viewState.postValue(MoviesDetailsFragmentViewState(isDownloading = false))
                 }
+                else
+                    _viewState.postValue(MoviesDetailsFragmentViewState(isDownloading = true))
+            }
+        }, id)
 
-                override fun onFailure(call: Call<MovieWithActorsResponse>, t: Throwable) {
-                    t.printStackTrace()
-                    _viewState.postValue(MoviesDetailsFragmentViewState(isDownloaded = true))
-                }
-
-            })
     }
 
     fun add(userData: MovieWithActorsResponse) {

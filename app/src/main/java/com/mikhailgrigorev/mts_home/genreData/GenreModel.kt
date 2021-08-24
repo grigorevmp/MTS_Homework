@@ -1,8 +1,11 @@
 package com.mikhailgrigorev.mts_home.genreData
 
-import android.app.Application
 import android.content.ContentValues
 import android.os.AsyncTask
+import com.mikhailgrigorev.mts_home.App
+import com.mikhailgrigorev.mts_home.api.GenresResponse
+import retrofit2.Call
+import retrofit2.Response
 
 
 class GenreModel : GenreModelApi {
@@ -61,6 +64,33 @@ class LoadGenresTask(
     AsyncTask<Void?, Void?, List<Genre>>() {
     override fun doInBackground(vararg params: Void?): List<Genre> {
         val genreRepo = GenreRepository()
+
+        App.instance.apiService.getGenres()
+            .enqueue(object : retrofit2.Callback<GenresResponse> {
+                override fun onResponse(
+                    call: Call<GenresResponse>,
+                    response: Response<GenresResponse>
+                ) {
+
+                    val genres: MutableList<Genre> = arrayListOf()
+
+
+                    val genresResponse = response.body()!!.genres
+                    for (genre in genresResponse) {
+                        genres.add(Genre(genre.id, genre.genre))
+                    }
+
+
+                    genreRepo.insertAll(genres)
+
+                }
+
+                override fun onFailure(call: Call<GenresResponse>, t: Throwable) {
+                    t.printStackTrace()
+                }
+
+            })
+
         return genreRepo.getAllGenres()
     }
 

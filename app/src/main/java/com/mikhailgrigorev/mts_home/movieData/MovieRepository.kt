@@ -22,9 +22,21 @@ class MovieRepository {
         }
     }
 
+    fun insertAll(movies: List<Movie>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            movieDao.insertAll(movies)
+        }
+    }
+
     fun update(movie: Movie) {
         CoroutineScope(Dispatchers.IO).launch {
             movieDao.update(movie)
+        }
+    }
+
+    fun updateSpecial(actors_names: String, actors_paths: String, genre_ids: String, age_restriction: Int, id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            movieDao.updateSpecial(actors_names, actors_paths, genre_ids, age_restriction, id)
         }
     }
 
@@ -44,7 +56,7 @@ class MovieRepository {
         return allMovies
     }
 
-    fun getMovieById(id: Long): Movie {
+    fun getMovieById(id: Int): Movie {
         return movieDao.getById(id)!!
     }
 
