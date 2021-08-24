@@ -13,9 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.mikhailgrigorev.mts_home.ActorsRecycler.ActorAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapterForCard
-import com.mikhailgrigorev.mts_home.actorsRecycler.ActorAdapter
-import com.mikhailgrigorev.mts_home.movieData.Movie
+import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
 import com.mikhailgrigorev.mts_home.moviesRecycler.PATH_HEADER
 import com.mikhailgrigorev.mts_home.mvvm.MovieCardViewModel
 import com.mikhailgrigorev.mts_home.utils.RecyclerViewDecoration
@@ -80,7 +80,7 @@ class MoviesDetailFragment: Fragment() {
         return view
     }
 
-    private fun setDataToFragment( movie: Movie) {
+    private fun setDataToFragment( movie: MovieWithActorsResponse) {
         movieName.apply {
             text = movie.title
         }
@@ -92,15 +92,11 @@ class MoviesDetailFragment: Fragment() {
         releaseDate.apply {
             text = movie.release_date
         }
-        val genres = movie.genre_ids.split(" ")
 
-        val actorsNames = movie.actors_names.split(" ")
-        val actorsPaths = movie.actors_paths.split(" ")
-
-        adapterGenre = GenreAdapterForCard(this.requireView().context, genres, null)
+        adapterGenre = GenreAdapterForCard(this.requireView().context, movie.genres, null)
         adapterGenre.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 
-        adapterActor= ActorAdapter(this.requireView().context, actorsNames, actorsPaths)
+        adapterActor= ActorAdapter(this.requireView().context, movie.credits.cast)
         adapterActor.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 
         recyclerGenre.adapter = adapterGenre
@@ -113,7 +109,7 @@ class MoviesDetailFragment: Fragment() {
 
         ageRating.apply {
             text =
-                context.getString(R.string.main_age_restriction_text, movie.age_restriction)
+                context.getString(R.string.main_age_restriction_text, movie.ageRestriction)
         }
 
         ratingbar.rating = movie.vote_average

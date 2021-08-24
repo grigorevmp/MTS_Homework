@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.R
+import com.mikhailgrigorev.mts_home.api.GenreResponse
 
 class GenreAdapterForCard(
     context: Context,
-    private var genres: List<String>,
+    private var genres: List<GenreResponse>,
     private val itemClickListener: OnGenreItemClickListener?):
     RecyclerView.Adapter<GenreViewHolderForCard>() {
 
@@ -24,7 +25,7 @@ class GenreAdapterForCard(
 
     override fun getItemCount() = genres.size
 
-    private fun getGenreAt(position: Int): String? {
+    private fun getGenreAt(position: Int): GenreResponse? {
         return when {
             genres.isEmpty() -> null
             position >= genres.size -> null

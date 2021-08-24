@@ -3,14 +3,11 @@ package com.mikhailgrigorev.mts_home.movieData
 import android.content.ContentValues
 import android.os.AsyncTask
 import com.mikhailgrigorev.mts_home.App
-import com.mikhailgrigorev.mts_home.actorData.Actor
-import com.mikhailgrigorev.mts_home.actorData.ActorRepository
 import com.mikhailgrigorev.mts_home.api.*
 import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import kotlin.random.Random
 
 class BaseMoviesModel(
@@ -55,7 +52,7 @@ class MoviesModel : MoviesModelApi {
     }
 
     interface LoadMovieByIdCallback {
-        fun onLoad(movie: Movie?)
+        fun onLoad(movie: Movie)
     }
 
     interface CompleteCallback {
@@ -68,59 +65,12 @@ class LoadMovieTask(
     private val id: Int
 ) :
     AsyncTask<Void?, Void?, Movie>() {
-    override fun doInBackground(vararg params: Void?):
-            Movie {
+    override fun doInBackground(vararg params: Void?): Movie {
         val movieRepo = MovieRepository()
-        val actorRepo = ActorRepository()
-
-        App.instance.apiService.getMovieByIdWithActors(id.toString())
-            .enqueue(object : Callback<MovieWithActorsResponse> {
-                override fun onResponse(
-                    call: Call<MovieWithActorsResponse>,
-                    response: Response<MovieWithActorsResponse>
-                ) {
-
-                    val movie = response.body()!!
-
-                    val idList: MutableList<String> = arrayListOf()
-                    val nameList: MutableList<String> = arrayListOf()
-                    val pathList: MutableList<String> = arrayListOf()
-                    val genres: MutableList<String> = arrayListOf()
-
-                    for (actor in movie.credits.cast) {
-                        val actorForDB = Actor(
-                            actor_id = actor.id,
-                            name = actor.name,
-                            profile_path = actor.profile_path
-                        )
-                        idList.add(actor.id.toString())
-                        nameList.add(actor.name)
-                        pathList.add(actor.profile_path)
-                        actorRepo.insert(actorForDB)
-
-                    }
-
-                    for (genre in movie.genres){
-                        genres.add(genre.genre)
-                    }
-
-                    movieRepo.updateSpecial(
-                        nameList.joinToString(' '.toString()),
-                        pathList.joinToString(' '.toString()),
-                        genres.joinToString(' '.toString()),
-                        movie.ageRestriction,
-                        id)
-                }
-
-                override fun onFailure(call: Call<MovieWithActorsResponse>, t: Throwable) {
-                    t.printStackTrace()
-                }
-
-            })
-        return movieRepo.getMovieById(id)
+        return movieRepo.getMovieById(id)!!
     }
 
-    override fun onPostExecute(movie: Movie?) {
+    override fun onPostExecute(movie: Movie) {
         callback?.onLoad(movie)
     }
 }

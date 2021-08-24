@@ -56,8 +56,8 @@ class MovieRepository {
         return allMovies
     }
 
-    fun getMovieById(id: Int): Movie {
-        return movieDao.getById(id)!!
+    fun getMovieById(id: Int): Movie? {
+        return movieDao.getById(id)
     }
 
 
