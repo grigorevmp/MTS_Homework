@@ -42,6 +42,7 @@ abstract class MovieDatabase : RoomDatabase() {
                             MovieDatabase::class.java, DATABASE_NAME
                         ).build()
                     }
+                    populateDatabase(instance!!)
                 }
             }
             return instance
