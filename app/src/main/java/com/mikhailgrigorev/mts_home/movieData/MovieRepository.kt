@@ -8,13 +8,11 @@ import kotlinx.coroutines.launch
 class MovieRepository {
 
     private var movieDao: MovieDao
-    private var allMovies: List<Movie>
 
     private val database = MovieDatabase.getInstance()
 
     init {
         movieDao = database.movieDao()!!
-        allMovies = movieDao.getAll()
     }
 
     fun insert(movie: Movie) {
@@ -41,11 +39,11 @@ class MovieRepository {
         }
     }
 
-    fun getAllMovies(): List<Movie> {
-        return allMovies
+    suspend fun getAllMovies(): List<Movie> {
+        return movieDao.getAll()
     }
 
-    fun getMovieById(id: Long): Movie {
+    suspend fun getMovieById(id: Long): Movie {
         return movieDao.getById(id)!!
     }
 
