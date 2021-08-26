@@ -1,11 +1,9 @@
 package com.mikhailgrigorev.mts_home.userData
 
-import android.app.Application
 import android.content.ContentValues
-import android.os.AsyncTask
-import kotlinx.coroutines.delay
-import kotlin.random.Random
-
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.*
 
 
 class UserModel : UserModelApi {
@@ -17,7 +15,7 @@ class UserModel : UserModelApi {
 
     override fun addUser(contentValues: ContentValues?, callback: CompleteCallback?) {
         val addUserTask = AddUserTask(callback)
-        addUserTask.execute(contentValues)
+        addUserTask.execute()
     }
 
     override fun clearUsers(completeCallback: CompleteCallback?) {
@@ -41,45 +39,56 @@ class UserModel : UserModelApi {
 class LoadUserTask(
     private val callback: UserModel.LoadUserByIdCallback?,
     private val id: Long
-) :
-    AsyncTask<Void?, Void?, User>() {
-    override fun doInBackground(vararg params: Void?): User {
-        val userRepo = UserRepository()
-        return userRepo.getUserById(id)
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        val result = doInBackground()
+        onPostExecute(result)
     }
 
-    override fun onPostExecute(user: User) {
+    private suspend fun doInBackground(): User = withContext(Dispatchers.IO) {
+        val userRepo = UserRepository()
+        return@withContext userRepo.getUserById(id)
+    }
+
+    private fun onPostExecute(user: User) {
         callback?.onLoad(user)
     }
 }
 
 class AddUserTask(
     private val callback: UserModel.CompleteCallback?
-) :
-    AsyncTask<ContentValues?, Void?, Void?>() {
-    override fun doInBackground(vararg params: ContentValues?): Void? {
-        return null
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        doInBackground()
+        onPostExecute()
     }
 
-    override fun onPostExecute(aVoid: Void?) {
-        super.onPostExecute(aVoid)
+    private suspend fun doInBackground(): User? = withContext(Dispatchers.IO) {
+        return@withContext null
+    }
+
+    private fun onPostExecute() {
         callback?.onComplete()
     }
 }
 
 class ClearUsersTask(
     private val callback: UserModel.CompleteCallback?
-) :
-    AsyncTask<Void?, Void?, Void?>() {
-    override fun doInBackground(vararg params: Void?): Void? {
-        return null
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        doInBackground()
+        onPostExecute()
     }
 
-    override fun onPostExecute(aVoid: Void?) {
-        super.onPostExecute(aVoid)
+    private suspend fun doInBackground(): User? = withContext(Dispatchers.IO) {
+        return@withContext null
+    }
+
+    private fun onPostExecute() {
         callback?.onComplete()
     }
 }
+
 
 interface UserModelApi {
     fun loadUser(callback: UserModel.LoadUserByIdCallback?, id: Long)

@@ -1,10 +1,14 @@
 package com.mikhailgrigorev.mts_home.movieData
 
 import android.content.ContentValues
-import android.os.AsyncTask
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.api.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +43,7 @@ class MoviesModel : MoviesModelApi {
 
     override fun addMovie(contentValues: ContentValues?, callback: CompleteCallback?) {
         val addMovieTask = AddMovieTask(callback)
-        addMovieTask.execute(contentValues)
+        addMovieTask.execute()
     }
 
     override fun clearMovies(completeCallback: CompleteCallback?) {
@@ -63,25 +67,33 @@ class MoviesModel : MoviesModelApi {
 class LoadMovieTask(
     private val callback: MoviesModel.LoadMovieByIdCallback?,
     private val id: Int
-) :
-    AsyncTask<Void?, Void?, Movie>() {
-    override fun doInBackground(vararg params: Void?): Movie {
-        val movieRepo = MovieRepository()
-        return movieRepo.getMovieById(id)!!
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        val result = doInBackground()
+        onPostExecute(result)
     }
 
-    override fun onPostExecute(movie: Movie) {
+    private suspend fun doInBackground(): Movie = withContext(Dispatchers.IO) {
+        val movieRepo = MovieRepository()
+        return@withContext movieRepo.getMovieById(id)!!
+    }
+
+    private fun onPostExecute(movie: Movie) {
         callback?.onLoad(movie)
     }
 }
 
+
 class LoadMoviesTask(
     private val callback: MoviesModel.LoadMovieCallback?,
-) :
-    AsyncTask<Void?, Void?, List<Movie>>() {
-    override fun doInBackground(vararg params: Void?): List<Movie> {
-        val movieRepo = MovieRepository()
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        val result = doInBackground()
+        onPostExecute(result)
+    }
 
+    private suspend fun doInBackground(): List<Movie> = withContext(Dispatchers.IO) {
+        val movieRepo = MovieRepository()
         App.instance.apiService.getMovies().enqueue(object : Callback<ObjectResponse> {
             override fun onResponse(
                 call: Call<ObjectResponse>,
@@ -115,40 +127,45 @@ class LoadMoviesTask(
                 t.printStackTrace()
             }
         })
-
-        return movieRepo.getAllMovies()
+        return@withContext movieRepo.getAllMovies()
     }
 
-
-    override fun onPostExecute(movies: List<Movie>) {
+    private fun onPostExecute(movies: List<Movie>) {
         callback?.onLoad(movies)
     }
 }
 
+
 class AddMovieTask(
     private val callback: MoviesModel.CompleteCallback?
-) :
-    AsyncTask<ContentValues?, Void?, Void?>() {
-    override fun doInBackground(vararg params: ContentValues?): Void? {
-        return null
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        doInBackground()
+        onPostExecute()
     }
 
-    override fun onPostExecute(aVoid: Void?) {
-        super.onPostExecute(aVoid)
+    private suspend fun doInBackground(): List<Movie>? = withContext(Dispatchers.IO) {
+        return@withContext null
+    }
+
+    private fun onPostExecute() {
         callback?.onComplete()
     }
 }
 
 class ClearMoviesTask(
     private val callback: MoviesModel.CompleteCallback?
-) :
-    AsyncTask<Void?, Void?, Void?>() {
-    override fun doInBackground(vararg params: Void?): Void? {
-        return null
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        doInBackground()
+        onPostExecute()
     }
 
-    override fun onPostExecute(aVoid: Void?) {
-        super.onPostExecute(aVoid)
+    private suspend fun doInBackground(): List<Movie>? = withContext(Dispatchers.IO) {
+        return@withContext null
+    }
+
+    private fun onPostExecute() {
         callback?.onComplete()
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList
 
 @Entity(tableName = "movie")
 data class Movie(
-    @PrimaryKey()
+    @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int = 0,
     @ColumnInfo(name = "title")
@@ -43,4 +43,3 @@ data class Movie(
     @ColumnInfo(name = "age_restriction")
     var age_restriction: Int = 0
 )
-

@@ -1,9 +1,13 @@
 package com.mikhailgrigorev.mts_home.genreData
 
 import android.content.ContentValues
-import android.os.AsyncTask
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.api.GenresResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
 
@@ -22,7 +26,7 @@ class GenreModel : GenreModelApi {
 
     override fun addMovie(contentValues: ContentValues?, callback: CompleteCallback?) {
         val addGenreTask = AddGenreTask(callback)
-        addGenreTask.execute(contentValues)
+        addGenreTask.execute()
     }
 
     override fun clearMovies(completeCallback: CompleteCallback?) {
@@ -46,25 +50,33 @@ class GenreModel : GenreModelApi {
 class LoadGenreTask(
     private val callback: GenreModel.LoadGenreByIdCallback?,
     private val id: Int
-) :
-    AsyncTask<Void?, Void?, Genre>() {
-    override fun doInBackground(vararg params: Void?): Genre {
-        val genreRepo = GenreRepository()
-        return genreRepo.getGenreById(id)
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        val result = doInBackground()
+        onPostExecute(result)
     }
 
-    override fun onPostExecute(genre: Genre) {
+    private suspend fun doInBackground(): Genre = withContext(Dispatchers.IO) {
+        val genreRepo = GenreRepository()
+        return@withContext genreRepo.getGenreById(id)
+    }
+
+    private fun onPostExecute(genre: Genre) {
         callback?.onLoad(genre)
     }
 }
 
+
 class LoadGenresTask(
     private val callback: GenreModel.LoadGenreCallback?,
-) :
-    AsyncTask<Void?, Void?, List<Genre>>() {
-    override fun doInBackground(vararg params: Void?): List<Genre> {
-        val genreRepo = GenreRepository()
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        val result = doInBackground()
+        onPostExecute(result)
+    }
 
+    private suspend fun doInBackground(): List<Genre> = withContext(Dispatchers.IO) {
+        val genreRepo = GenreRepository()
         App.instance.apiService.getGenres()
             .enqueue(object : retrofit2.Callback<GenresResponse> {
                 override fun onResponse(
@@ -90,40 +102,45 @@ class LoadGenresTask(
                 }
 
             })
-
-        return genreRepo.getAllGenres()
+        return@withContext genreRepo.getAllGenres()
     }
 
-
-    override fun onPostExecute(genres: List<Genre>) {
+    private fun onPostExecute(genres: List<Genre>) {
         callback?.onLoad(genres)
     }
 }
 
+
 class AddGenreTask(
     private val callback: GenreModel.CompleteCallback?
-) :
-    AsyncTask<ContentValues?, Void?, Void?>() {
-    override fun doInBackground(vararg params: ContentValues?): Void? {
-        return null
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        doInBackground()
+        onPostExecute()
     }
 
-    override fun onPostExecute(aVoid: Void?) {
-        super.onPostExecute(aVoid)
+    private suspend fun doInBackground() = withContext(Dispatchers.IO) {
+        return@withContext null
+    }
+
+    private fun onPostExecute() {
         callback?.onComplete()
     }
 }
 
 class ClearGenresTask(
     private val callback: GenreModel.CompleteCallback?
-) :
-    AsyncTask<Void?, Void?, Void?>() {
-    override fun doInBackground(vararg params: Void?): Void? {
-        return null
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        doInBackground()
+        onPostExecute()
     }
 
-    override fun onPostExecute(aVoid: Void?) {
-        super.onPostExecute(aVoid)
+    private suspend fun doInBackground() = withContext(Dispatchers.IO) {
+        return@withContext null
+    }
+
+    private fun onPostExecute() {
         callback?.onComplete()
     }
 }
