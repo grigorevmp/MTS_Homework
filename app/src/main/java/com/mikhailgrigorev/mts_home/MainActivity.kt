@@ -9,13 +9,10 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mikhailgrigorev.mts_home.foregroundLoading.ForegroundWorker
 import java.util.concurrent.TimeUnit
-
-import android.os.Build
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.work.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -59,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         val request = moviesCheckBuilder.build()
         WorkManager.getInstance(context)
             .enqueueUniquePeriodicWork("DownloadingMovies", ExistingPeriodicWorkPolicy.KEEP, request)
-            //.enqueue(request)
+        //.enqueue(request)
     }
 
     private fun setUpBottomNav(navController: NavController) {
