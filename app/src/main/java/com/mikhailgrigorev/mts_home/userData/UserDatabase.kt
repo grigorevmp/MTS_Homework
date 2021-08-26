@@ -32,6 +32,7 @@ abstract class UserDatabase : RoomDatabase() {
                             context.applicationContext,
                             UserDatabase::class.java, DATABASE_NAME
                         ).build()
+                        populateDatabase(instance!!)
                     }
                 }
             }
