@@ -103,7 +103,7 @@ class ProfileFragment: Fragment()  {
     }
 
 
-    private fun render(viewState: ProfileFragment.ViewState) = with(viewState) {
+    private fun render(viewState: ViewState) = with(viewState) {
         if (isDownloaded) {
             progressDialog.show()
         } else {

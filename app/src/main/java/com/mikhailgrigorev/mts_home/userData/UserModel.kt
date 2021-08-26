@@ -3,10 +3,22 @@ package com.mikhailgrigorev.mts_home.userData
 import android.app.Application
 import android.content.ContentValues
 import android.os.AsyncTask
-import kotlinx.coroutines.delay
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.*
 import kotlin.random.Random
 
-
+fun <P, R> CoroutineScope.executeAsyncTask(
+    doInBackground: suspend (suspend (P) -> Unit) -> R,
+    onPostExecute: (R) -> Unit
+) = launch {
+    val result = withContext(Dispatchers.IO) {
+        doInBackground {
+            withContext(Dispatchers.Main) {}
+        }
+    }
+    onPostExecute(result)
+}
 
 class UserModel : UserModelApi {
 
@@ -41,17 +53,40 @@ class UserModel : UserModelApi {
 class LoadUserTask(
     private val callback: UserModel.LoadUserByIdCallback?,
     private val id: Long
-) :
-    AsyncTask<Void?, Void?, User>() {
-    override fun doInBackground(vararg params: Void?): User {
-        val userRepo = UserRepository()
-        return userRepo.getUserById(id)
+) : ViewModel() {
+    fun execute() = viewModelScope.launch {
+        onPreExecute()
+        val result = doInBackground() // runs in background thread without blocking the Main Thread
+        onPostExecute(result)
     }
 
-    override fun onPostExecute(user: User) {
+    private suspend fun doInBackground(): User = withContext(Dispatchers.IO) { // to run code in Background Thread
+        // do async work
+        val userRepo = UserRepository()
+        return@withContext userRepo.getUserById(id)
+    }
+
+    // Runs on the Main(UI) Thread
+    private fun onPreExecute() {
+        // show progress
+    }
+
+    // Runs on the Main(UI) Thread
+    private fun onPostExecute(user: User) {
         callback?.onLoad(user)
     }
 }
+
+    // AsyncTask<Void?, Void?, User>() {
+    // override fun doInBackground(vararg params: Void?): User {
+    //     val userRepo = UserRepository()
+    //     return userRepo.getUserById(id)
+    // }
+//
+    // override fun onPostExecute(user: User) {
+    //     callback?.onLoad(user)
+    // }
+
 
 class AddUserTask(
     private val callback: UserModel.CompleteCallback?
