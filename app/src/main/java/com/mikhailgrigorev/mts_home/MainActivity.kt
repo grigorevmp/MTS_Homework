@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         scheduleWork(this)
 
-        //val fragment: View? = findViewById(R.id.my_nav_host_fragment)
-
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment? ?: return
         val navController = host.navController
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private fun scheduleWork(context: Context) {
         val constraintsBuilder: Constraints.Builder = Constraints.Builder()
         constraintsBuilder.setRequiresBatteryNotLow(false)
-        constraintsBuilder.setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+        constraintsBuilder.setRequiredNetworkType(NetworkType.CONNECTED)
         constraintsBuilder.setRequiresCharging(false)
         constraintsBuilder.setRequiresDeviceIdle(false)
 
@@ -56,7 +54,6 @@ class MainActivity : AppCompatActivity() {
         val request = moviesCheckBuilder.build()
         WorkManager.getInstance(context)
             .enqueueUniquePeriodicWork("DownloadingMovies", ExistingPeriodicWorkPolicy.KEEP, request)
-        //.enqueue(request)
     }
 
     private fun setUpBottomNav(navController: NavController) {

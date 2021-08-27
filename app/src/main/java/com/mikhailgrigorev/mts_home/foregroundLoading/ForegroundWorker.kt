@@ -29,18 +29,13 @@ class ForegroundWorker(context: Context, parameters: WorkerParameters) :
         }
     }
 
-    //Fake long running task for 60 seconds
+
     private suspend fun loadMovies() {
         val model = MoviesModel()
-        model.loadMovies(object : MoviesModel.LoadMovieCallback {
-                override fun onLoad(movies: List<Movie>?) {
-                }
-        })
+        model.loadMoviesForeground()
         delay(1000)
-
     }
 
-    //Creates notifications for service
     private fun createForegroundInfo(): ForegroundInfo {
         val id = "1616"
         val channelName = "Downloads Notification"
