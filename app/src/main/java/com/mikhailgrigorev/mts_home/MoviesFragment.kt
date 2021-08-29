@@ -66,15 +66,26 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
 
         progressBar = view.findViewById(R.id.progress_bar)
 
+
         recycler = view.findViewById(R.id.moviesList)
         recyclerEmpty = view.findViewById(R.id.emptyMoviesList)
         recyclerGenre = view.findViewById(R.id.genreList)
 
+        val resId: Int = R.anim.grid_layout_animation_from_bottom
+        val animation: LayoutAnimationController = AnimationUtils.loadLayoutAnimation(context, resId)
+        recycler.layoutAnimation = animation
+
         val listener: OnItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(movie: Movie) {
+            override fun onItemClick(
+                movie: Movie,
+                movieCover: ImageView,
+                movieName: TextView
+            ) {
                 sendArguments(
                     view,
-                    movie.id
+                    movie.id,
+                    movieCover,
+                    movieName
                 )
             }
         }
@@ -184,8 +195,22 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
     }
 
 
-    fun sendArguments(view: View, movieId: Int) {
+    fun sendArguments(
+        view: View,
+        movieId: Int,
+        movieCover: ImageView,
+        movieName: TextView
+    ) {
         val action = MoviesFragmentDirections.actionOpenMovie(
+            movieId,
+            movieName.transitionName,
+            movieCover.transitionName
+        )
+        val extras = FragmentNavigatorExtras(
+            movieCover to movieCover.transitionName,
+            movieName to movieName.transitionName,
+        )
+        Navigation.findNavController(view).navigate(action, extras)
             movieId.toLong()
         )
         Navigation.findNavController(view).navigate(action)

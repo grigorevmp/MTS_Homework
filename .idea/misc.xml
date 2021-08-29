@@ -7,6 +7,7 @@
         <entry key="..\:/Homework/app/src/main/res/drawable-anydpi/ic_favorite_full1.xml" value="0.3231111111111111" />
         <entry key="..\:/Homework/app/src/main/res/drawable/ic_movies_loaded.xml" value="0.32747747747747746" />
         <entry key="..\:/Homework/app/src/main/res/layout-land/fragment_movie_details.xml" value="0.3054054054054054" />
+        <entry key="..\:/Homework/app/src/main/res/layout-land/fragment_movies_list.xml" value="0.22837837837837838" />
         <entry key="..\:/Homework/app/src/main/res/layout-land/fragment_profile.xml" value="0.2481981981981982" />
         <entry key="..\:/Homework/app/src/main/res/layout-land/fragment_profile_unlogged.xml" value="0.1728395061728395" />
         <entry key="..\:/Homework/app/src/main/res/layout/activity_main.xml" value="0.24728260869565216" />
@@ -14,6 +15,7 @@
         <entry key="..\:/Homework/app/src/main/res/layout/fragment_movies_list.xml" value="0.3070652173913043" />
         <entry key="..\:/Homework/app/src/main/res/layout/fragment_profile.xml" value="0.31351351351351353" />
         <entry key="..\:/Homework/app/src/main/res/layout/fragment_profile_unlogged.xml" value="0.31351351351351353" />
+        <entry key="..\:/Homework/app/src/main/res/layout/item_movie.xml" value="0.2296195652173913" />
         <entry key="..\:/Homework/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.20855855855855857" />
       </map>
     </option>

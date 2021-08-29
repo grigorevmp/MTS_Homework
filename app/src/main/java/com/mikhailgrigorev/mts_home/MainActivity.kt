@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment? ?: return
         val navController = host.navController
         setUpBottomNav(navController)
+        postponeEnterTransition()
     }
 
     private fun scheduleWork(context: Context) {

@@ -7,9 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.mikhailgrigorev.mts_home.R
-import com.mikhailgrigorev.mts_home.api.MovieResponse
 import com.mikhailgrigorev.mts_home.movieData.Movie
-import com.mikhailgrigorev.mts_home.moviesRecycler.OnItemClickListener
 
 const val PATH_HEADER = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
 
@@ -25,6 +23,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             val uri = PATH_HEADER + movie.poster_path
 
+
             movieCover?.load(uri)
             movieName?.text = movie.title
             movieDesc?.text = movie.overview
@@ -37,8 +36,11 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             else
                 movieAge?.visibility = View.GONE
 
+            movieCover.transitionName = ("transition$position")
+            movieName.transitionName = ("transitionText$position")
+
             itemView.setOnClickListener {
-                clickListener.onItemClick(movie)
+                clickListener.onItemClick(movie, movieCover, movieName)
             }
         }
 

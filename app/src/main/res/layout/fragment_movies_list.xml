@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/cardBackground"
+    android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -56,14 +57,15 @@
         app:layout_constrainedHeight="true"
         app:layout_constraintTop_toBottomOf="@id/genreList">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.mikhailgrigorev.mts_home.GridRecyclerView
         android:id="@+id/moviesList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:spanCount="2"
+        android:layoutAnimation="@anim/grid_layout_animation_from_bottom"
         tools:visibility="visible">
-    </androidx.recyclerview.widget.RecyclerView>
+    </com.mikhailgrigorev.mts_home.GridRecyclerView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <TextView

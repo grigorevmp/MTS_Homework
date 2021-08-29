@@ -6,13 +6,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RatingBar
+import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionInflater
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.transition.MaterialContainerTransform
 import com.mikhailgrigorev.mts_home.ActorsRecycler.ActorAdapter
 import com.mikhailgrigorev.mts_home.GenreRecycler.GenreAdapterForCard
 import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
@@ -51,6 +58,11 @@ class MoviesDetailFragment: Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_movie_details, container, false)
 
+        postponeEnterTransition()
+        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = transition
+        sharedElementReturnTransition = ChangeBounds()
+
         val safeArgs = MoviesDetailFragmentArgs.fromBundle(requireArguments())
 
         val bottomSheetBehavior =
@@ -68,6 +80,8 @@ class MoviesDetailFragment: Fragment() {
         ratingbar = view.findViewById(R.id.ratingbar)
         releaseDate = view.findViewById(R.id.release_date)
 
+        movieCoverValue.transitionName = safeArgs.cover
+        movieName.transitionName = safeArgs.name
 
         recyclerGenre = view.findViewById(R.id.genres_container)
         recyclerActor = view.findViewById(R.id.actors_container)
@@ -79,6 +93,8 @@ class MoviesDetailFragment: Fragment() {
 
         return view
     }
+
+
 
     private fun setDataToFragment( movie: MovieWithActorsResponse) {
         movieName.apply {
@@ -113,6 +129,8 @@ class MoviesDetailFragment: Fragment() {
         }
 
         ratingbar.rating = movie.vote_average
+
+        startPostponedEnterTransition()
     }
 
 

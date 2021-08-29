@@ -18,7 +18,6 @@
             android:layout_width="@dimen/list_item_width"
             android:layout_height="@dimen/list_item_height"
             android:scaleType="centerCrop"
-            tools:src="@drawable/makkellani"
             android:contentDescription="@string/profile_image" />
 
     </androidx.cardview.widget.CardView>

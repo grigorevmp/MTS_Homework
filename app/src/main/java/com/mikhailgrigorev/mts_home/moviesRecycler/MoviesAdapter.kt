@@ -5,13 +5,19 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.R
 import com.mikhailgrigorev.mts_home.movieData.Movie
 
 
 interface OnItemClickListener {
-    fun onItemClick(movie: Movie)
+    fun onItemClick(
+        movie: Movie,
+        movieCover: ImageView,
+        movieName: TextView
+    )
 }
 
 
@@ -49,8 +55,6 @@ class MoviesAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position != 0)
             getMovieAt(position - 1)?.let { (holder).bind(it, position, itemClickListener) }
-
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
