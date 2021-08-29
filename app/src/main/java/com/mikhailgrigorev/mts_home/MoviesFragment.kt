@@ -7,14 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -30,6 +29,9 @@ import com.mikhailgrigorev.mts_home.network.NetworkManager
 import com.mikhailgrigorev.mts_home.network.NetworkManagerImpl
 import com.mikhailgrigorev.mts_home.utils.RecyclerViewDecoration
 import kotlinx.coroutines.*
+import android.view.animation.LayoutAnimationController
+import android.widget.*
+import androidx.core.view.doOnPreDraw
 
 
 class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
@@ -71,6 +73,9 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         recyclerEmpty = view.findViewById(R.id.emptyMoviesList)
         recyclerGenre = view.findViewById(R.id.genreList)
 
+        postponeEnterTransition()
+        recycler.post { startPostponedEnterTransition() }
+
         val resId: Int = R.anim.grid_layout_animation_from_bottom
         val animation: LayoutAnimationController = AnimationUtils.loadLayoutAnimation(context, resId)
         recycler.layoutAnimation = animation
@@ -79,13 +84,19 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
             override fun onItemClick(
                 movie: Movie,
                 movieCover: ImageView,
-                movieName: TextView
+                movieName: TextView,
+                parent_item: LinearLayout,
+                ratingbar: RatingBar,
+                position: Int
             ) {
                 sendArguments(
                     view,
                     movie.id,
                     movieCover,
-                    movieName
+                    movieName,
+                    parent_item,
+                    ratingbar,
+                    position
                 )
             }
         }
@@ -159,6 +170,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
             }
         }
 
+        view.doOnPreDraw { startPostponedEnterTransition() }
         return view
     }
 
@@ -199,16 +211,20 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         view: View,
         movieId: Int,
         movieCover: ImageView,
-        movieName: TextView
+        movieName: TextView,
+        parent_item: LinearLayout,
+        ratingBar: RatingBar,
+        position: Int
     ) {
         val action = MoviesFragmentDirections.actionOpenMovie(
             movieId,
-            movieName.transitionName,
-            movieCover.transitionName
+            position
         )
         val extras = FragmentNavigatorExtras(
             movieCover to movieCover.transitionName,
             movieName to movieName.transitionName,
+            parent_item to parent_item.transitionName,
+            ratingBar to ratingBar.transitionName,
         )
         Navigation.findNavController(view).navigate(action, extras)
             movieId.toLong()

@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.core.view.ViewCompat
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -18,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionInflater
 import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.transition.MaterialContainerTransform
 import com.mikhailgrigorev.mts_home.ActorsRecycler.ActorAdapter
@@ -61,12 +64,14 @@ class MoviesDetailFragment: Fragment() {
         postponeEnterTransition()
         val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
-        sharedElementReturnTransition = ChangeBounds()
+        sharedElementReturnTransition = transition
 
         val safeArgs = MoviesDetailFragmentArgs.fromBundle(requireArguments())
 
+        val bottomSheet = view.findViewById<NestedScrollView>(R.id.bottomSheet)
+
         val bottomSheetBehavior =
-            BottomSheetBehavior.from(view.findViewById<LinearLayout>(R.id.bottomSheet))
+            BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         val orientation = this.resources.configuration.orientation
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -80,8 +85,10 @@ class MoviesDetailFragment: Fragment() {
         ratingbar = view.findViewById(R.id.ratingbar)
         releaseDate = view.findViewById(R.id.release_date)
 
-        movieCoverValue.transitionName = safeArgs.cover
-        movieName.transitionName = safeArgs.name
+        movieCoverValue.transitionName = ("transition${safeArgs.position}")
+        movieName.transitionName = ("transitionText${safeArgs.position}")
+        bottomSheet.transitionName = ("transitionParent${safeArgs.position}")
+        ratingbar.transitionName = ("transitionRating${safeArgs.position}")
 
         recyclerGenre = view.findViewById(R.id.genres_container)
         recyclerActor = view.findViewById(R.id.actors_container)
@@ -121,7 +128,12 @@ class MoviesDetailFragment: Fragment() {
         recyclerGenre.addItemDecoration(RecyclerViewDecoration(0, 6))
         recyclerActor.addItemDecoration(RecyclerViewDecoration(0, 6))
 
-        movieCoverValue.load(PATH_HEADER + movie.poster_path)
+        //movieCoverValue.load(PATH_HEADER + movie.poster_path)
+
+        Glide.with(this)
+            .load(PATH_HEADER + movie.poster_path)
+            .apply(RequestOptions.centerInsideTransform())
+            .into(movieCoverValue)
 
         ageRating.apply {
             text =

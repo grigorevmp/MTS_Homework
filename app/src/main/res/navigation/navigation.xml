@@ -21,16 +21,9 @@
                 android:name = "id"
                 app:argType = "long"
                 />
-
             <argument
-                android:name = "cover"
-                app:argType = "string"
-                />
-            <argument
-                android:name = "name"
-                app:argType = "string"
-                />
-
+                android:name="position"
+                app:argType="integer" />
         </action>
     </fragment>
     <fragment
@@ -50,13 +43,8 @@
             app:argType = "long"
             />
         <argument
-            android:name = "cover"
-            app:argType = "string"
-            />
-        <argument
-            android:name = "name"
-            app:argType = "string"
-            />
+            android:name="position"
+            app:argType="integer" />
         <action
             android:id="@+id/action_open_movies"
             app:destination="@id/movies_fragment" />

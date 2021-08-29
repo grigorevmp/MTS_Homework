@@ -2,10 +2,13 @@ package com.mikhailgrigorev.mts_home.moviesRecycler
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.mikhailgrigorev.mts_home.R
 import com.mikhailgrigorev.mts_home.movieData.Movie
 
@@ -13,7 +16,8 @@ const val PATH_HEADER = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
 
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val movieCover = itemView.findViewById<ImageView>(R.id.list_item_image)
+    private val parent_item = itemView.findViewById<LinearLayout>(R.id.parent_item)
+    private val movieCover = itemView.findViewById<ImageView>(R.id.list_item_image)
         private val movieName = itemView.findViewById<TextView>(R.id.list_item_movie_name)
         private val movieDesc = itemView.findViewById<TextView>(R.id.list_item_movie_desc)
         private val ratingbar = itemView.findViewById<RatingBar>(R.id.ratingbar)
@@ -24,13 +28,19 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val uri = PATH_HEADER + movie.poster_path
 
 
-            movieCover?.load(uri)
+            //movieCover?.load(uri)
+
+            Glide.with(itemView.context)
+                .load(uri)
+                .apply(RequestOptions.centerInsideTransform())
+                .into(movieCover)
+
             movieName?.text = movie.title
             movieDesc?.text = movie.overview
 
             ratingbar.rating = movie.vote_average
 
-            if(movie.adult)
+            if (movie.adult)
                 movieAge?.text =
                     itemView.context.getString(R.string.main_age_restriction_text, 18)
             else
@@ -38,9 +48,18 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             movieCover.transitionName = ("transition$position")
             movieName.transitionName = ("transitionText$position")
+            parent_item.transitionName = ("transitionParent$position")
+            ratingbar.transitionName = ("transitionRating$position")
 
             itemView.setOnClickListener {
-                clickListener.onItemClick(movie, movieCover, movieName)
+                clickListener.onItemClick(
+                    movie,
+                    movieCover,
+                    movieName,
+                    parent_item,
+                    ratingbar,
+                    position
+                )
             }
         }
 

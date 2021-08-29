@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhailgrigorev.mts_home.R
@@ -16,7 +18,10 @@ interface OnItemClickListener {
     fun onItemClick(
         movie: Movie,
         movieCover: ImageView,
-        movieName: TextView
+        movieName: TextView,
+        parent_item: LinearLayout,
+        ratingbar: RatingBar,
+        position: Int
     )
 }
 
