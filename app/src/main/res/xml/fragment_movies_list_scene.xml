@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetStart="@+id/start"
+        motion:constraintSetEnd="@+id/end"
+        motion:autoTransition="animateToEnd"
+        motion:duration="250">
+       <KeyFrameSet>
+       </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/imageView"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/movies_screen_margin"
+            motion:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/search_top_margin"
+            android:scaleY="0" />
+        <Constraint
+            android:id="@+id/imageView"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/movies_screen_margin"
+            motion:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/search_top_margin"
+            android:alpha="0" />
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/movies_screen_margin"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:id="@+id/popular_header"
+            android:layout_marginLeft="@dimen/movies_screen_margin" />
+        <Constraint
+            android:id="@+id/popular_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/movies_screen_margin"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:alpha="0"
+            android:layout_marginLeft="@dimen/movies_screen_margin" />
+        <Constraint
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/movies_screen_margin"
+            motion:layout_constraintTop_toBottomOf="@id/genreList"
+            motion:layout_constrainedHeight="true"
+            android:layout_marginStart="@dimen/movies_screen_margin"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="500dp"
+            android:id="@+id/swipeContainer"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintVertical_bias="0.971" />
+        <Constraint
+            android:id="@+id/swipeContainer"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/movies_screen_margin"
+            motion:layout_constraintTop_toBottomOf="@id/genreList"
+            motion:layout_constrainedHeight="true"
+            android:layout_marginStart="@dimen/movies_screen_margin"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="500dp"
+            android:alpha="0"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintVertical_bias="0.971" />
+        <Constraint
+            android:id="@+id/genreList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@id/popular_header"
+            android:layout_marginStart="@dimen/movies_screen_margin"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/extra_small_top_margin"
+            android:alpha="0" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+    </ConstraintSet>
+</MotionScene>

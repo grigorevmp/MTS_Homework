@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -43,6 +45,7 @@ class ProfileFragment: Fragment()  {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        postponeEnterTransition()
 
         var view = inflater.inflate(R.layout.fragment_profile, container, false)
 
@@ -80,6 +83,9 @@ class ProfileFragment: Fragment()  {
                 refreshCurrentFragment(this)
             }
         }
+        startPostponedEnterTransition()
+
+        view.findViewById<MotionLayout>(R.id.motionLayout).transitionToStart()
 
         return view
     }

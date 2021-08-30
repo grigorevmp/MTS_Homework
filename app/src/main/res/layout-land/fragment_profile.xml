@@ -2,63 +2,68 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+    <ImageView
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:layout_marginTop="@dimen/extra_top_margin"
+        android:layout_marginEnd="@dimen/movies_screen_margin"
+        android:contentDescription="@string/avatar"
+        android:src="@drawable/ic_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/accountMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/movies_screen_margin"
+        android:layout_marginTop="@dimen/mail_vertical_margin"
+        android:text="@string/account_mail"
+        android:textColor="@color/black"
+        android:textSize="@dimen/movie_description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/userLogin" />
+
+
+    <TextView
+        android:id="@+id/userLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/movies_screen_margin"
+        android:layout_marginTop="@dimen/profile_top_name_margin"
+        android:text="@string/account_name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/movie_name_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/extra_top_margin"
+        app:layout_constraintTop_toBottomOf="@+id/accountMail">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="@dimen/avatar_size"
-                android:layout_height="@dimen/avatar_size"
-                android:layout_marginTop="@dimen/extra_top_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
-                android:src="@drawable/ic_avatar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/avatar" />
-
-            <TextView
-                android:id="@+id/userLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginTop="@dimen/profile_top_name_margin"
-                android:text="@string/account_name"
-                android:textColor="@color/black"
-                android:textSize="@dimen/movie_name_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/accountMail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/account_mail"
-                android:textColor="@color/black"
-                android:layout_marginTop="@dimen/mail_vertical_margin"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:textSize="@dimen/movie_description"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userLogin" />
 
             <TextView
                 android:id="@+id/interests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/movies_screen_margin"
+                android:layout_marginTop="@dimen/extra_top_margin"
                 android:text="@string/interests"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/interest_margin_top"
-                android:layout_marginStart="@dimen/movies_screen_margin"
                 android:textSize="@dimen/sub_head_size"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/accountMail" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@id/genre"
@@ -82,106 +87,110 @@
                 android:id="@+id/personal_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/movies_screen_margin"
+                android:layout_marginTop="@dimen/subhead_top_margin"
                 android:text="@string/personal_data"
                 android:textColor="@color/black"
-                android:layout_marginTop="@dimen/subhead_top_margin"
-                android:layout_marginStart="@dimen/movies_screen_margin"
                 android:textSize="@dimen/sub_head_size"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/genre"/>
+                app:layout_constraintTop_toBottomOf="@+id/genre" />
 
             <TextView
                 android:id="@+id/settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/movies_screen_margin"
+                android:layout_marginTop="@dimen/subhead_top_margin"
                 android:text="@string/settings"
                 android:textColor="@color/black"
-                android:layout_marginTop="@dimen/subhead_top_margin"
-                android:layout_marginStart="@dimen/movies_screen_margin"
                 android:textSize="@dimen/sub_head_size"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPhone"/>
+                app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
 
             <TextView
                 android:id="@+id/app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/movies_screen_margin"
+                android:layout_marginTop="@dimen/subhead_top_margin"
                 android:text="@string/app"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 android:textSize="@dimen/sub_head_size"
-                android:layout_marginTop="@dimen/subhead_top_margin"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings5" />
 
             <EditText
                 android:id="@+id/editTextTextPassword2"
                 android:layout_width="match_parent"
-                android:textSize="@dimen/edit_field_text_size"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/movies_screen_margin"
+                android:autofillHints="Name"
                 android:backgroundTint="@color/black"
+                android:ems="10"
                 android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="parent"
+                android:minHeight="48dp"
                 android:text="@string/password_hint"
+                android:textColor="@color/black"
+                android:textSize="@dimen/edit_field_text_size"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-                android:autofillHints="" />
+                tools:ignore="LabelFor" />
 
             <EditText
                 android:id="@+id/editTextTextEmailAddress"
                 android:layout_width="match_parent"
-                android:textSize="@dimen/edit_field_text_size"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/movies_screen_margin"
+                android:autofillHints="Name"
+                android:backgroundTint="@color/black"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/black"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
+                android:minHeight="48dp"
                 android:text="@string/e_mail_hint"
+                android:textColor="@color/black"
+                android:textSize="@dimen/edit_field_text_size"
                 app:layout_constraintStart_toStartOf="parent"
-                android:autofillHints="" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
+                tools:ignore="LabelFor" />
 
             <EditText
                 android:id="@+id/editTextPhone"
                 android:layout_width="match_parent"
-                android:textSize="@dimen/edit_field_text_size"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/movies_screen_margin"
+                android:autofillHints="Phone"
+                android:backgroundTint="@color/black"
                 android:ems="10"
                 android:inputType="phone"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/black"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+                android:minHeight="48dp"
                 android:text="@string/phone_hint"
+                android:textColor="@color/black"
+                android:textSize="@dimen/edit_field_text_size"
                 app:layout_constraintStart_toStartOf="parent"
-                android:autofillHints="" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+                tools:ignore="LabelFor" />
 
             <EditText
                 android:id="@+id/editTextTextPersonName"
                 android:layout_width="match_parent"
-                android:textSize="@dimen/edit_field_text_size"
-                android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
-                android:layout_marginTop="@dimen/description_top_margin"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/movies_screen_margin"
+                android:layout_marginTop="@dimen/description_top_margin"
+                android:layout_marginEnd="@dimen/movies_screen_margin"
+                android:autofillHints="Name"
                 android:backgroundTint="@color/black"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:minHeight="48dp"
                 android:text="@string/name_hint"
+                android:textColor="@color/black"
+                android:textSize="@dimen/edit_field_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/personal_data"
-                android:autofillHints="Name"
                 tools:ignore="LabelFor" />
 
             <LinearLayout
@@ -189,27 +198,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_marginTop="@dimen/description_top_margin"
+                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:orientation="horizontal"
-                tools:ignore="UseCompoundDrawables"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/settings">
+                app:layout_constraintTop_toBottomOf="@+id/settings"
+                tools:ignore="UseCompoundDrawables">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/movie_description"
+                    android:text="@string/notification_sound"
                     android:textColor="@color/black"
-                    android:text="@string/notification_sound"/>
+                    android:textSize="@dimen/movie_description" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"
-                    android:contentDescription="@string/open" />
+                    android:contentDescription="@string/open"
+                    android:src="@drawable/ic_arrow" />
             </LinearLayout>
 
             <LinearLayout
@@ -217,83 +227,88 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_marginTop="@dimen/description_top_margin"
+                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:orientation="horizontal"
-                tools:ignore="UseCompoundDrawables"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/settings1">
+                app:layout_constraintTop_toBottomOf="@+id/settings1"
+                tools:ignore="UseCompoundDrawables">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/movie_description"
+                    android:text="@string/confidential"
                     android:textColor="@color/black"
-                    android:text="@string/confidential"/>
+                    android:textSize="@dimen/movie_description" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"
-                    android:contentDescription="@string/open"/>
+                    android:contentDescription="@string/open"
+                    android:src="@drawable/ic_arrow" />
             </LinearLayout>
+
             <LinearLayout
 
                 android:id="@+id/settings3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_marginTop="@dimen/description_top_margin"
+                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:orientation="horizontal"
-                tools:ignore="UseCompoundDrawables"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/settings2">
+                app:layout_constraintTop_toBottomOf="@+id/settings2"
+                tools:ignore="UseCompoundDrawables">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/movie_description"
+                    android:text="@string/theme"
                     android:textColor="@color/black"
-                    android:text="@string/theme"/>
+                    android:textSize="@dimen/movie_description" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"
-                    android:contentDescription="@string/open"/>
+                    android:contentDescription="@string/open"
+                    android:src="@drawable/ic_arrow" />
             </LinearLayout>
+
             <LinearLayout
 
                 android:id="@+id/settings4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_marginTop="@dimen/description_top_margin"
+                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="UseCompoundDrawables"
-                app:layout_constraintTop_toBottomOf="@+id/settings3">
+                app:layout_constraintTop_toBottomOf="@+id/settings3"
+                tools:ignore="UseCompoundDrawables">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/movie_description"
+                    android:text="@string/lang"
                     android:textColor="@color/black"
-                    android:text="@string/lang"/>
+                    android:textSize="@dimen/movie_description" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"
-                    android:contentDescription="@string/open"/>
+                    android:contentDescription="@string/open"
+                    android:src="@drawable/ic_arrow" />
             </LinearLayout>
 
             <LinearLayout
@@ -302,27 +317,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_marginTop="@dimen/description_top_margin"
+                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings4"
                 tools:ignore="UseCompoundDrawables">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/movie_description"
+                    android:text="@string/data_memory"
                     android:textColor="@color/black"
-                    android:text="@string/data_memory"/>
+                    android:textSize="@dimen/movie_description" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"
-                    android:contentDescription="@string/open"/>
+                    android:contentDescription="@string/open"
+                    android:src="@drawable/ic_arrow" />
             </LinearLayout>
 
             <LinearLayout
@@ -330,27 +346,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_marginTop="@dimen/description_top_margin"
+                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/app"
                 tools:ignore="UseCompoundDrawables">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/movie_description"
+                    android:text="@string/bug_report"
                     android:textColor="@color/black"
-                    android:text="@string/bug_report"/>
+                    android:textSize="@dimen/movie_description" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"
-                    android:contentDescription="@string/open"/>
+                    android:contentDescription="@string/open"
+                    android:src="@drawable/ic_arrow" />
             </LinearLayout>
 
             <LinearLayout
@@ -358,42 +375,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/movies_screen_margin"
-                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:layout_marginTop="@dimen/description_top_margin"
+                android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings6"
                 tools:ignore="UseCompoundDrawables">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/movie_description"
+                    android:text="@string/ask_question"
                     android:textColor="@color/black"
-                    android:text="@string/ask_question"/>
+                    android:textSize="@dimen/movie_description" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"
-                    android:contentDescription="@string/open"/>
+                    android:contentDescription="@string/open"
+                    android:src="@drawable/ic_arrow" />
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:id="@+id/logout"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_bar_height"
-                app:cornerRadius="@dimen/button_corner"
-                android:layout_marginTop="@dimen/subhead_top_margin"
-                android:layout_marginBottom="@dimen/logout_button_bottom"
                 android:layout_marginStart="@dimen/movies_screen_margin"
+                android:layout_marginTop="@dimen/subhead_top_margin"
                 android:layout_marginEnd="@dimen/movies_screen_margin"
+                android:layout_marginBottom="@dimen/logout_button_bottom"
                 android:backgroundTint="@color/button_grey"
                 android:text="@string/exit"
                 android:textColor="@color/black"
+                app:cornerRadius="@dimen/button_corner"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

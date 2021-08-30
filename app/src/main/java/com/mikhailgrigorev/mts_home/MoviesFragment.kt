@@ -30,8 +30,11 @@ import com.mikhailgrigorev.mts_home.network.NetworkManagerImpl
 import com.mikhailgrigorev.mts_home.utils.RecyclerViewDecoration
 import kotlinx.coroutines.*
 import android.view.animation.LayoutAnimationController
+import android.view.animation.OvershootInterpolator
 import android.widget.*
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.view.doOnPreDraw
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 
 class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
@@ -58,6 +61,8 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movies_list, container, false)
 
+        postponeEnterTransition()
+
         var gd = GridLayoutManager(view.context, 2)
         val orientation = this.resources.configuration.orientation
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -70,11 +75,12 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
 
 
         recycler = view.findViewById(R.id.moviesList)
+
         recyclerEmpty = view.findViewById(R.id.emptyMoviesList)
         recyclerGenre = view.findViewById(R.id.genreList)
 
-        postponeEnterTransition()
-        recycler.post { startPostponedEnterTransition() }
+        recycler.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
+        recyclerGenre.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
 
         val resId: Int = R.anim.grid_layout_animation_from_bottom
         val animation: LayoutAnimationController = AnimationUtils.loadLayoutAnimation(context, resId)
@@ -170,7 +176,13 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
             }
         }
 
+        view.findViewById<MotionLayout>(R.id.motionLayout2).transitionToStart()
+
+
+        recycler.post { startPostponedEnterTransition() }
+        recyclerGenre.post { startPostponedEnterTransition() }
         view.doOnPreDraw { startPostponedEnterTransition() }
+
         return view
     }
 

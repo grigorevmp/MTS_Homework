@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/motionLayout2"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/cardBackground"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/cardBackground"
+    app:layoutDescription="@xml/fragment_movies_list_scene">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/search_top_margin"
@@ -29,6 +32,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/genreList"
         android:layout_width="match_parent"
@@ -50,22 +54,23 @@
         android:layout_marginStart="@dimen/movies_screen_margin"
         android:layout_marginTop="@dimen/movie_list_top_margin"
         android:layout_marginEnd="@dimen/movies_screen_margin"
+        app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constrainedHeight="true"
         app:layout_constraintTop_toBottomOf="@id/genreList">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.mikhailgrigorev.mts_home.GridRecyclerView
             android:id="@+id/moviesList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layoutAnimation="@anim/grid_layout_animation_from_bottom"
             android:orientation="vertical"
             app:spanCount="2"
-            tools:visibility="visible">
-        </androidx.recyclerview.widget.RecyclerView>
+            tools:visibility="visible" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <TextView
         android:id="@+id/emptyMoviesList"
         android:layout_width="match_parent"
@@ -73,15 +78,14 @@
         android:layout_marginStart="@dimen/movies_screen_margin"
         android:layout_marginTop="@dimen/movie_list_top_margin"
         android:layout_marginEnd="@dimen/movies_screen_margin"
-        android:textColor="@color/black"
         android:text="@string/emptyMovieList"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:visibility="gone"
-        tools:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/genreList" />
-
+        app:layout_constraintTop_toBottomOf="@id/genreList"
+        tools:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -89,10 +93,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/genreList" />
+        app:layout_constraintTop_toBottomOf="@id/genreList"
+        tools:visibility="visible" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
