@@ -7,13 +7,11 @@ import kotlinx.coroutines.launch
 class GenreRepository {
 
     private var genreDao: GenreDao
-    private var allGenres: List<Genre>
 
     private val database = GenreDatabase.getInstance()
 
     init {
         genreDao = database.genreDao()!!
-        allGenres = genreDao.getAll()
     }
 
     fun insert(genre: Genre) {
@@ -47,7 +45,7 @@ class GenreRepository {
     }
 
     fun getAllGenres(): List<Genre> {
-        return allGenres
+        return genreDao.getAll()
     }
 
     fun getGenreById(id: Int): Genre {

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.MoviesDetailFragment
 import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
-import com.mikhailgrigorev.mts_home.movieData.MoviesModel
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
@@ -14,8 +13,6 @@ import retrofit2.Callback
 typealias MoviesDetailsFragmentViewState = MoviesDetailFragment.ViewState
 
 class MovieCardViewModel : ViewModel(){
-
-    private val model = MoviesModel()
 
     val viewState: LiveData<MoviesDetailsFragmentViewState> get() = _viewState
     private val _viewState = MutableLiveData<MoviesDetailsFragmentViewState>()
@@ -25,7 +22,6 @@ class MovieCardViewModel : ViewModel(){
 
 
     fun loadMovie(id: Int) {
-        // TODO MOVE IN MODEL
         App.instance.apiService.getMovieByIdWithActors(id.toString()).enqueue(
             object : Callback<MovieWithActorsResponse> {
                 override fun onResponse(

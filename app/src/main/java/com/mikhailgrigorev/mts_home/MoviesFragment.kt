@@ -107,7 +107,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         genreViewModel.viewState.observe(viewLifecycleOwner, Observer(::render))
 
         movieViewModel.loadMovies()
-        genreViewModel.loadMovies()
+        genreViewModel.loadGenres()
 
         gd.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -139,7 +139,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
 
         swipeContainer.setOnRefreshListener {
             runBlocking {
-                val job = lifecycleScope.launch(handler + Job()) {
+                lifecycleScope.launch(handler + Job()) {
                     movieViewModel.loadMovies()
                     swipeContainer.isRefreshing = false
                 }

@@ -7,13 +7,11 @@ import kotlinx.coroutines.launch
 class MovieRepository {
 
     private var movieDao: MovieDao
-    private var allMovies: List<Movie>
 
     private val database = MovieDatabase.getInstance()
 
     init {
         movieDao = database.movieDao()!!
-        allMovies = movieDao.getAll()
     }
 
     fun insert(movie: Movie) {
@@ -34,12 +32,6 @@ class MovieRepository {
         }
     }
 
-    fun updateSpecial(actors_names: String, actors_paths: String, genre_ids: String, age_restriction: Int, id: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            movieDao.updateSpecial(actors_names, actors_paths, genre_ids, age_restriction, id)
-        }
-    }
-
     fun delete(movie: Movie) {
         CoroutineScope(Dispatchers.IO).launch {
             movieDao.delete(movie)
@@ -52,14 +44,12 @@ class MovieRepository {
         }
     }
 
-    fun getAllMovies(): List<Movie> {
-        return allMovies
+    suspend fun getAllMovies(): List<Movie> {
+        return movieDao.getAll()
     }
 
-    fun getMovieById(id: Int): Movie? {
-        return movieDao.getById(id)
+    suspend fun getMovieById(id: Long): Movie {
+        return movieDao.getById(id)!!
     }
-
-
 
 }
