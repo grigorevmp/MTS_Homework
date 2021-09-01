@@ -229,7 +229,7 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
         position: Int
     ) {
         val action = MoviesFragmentDirections.actionOpenMovie(
-            movieId,
+            movieId.toLong(),
             position
         )
         val extras = FragmentNavigatorExtras(
@@ -239,9 +239,6 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
             ratingBar to ratingBar.transitionName,
         )
         Navigation.findNavController(view).navigate(action, extras)
-            movieId.toLong()
-        )
-        Navigation.findNavController(view).navigate(action)
     }
 
     private fun getGenreToastMessage(title: String) =
