@@ -21,7 +21,7 @@ class MovieCardViewModel : ViewModel(){
     private val _currentMovie = MutableLiveData<MovieWithActorsResponse>()
 
 
-    fun loadMovie(id: Int) {
+    fun loadMovie(id: Long) {
         App.instance.apiService.getMovieByIdWithActors(id.toString()).enqueue(
             object : Callback<MovieWithActorsResponse> {
                 override fun onResponse(

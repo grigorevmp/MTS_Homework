@@ -186,7 +186,8 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
 
     fun sendArguments(view: View, movieId: Int) {
         val action = MoviesFragmentDirections.actionOpenMovie(
-            movieId)
+            movieId.toLong()
+        )
         Navigation.findNavController(view).navigate(action)
     }
 
