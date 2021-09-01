@@ -62,6 +62,8 @@ class MoviesFragment : Fragment(), NetworkManager.OnNetworkStateChangeListener {
             gd = GridLayoutManager(view.context, 4)
         }
 
+        init()
+
         progressBar = view.findViewById(R.id.progress_bar)
 
         recycler = view.findViewById(R.id.moviesList)
