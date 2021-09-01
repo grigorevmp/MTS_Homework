@@ -7,11 +7,18 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.work.*
+import com.mikhailgrigorev.mts_home.App
+import com.mikhailgrigorev.mts_home.api.ObjectResponse
 import com.mikhailgrigorev.mts_home.movieData.Movie
-import com.mikhailgrigorev.mts_home.movieData.MoviesModel
+import com.mikhailgrigorev.mts_home.movieData.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+val movieRepo = MovieRepository()
 
 class ForegroundWorker(context: Context, parameters: WorkerParameters) :
     CoroutineWorker(context, parameters) {
@@ -31,8 +38,39 @@ class ForegroundWorker(context: Context, parameters: WorkerParameters) :
 
 
     private suspend fun loadMovies() {
-        val model = MoviesModel()
-        model.loadMoviesForeground()
+        App.instance.apiService.getMovies().enqueue(object : Callback<ObjectResponse> {
+            override fun onResponse(
+                call: Call<ObjectResponse>,
+                response: Response<ObjectResponse>
+            ) {
+                val moviesForDb: MutableList<Movie> = arrayListOf()
+                val movies = response.body()?.results ?: emptyList()
+                for (movie in movies) {
+                    moviesForDb.add(
+                        Movie(
+                            id = movie.id,
+                            title = movie.title,
+                            poster_path = movie.poster_path,
+                            overview = movie.overview,
+                            vote_average = movie.vote_average,
+                            genre_ids = movie.genre_ids.joinToString(' '.toString()),
+                            adult = movie.adult,
+                            backdrop_path = movie.backdrop_path,
+                            original_language = movie.original_language,
+                            video = movie.video,
+                            popularity = movie.popularity,
+                            vote_count = movie.vote_count,
+                            release_date = movie.release_date
+                        )
+                    )
+                }
+                movieRepo.insertAll(moviesForDb)
+            }
+
+            override fun onFailure(call: Call<ObjectResponse>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
         delay(1000)
     }
 
