@@ -3,12 +3,12 @@ package com.mikhailgrigorev.mts_home.mvvm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.MoviesDetailFragment
 import com.mikhailgrigorev.mts_home.api.MovieWithActorsResponse
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Callback
+import com.mikhailgrigorev.mts_home.movieData.MovieRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 typealias MoviesDetailsFragmentViewState = MoviesDetailFragment.ViewState
 
@@ -20,25 +20,19 @@ class MovieCardViewModel : ViewModel(){
     val currentMovie: LiveData<MovieWithActorsResponse> get() = _currentMovie
     private val _currentMovie = MutableLiveData<MovieWithActorsResponse>()
 
+    private val movieRepository = MovieRepository()
 
     fun loadMovie(id: Long) {
-        App.instance.apiService.getMovieByIdWithActors(id.toString()).enqueue(
-            object : Callback<MovieWithActorsResponse> {
-                override fun onResponse(
-                    call: Call<MovieWithActorsResponse>,
-                    response: Response<MovieWithActorsResponse>
-                ) {
-                    val movie = response.body()!!
-                    _currentMovie.postValue(movie)
-                    _viewState.postValue(MoviesDetailsFragmentViewState(isDownloading = false))
-                }
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                movieRepository.loadAndReturn(id)
+                _currentMovie.postValue(movieRepository.getMovieTemp())
+                _viewState.postValue(MoviesDetailsFragmentViewState(isDownloading = false))
 
-                override fun onFailure(call: Call<MovieWithActorsResponse>, t: Throwable) {
-                    t.printStackTrace()
-                    _viewState.postValue(MoviesDetailsFragmentViewState(isDownloading = true))
-                }
-
-            })
+            } catch (e: Exception) {
+                print(e.message)
+            }
+        }
     }
 
     fun add(userData: MovieWithActorsResponse) {

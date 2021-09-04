@@ -91,7 +91,7 @@ data class MovieWithActorsResponse(
     @SerialName("vote_average") val vote_average: Float = 0.0F,
     @SerialName("ageRestriction") val ageRestriction: Int = 0,
     @SerialName("genres") val genres: ArrayList<GenreResponse> = arrayListOf(),
-    @SerialName("credits") val credits: CreditsResponse,
+    @SerialName("credits") val credits: CreditsResponse = CreditsResponse(),
     @SerialName("adult") val adult: Boolean = false,
     @SerialName("backdrop_path") val backdrop_path: String = "null",
     @SerialName("original_language") val original_language: String = "null",
@@ -99,5 +99,12 @@ data class MovieWithActorsResponse(
     @SerialName("popularity") val popularity: Float = 0.9F,
     @SerialName("vote_count") val vote_count: Int = 0,
     @SerialName("release_date") val release_date: String = "null"
-)
+){
+    fun clone(): MovieWithActorsResponse {
+        return MovieWithActorsResponse(
+            id, title, poster_path, overview, vote_average, ageRestriction, genres, credits
+        )
+    }
+
+}
 

@@ -3,13 +3,12 @@ package com.mikhailgrigorev.mts_home.mvvm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mikhailgrigorev.mts_home.App
 import com.mikhailgrigorev.mts_home.MoviesFragment
-import com.mikhailgrigorev.mts_home.api.GenresResponse
 import com.mikhailgrigorev.mts_home.genreData.Genre
 import com.mikhailgrigorev.mts_home.genreData.GenreRepository
-import retrofit2.Call
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 typealias GenresFragmentViewState = MoviesFragment.ViewState
 
@@ -24,32 +23,17 @@ class GenresViewModel : ViewModel() {
     private val genreRepository = GenreRepository()
 
     fun loadGenres() {
-        App.instance.apiService.getGenres()
-            .enqueue(object : retrofit2.Callback<GenresResponse> {
-                override fun onResponse(
-                    call: Call<GenresResponse>,
-                    response: Response<GenresResponse>
-                ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val genres: MutableList<Genre> =
+                    genreRepository.loadAndInsertAll() as MutableList<Genre>
+                _dataList.postValue(genres)
+                _viewState.postValue(MoviesFragmentViewState(isDownloading = false))
 
-                    val genres: MutableList<Genre> = arrayListOf()
-
-
-                    val genresResponse = response.body()!!.genres
-                    for (genre in genresResponse) {
-                        genres.add(Genre(genre.id, genre.genre))
-                    }
-
-
-                    genreRepository.insertAll(genres)
-                    _dataList.postValue(genres)
-                    _viewState.postValue(MoviesFragmentViewState(isDownloading = false))
-
-                }
-
-                override fun onFailure(call: Call<GenresResponse>, t: Throwable) {
-                    t.printStackTrace()
-                }
-            })
+            } catch (e: Exception) {
+                // handler error
+            }
+        }
     }
 
     fun add(genre: Genre) {

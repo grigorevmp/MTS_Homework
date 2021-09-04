@@ -3,7 +3,7 @@ package com.mikhailgrigorev.mts_home.movieData
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.ArrayList
+import com.mikhailgrigorev.mts_home.api.MovieResponse
 
 @Entity(tableName = "movie")
 data class Movie(
@@ -42,4 +42,22 @@ data class Movie(
     val release_date: String = "null",
     @ColumnInfo(name = "age_restriction")
     var age_restriction: Int = 0
-)
+) {
+    companion object {
+        fun movieFromResponse(movie: MovieResponse) = Movie(
+            id = movie.id,
+            title = movie.title,
+            poster_path = movie.poster_path,
+            overview = movie.overview,
+            vote_average = movie.vote_average,
+            genre_ids = movie.genre_ids.joinToString(' '.toString()),
+            adult = movie.adult,
+            backdrop_path = movie.backdrop_path,
+            original_language = movie.original_language,
+            video = movie.video,
+            popularity = movie.popularity,
+            vote_count = movie.vote_count,
+            release_date = movie.release_date
+        )
+    }
+}
