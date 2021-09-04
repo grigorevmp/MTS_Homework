@@ -20,7 +20,8 @@
                 android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:src="@drawable/ic_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/avatar" />
 
             <TextView
                 android:id="@+id/userLogin"
@@ -129,7 +130,8 @@
                 android:inputType="textPassword"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/password_hint"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+                android:autofillHints="" />
 
             <EditText
                 android:id="@+id/editTextTextEmailAddress"
@@ -144,7 +146,8 @@
                 android:backgroundTint="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
                 android:text="@string/e_mail_hint"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:autofillHints="" />
 
             <EditText
                 android:id="@+id/editTextPhone"
@@ -159,7 +162,8 @@
                 android:backgroundTint="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
                 android:text="@string/phone_hint"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                android:autofillHints="" />
 
             <EditText
                 android:id="@+id/editTextTextPersonName"
@@ -176,7 +180,9 @@
                 android:text="@string/name_hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/personal_data" />
+                app:layout_constraintTop_toBottomOf="@+id/personal_data"
+                android:autofillHints="Name"
+                tools:ignore="LabelFor" />
 
             <LinearLayout
                 android:id="@+id/settings1"
@@ -202,7 +208,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open" />
             </LinearLayout>
 
             <LinearLayout
@@ -229,7 +236,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
             <LinearLayout
 
@@ -256,7 +264,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
             <LinearLayout
 
@@ -283,7 +292,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
 
             <LinearLayout
@@ -311,7 +321,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
 
             <LinearLayout
@@ -338,7 +349,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
 
             <LinearLayout
@@ -365,7 +377,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton

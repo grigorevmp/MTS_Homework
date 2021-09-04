@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.mikhailgrigorev.mts_home.movieData.MovieDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,8 +32,8 @@ abstract class UserDatabase : RoomDatabase() {
                             context.applicationContext,
                             UserDatabase::class.java, DATABASE_NAME
                         ).build()
+                        populateDatabase(instance!!)
                     }
-                   populateDatabase(instance!!)
                 }
             }
             return instance

@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import androidx.room.migration.Migration
-import kotlinx.coroutines.Dispatchers
+
 
 
 @Database(entities = [Movie::class], version = 2)
@@ -27,6 +27,7 @@ abstract class MovieDatabase : RoomDatabase() {
         private var instance: MovieDatabase? = null
         private const val DATABASE_NAME = "Movie.db"
 
+
         @Synchronized
         fun getInstance(): MovieDatabase {
             return instance!!
@@ -42,7 +43,6 @@ abstract class MovieDatabase : RoomDatabase() {
                             MovieDatabase::class.java, DATABASE_NAME
                         ).build()
                     }
-                    populateDatabase(instance!!)
                 }
             }
             return instance
@@ -57,9 +57,9 @@ abstract class MovieDatabase : RoomDatabase() {
 
         private fun populateDatabase(db: MovieDatabase) {
             val movieDao = db.movieDao()
-            CoroutineScope(IO).launch {
-                movieDao!!.insertAll(MovieTestData.getMovies())
-            }
+            //CoroutineScope(IO).launch {
+                //movieDao!!.insertAll(MovieTestData.getMovies())
+            //}
         }
 
 

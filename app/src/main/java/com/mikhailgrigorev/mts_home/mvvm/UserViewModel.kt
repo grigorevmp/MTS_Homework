@@ -40,4 +40,3 @@ class UserViewModel : ViewModel() {
     fun clear(context: Context) {
     }
 }
-

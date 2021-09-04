@@ -21,7 +21,8 @@
                 android:layout_marginEnd="@dimen/movies_screen_margin"
                 android:src="@drawable/ic_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/avatar" />
 
             <TextView
                 android:id="@+id/userLogin"
@@ -86,7 +87,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
 
             <LinearLayout
@@ -113,7 +115,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
             <LinearLayout
 
@@ -140,7 +143,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
             <LinearLayout
 
@@ -167,7 +171,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
 
             <LinearLayout
@@ -195,7 +200,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
 
             <LinearLayout
@@ -222,7 +228,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow"/>
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open"/>
             </LinearLayout>
 
             <LinearLayout
@@ -231,8 +238,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/movies_screen_margin"
                 android:layout_marginTop="@dimen/description_top_margin"
-                android:orientation="horizontal"
                 android:layout_marginBottom="@dimen/logout_button_bottom"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings6"
@@ -251,7 +258,8 @@
                     android:layout_height="@dimen/settings_arrow_height"
                     android:layout_gravity="center"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_arrow" />
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@string/open" />
             </LinearLayout>
 
 

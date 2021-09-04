@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/movies_header_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/unwatchedCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/white"
         android:backgroundTint="@color/white"
-        android:layout_margin="10dp"
-        android:elevation="4dp"
-        app:cardCornerRadius="15dp"
+        android:layout_margin="@dimen/recommended_margin"
+        android:elevation="@dimen/recommended_elev"
+        app:cardCornerRadius="@dimen/recommended_radius"
         >
 
         <TextView
@@ -24,7 +21,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_gravity="center"
-            android:padding="20dp"
+            android:padding="@dimen/recommended_padding"
             android:text="@string/recommended"/>
 
 
