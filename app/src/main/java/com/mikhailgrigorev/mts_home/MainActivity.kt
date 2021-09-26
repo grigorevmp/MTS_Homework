@@ -1,5 +1,6 @@
 package com.mikhailgrigorev.mts_home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +9,10 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mikhailgrigorev.mts_home.foregroundLoading.ForegroundWorker
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,14 +28,32 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        //val fragment: View? = findViewById(R.id.my_nav_host_fragment)
+        scheduleWork(this)
 
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment? ?: return
         val navController = host.navController
         setUpBottomNav(navController)
+    }
 
+    private fun scheduleWork(context: Context) {
+        val constraintsBuilder: Constraints.Builder = Constraints.Builder()
+        constraintsBuilder.setRequiresBatteryNotLow(false)
+        constraintsBuilder.setRequiredNetworkType(NetworkType.CONNECTED)
+        constraintsBuilder.setRequiresCharging(false)
+        constraintsBuilder.setRequiresDeviceIdle(false)
 
+        val constraints = constraintsBuilder.build()
+
+        val moviesCheckBuilder = PeriodicWorkRequest.Builder(
+            ForegroundWorker::class.java, 1, TimeUnit.DAYS
+        )
+
+        moviesCheckBuilder.setConstraints(constraints)
+
+        val request = moviesCheckBuilder.build()
+        WorkManager.getInstance(context)
+            .enqueueUniquePeriodicWork("DownloadingMovies", ExistingPeriodicWorkPolicy.KEEP, request)
     }
 
     private fun setUpBottomNav(navController: NavController) {
